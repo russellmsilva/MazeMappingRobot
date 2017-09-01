@@ -1,3 +1,3 @@
 # group14
 
-[Team Contract](https://github.com/kristinanemeth/group14/blob/master/Group%2014%20Team%20Contract%20(1).pdf)
+[Team Contract](https://drive.google.com/file/d/0Bw1HyB20twU4VlcwRkpBdTJKY0E/view?usp=sharing)
