@@ -5,6 +5,6 @@ Welcome to Group 14's webpage! We are still trying to come up with a creative te
 
 ### Relevant Links
 
-[Team Contract](https://github.com/kristinanemeth/group14/blob/master/Group%2014%20Team%20Contract%20(1).pdf)
+[Team Contract](https://github.com/kristinanemeth/group14/raw/master/Group%2014%20Team%20Contract%20(1).pdf)
 
 [Lab 1](./Lab1.md)
