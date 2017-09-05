@@ -1,2 +1,5 @@
 title: Group 14
 theme: jekyll-theme-cayman
+nav:
+    - {title: Projects, description: My Projects, url: 'http://project.onevcat.com'}
+    # - {title: Another Button, description: A button, url: 'http://example.com'}
