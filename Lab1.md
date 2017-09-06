@@ -33,15 +33,13 @@ Figure (3): This diagram goes with the code in a) of this section.
 
 a) The following code was used to map the potentiometer resistance values onto the LED for variable brightness settings. This code was adopted from the previous task of displaying the potentiometer’s resistance values on the Serial Monitor. The analogRead function inputted data from the A0 pin on the potentiometer, and stored the data as integer values into the variable brightness. The information stored in the variable brightness was outputted to the LED through pin 11 (see Figure 2) utilizing the analogWrite function.
 
-![analog](./images/analog.png)
-
 In addition, the integer resistance values were outputted onto the serial monitor using the Serial.println function. Another part of the code to note was that the Serial monitor was initialized by “Serial.begin(9600).” 
 
-Insert image here
+![analog](./images/analog.PNG)
 
 b) We analyzed the PWM signal outputted by the Arduino on an oscilloscope. By utilizing the oscilloscope’s functionality such as the trig level and scope, the frequency of the signal was found to be 50 Hz.  Video of the PWM signal width (determined by on-off times) changing when turning the knob on the potentiometer: 
 
-[Video of pwm signal](https://www.youtube.com/watch?v=k9b29WAHjoY)
+![Video of pwm signal](https://www.youtube.com/watch?v=k9b29WAHjoY)
 
 ### III. Parallax Servos
 
@@ -56,8 +54,10 @@ b) The second setup of the servo mimicked the first setup, however the PWM contr
 
 Video here
 
+![figure6](/images/img6.PNG)
 Figure (6): Connection between the arduino and the servo
 
+![figure7](./images/IMG_4593.JPG)
 Figure (7): Image of wiring shown in figure 4.
 
 
