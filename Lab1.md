@@ -29,11 +29,11 @@ Figure (2): Here is a helpful diagram for serial monitor hookup.
 ![figure3](./images/connectingled.png)
 Figure (3): This diagram goes with the code in a) of this section.
 
-Analog Output
+##### Analog Output
 
 a) The following code was used to map the potentiometer resistance values onto the LED for variable brightness settings. This code was adopted from the previous task of displaying the potentiometer’s resistance values on the Serial Monitor. The analogRead function inputted data from the A0 pin on the potentiometer, and stored the data as integer values into the variable brightness. The information stored in the variable brightness was outputted to the LED through pin 11 (see Figure 2) utilizing the analogWrite function.
 
-Insert image here
+![analog](./images/analog.png)
 
 In addition, the integer resistance values were outputted onto the serial monitor using the Serial.println function. Another part of the code to note was that the Serial monitor was initialized by “Serial.begin(9600).” 
 
