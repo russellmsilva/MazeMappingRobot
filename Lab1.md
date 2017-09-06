@@ -23,8 +23,10 @@ This section provided an introduction to the six available analog pins on the Ar
 ![figure1](./images/IMG_4585.JPG) 
 Figure (1): This picture displays the overall connection interface for this section of the lab. This includes the potentiometer, Arduino Uno, pull down resistors, and wires.
 
+![figure2](./images/serialmonitorhook.png)
 Figure (2): Here is a helpful diagram for serial monitor hookup.
 
+![figure3](./images/connectingled.png)
 Figure (3): This diagram goes with the code in a) of this section.
 
 Analog Output
