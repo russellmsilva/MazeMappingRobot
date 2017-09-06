@@ -20,6 +20,7 @@ We were instructed to modify “Blink” code to work on an external LED light. 
 
 This section provided an introduction to the six available analog pins on the Arduino Uno. First, the variable resistance of a potentiometer had to be digitally outputted on the serial monitor provided by the Arduino IDE. Second, the integer resistance values from the potentiometer had to be mapped to the LED utilizing the analogwrite() function. Third, the oscilloscope was used to analyze the PWM signal given off from the Arduino. Figure (2) shows how the potentiometer was powered as well as where a pull down resistor was placed in relevance to the rest of the circuitry. Figure (3) displays how the pull down resistor was used in reference to the LED, and the connection through digital pin 11. This connection was used as a data output from the Arduino Uno to the LED.
 
+![figure1](./images/IMG_4585.JPG) 
 Figure (1): This picture displays the overall connection interface for this section of the lab. This includes the potentiometer, Arduino Uno, pull down resistors, and wires.
 
 Figure (2): Here is a helpful diagram for serial monitor hookup.
@@ -46,6 +47,7 @@ Another aspect of this lab was to connect and control parallax servos using the 
 
 a) The circuitry setup between the arduino and the parallax servo. The servo is receiving power from the arduino  because in this case the noise would not be significant enough to affect the servo. The servo is connected directly to the arduino with the black wire connecting to GND, the red wire connecting to 5V, and the white wire connecting to A3. The pin A3 is selected due to its PWM capability, which is used to control the servo. The video (cannot be added to google doc will be added to website) depicts the servo running. Additional tests run on the servo were running it at 90 and a large set of values between 0 and 180. The signal of A3 was measured with the oscilloscope and the result is depicted in Figure 4. To create this capability, we used the #servo library and the code titled pwm_servo.ino. The frequency of this was 50 Hz, with the minimum duty cycle of 7.5 and a maximum duty cycle of 12.
 
+![Oscilloscope](./images/IMG_4587.JPG) 
 Figure (5): PWM measured by oscilloscope when parallax is PWM controlled by hard coded values.
 
 b) The second setup of the servo mimicked the first setup, however the PWM control was receiving data from the potentiometer rather than written values within the code. The setup was modified so that the potentiometer would output its values to A0, which would be written to ~3. Pin ~3 would be controlling the servo speed using PWM. The wiring follows figure 4. The code that controls this is pwm_servo.ino. The end result of the varying speeds dependent on the potentiometer is depicted in the following video. (video will be attached to site. I cannot put it on google doc but it is on the github).
