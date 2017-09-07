@@ -73,5 +73,5 @@ Figure (8): Shows the soldered wires for the USB port
 Below is the code for moving the robot in a straight line: 
 ![fig9](./images/servomoves.PNG)
 
-
+[video of robot moving autonomously ](https://youtu.be/-CeEDAAQjRM)
 
