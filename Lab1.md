@@ -14,7 +14,7 @@ This code is copied directly from File >> Examples >> 1.Basics  >> Blink. The Ar
 
 ![Arduino Blink](./images/arduinoblink.png)
 
-We were instructed to modify “Blink” code to work on an external LED light. We connected the LED to pin 11 and added a 300 ohm resistor in to prevent burning out the LED, and modified the code accordingly.
+We were instructed to modify “Blink” code to work on an external LED light. We connected the LED to pin 11 and added a 1k ohm resistor in to prevent burning out the LED, and modified the code accordingly.
 
 ![Arduino LED](./images/arduinoled.png)
 
