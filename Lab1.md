@@ -67,11 +67,11 @@ Figure (7): Image of wiring shown in figure 4.
 
 In order to have the arduino powered without a long USB connected to it, we soldered two wires to a USB. We can use this to power the arduino with a power bank held at the bottom of the chassis. See figure (8) below:
 
-[fig8](./images/8fc08481fd2740d2ab663d7250aa89b5.jpeg)
+![fig8](./images/8fc08481fd2740d2ab663d7250aa89b5.jpeg)
 Figure (8): Shows the soldered wires for the USB port
 
 Below is the code for moving the robot in a straight line: 
-[fig9](./images/servomoves.PNG)
+![fig9](./images/servomoves.PNG)
 
 
 
