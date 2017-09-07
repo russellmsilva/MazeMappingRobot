@@ -13,4 +13,4 @@ Welcome to Group 14's webpage! We are still trying to come up with a creative te
 
 ***
 
-### [Meeting Minutes](https://docs.google.com/spreadsheets/d/1CBEvHegp8kpS_mq1MBApOBkfDOjONgkbiaCOoy79ZFw/edit#gid=0)
+### [Meeting Minutes](https://docs.google.com/a/cornell.edu/spreadsheets/d/1CBEvHegp8kpS_mq1MBApOBkfDOjONgkbiaCOoy79ZFw/edit?usp=sharing)
