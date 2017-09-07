@@ -62,6 +62,8 @@ b) The second setup of the servo mimicked the first setup, however the PWM contr
 ![figure6](/images/img6.PNG)
 Figure (6): Connection between the arduino and the servo
 
+&nbsp;
+
 ![figure7](./images/IMG_4593.JPG)
 Figure (7): Image of wiring shown in figure 4.
 
