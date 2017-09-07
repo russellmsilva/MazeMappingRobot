@@ -51,7 +51,7 @@ Figure (5): PWM measured by oscilloscope when parallax is PWM controlled by hard
 
 b) The second setup of the servo mimicked the first setup, however the PWM control was receiving data from the potentiometer rather than written values within the code. The setup was modified so that the potentiometer would output its values to A0, which would be written to ~3. Pin ~3 would be controlling the servo speed using PWM. The wiring follows figure 4. The code that controls this is pwm_servo.ino. The end result of the varying speeds dependent on the potentiometer is depicted in the following video.
 
-[Running Servo from Potentiometer]https://youtu.be/Uc2sd-4aWMA
+[Running Servo from Potentiometer](https://youtu.be/Uc2sd-4aWMA)
 
 ![pwm_servo.ino](./images/servocode.png) 
 
