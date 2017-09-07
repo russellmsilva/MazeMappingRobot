@@ -77,7 +77,8 @@ In order to have the arduino powered without a long USB connected to it, we sold
 
 Figure (8): Shows the soldered wires for the USB port
 
-Below is an image of our robot after lab 1 with chassis, servos, arduino mounted and power bank on the bottom of the chassis
+Below is an image of our robot after lab 1 with chassis, servos, arduino mounted and power bank on the bottom of the chassis:
+
 ![robot](./images/robot!.PNG)
 
 It is also important to note that the servos will have to be put in two separate directions (0 and 180) in order to go in the same direction due to their orientation, seen here:
