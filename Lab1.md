@@ -5,7 +5,10 @@
 * Arduino Uno
 * Parallax Servos
 * 1k ohm resistors
+* 300 ohm resistor
 * Potentiometer
+* Blue LED
+
 
 ### I: Introduction to [Arduino](https://www.arduino.cc/en/Main/arduinoBoardUno/) 
 
