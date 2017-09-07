@@ -57,7 +57,7 @@ b) The second setup of the servo mimicked the first setup, however the PWM contr
 
 [Running Servo from Potentiometer]https://youtu.be/Uc2sd-4aWMA
 
-![pwm_servo.ino](./servo code.png) 
+![pwm_servo.ino](./images/servocode.png) 
 
 ![figure6](/images/img6.PNG)
 Figure (6): Connection between the arduino and the servo
