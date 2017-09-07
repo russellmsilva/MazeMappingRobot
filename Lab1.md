@@ -1,4 +1,4 @@
-# [ECE3400 Fall 2017](kristinanemeth.github.io/group14)
+# [ECE3400 Fall 2017](https://kristinanemeth.github.io/group14/)
 ## Lab 1: Microcontroller
 
 ### Materials
