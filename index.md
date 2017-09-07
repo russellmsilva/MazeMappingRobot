@@ -10,3 +10,7 @@ Welcome to Group 14's webpage! We are still trying to come up with a creative te
 ### Assignments
 
 [Lab 1](./Lab1.md)
+
+***
+
+### [Meeting Minutes](https://docs.google.com/spreadsheets/d/1CBEvHegp8kpS_mq1MBApOBkfDOjONgkbiaCOoy79ZFw/edit#gid=0)
