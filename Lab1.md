@@ -82,6 +82,7 @@ Below is an image of our robot after lab 1 with chassis, servos, arduino mounted
 ![robot](./images/robot!.PNG)
 
 It is also important to note that the servos will have to be put in two separate directions (0 and 180) in order to go in the same direction due to their orientation, seen here:
+
 ![fig9](./images/servocode.png)
 
 And finally: a running robot (that goes in a straight line)! [Huzzah](https://youtu.be/-CeEDAAQjRM)!
