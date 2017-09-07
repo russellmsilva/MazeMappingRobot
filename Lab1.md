@@ -41,8 +41,7 @@ b) We analyzed the PWM signal outputted by the Arduino on an oscilloscope. By ut
 
 Another aspect of this lab was to connect and control parallax servos using the arduinos. There was two stages to this process: an initial step of controlling the servo by writing specific values to it, and a second stage of modifying the servo based on the potentiometer.
 
-a) The circuitry setup between the arduino and the parallax servo. The servo is receiving power from the arduino  because in this case the noise would not be significant enough to affect the servo. The servo is connected directly to the arduino with the black wire connecting to GND, the red wire connecting to 5V, and the white wire connecting to A3. The pin A3 is selected due to its PWM capability, which is used to control the servo. The video in the following hyperlink. 
-[Running Servo]https://www.youtube.com/watch?v=Pr55TmeegbQ
+a) The circuitry setup between the arduino and the parallax servo. The servo is receiving power from the arduino  because in this case the noise would not be significant enough to affect the servo. The servo is connected directly to the arduino with the black wire connecting to GND, the red wire connecting to 5V, and the white wire connecting to A3. The pin A3 is selected due to its PWM capability, which is used to control the servo. You can view the video [here](https://www.youtube.com/watch?v=Pr55TmeegbQ)
 Additional tests run on the servo were running it at 90 and a large set of values between 0 and 180. The signal of A3 was measured with the oscilloscope and the result is depicted in Figure 4. To create this capability, we used the #servo library and the code titled pwm_servo.ino. The frequency of this was 50 Hz, with the minimum duty cycle of 7.5 and a maximum duty cycle of 12. The following code was used to run the test.
 
 
