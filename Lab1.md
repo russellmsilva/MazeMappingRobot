@@ -74,6 +74,7 @@ Figure (7): Image of wiring shown in figure 4.
 In order to have the arduino powered without a long USB connected to it, we soldered two wires to a USB. We can use this to power the arduino with a power bank held at the bottom of the chassis. See figure (8) below:
 
 ![fig8](./images/8fc08481fd2740d2ab663d7250aa89b5.jpeg)
+
 Figure (8): Shows the soldered wires for the USB port
 
 Below is an image of our robot after lab 1 with chassis, servos, arduino mounted and power bank on the bottom of the chassis
@@ -82,7 +83,7 @@ Below is an image of our robot after lab 1 with chassis, servos, arduino mounted
 It is also important to note that the servos will have to be put in two separate directions (0 and 180) in order to go in the same direction due to their orientation, seen here:
 ![fig9](./images/servomoves.PNG)
 
-And finally: a running robot (that goes in a straight line)! Huzzah!
+And finally: a running robot (that goes in a straight line)! [Huzzah](https://youtu.be/-CeEDAAQjRM)!
 
 
 
