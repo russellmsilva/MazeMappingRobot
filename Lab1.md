@@ -3,7 +3,7 @@
 
 ### Materials
 * Arduino Uno
-* Parallax Servos
+* Continuous Parallax Servos
 * 1k ohm resistors
 * 300 ohm resistor
 * Potentiometer
