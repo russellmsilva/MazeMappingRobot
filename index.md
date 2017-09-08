@@ -1,5 +1,5 @@
 # Group 14
-### Giacomo Di Liberto, Kristina Nemeth, Russell Silva, Joan Song, and Michelle Feng :)
+### Giacomo Di Liberto (gvd8), Kristina Nemeth (kan57), Russell Silva (rms438), Joan Song (ys449), and Michelle Feng (mf568) :)
 
 Welcome to Group 14's webpage! We are still trying to come up with a creative team name, and an aesthetically pleasing website. Please stay tuned for more details!
 
