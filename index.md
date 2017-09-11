@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Group 14
 ### Giacomo Di Liberto (gvd8), Kristina Nemeth (kan57), Russell Silva (rms438), Joan Song (ys449), and Michelle Feng (mf568) :)
 
