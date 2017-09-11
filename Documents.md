@@ -2,6 +2,9 @@
 layout: default
 ---
 
+# [ECE3400 Fall 2017](https://kristinanemeth.github.io/group14/)
+## Documents
+
 
 ### [Team Contract](https://github.com/kristinanemeth/group14/raw/master/Group%2014%20Team%20Contract%20(1).pdf)
 
