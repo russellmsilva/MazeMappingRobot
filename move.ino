@@ -18,12 +18,12 @@ void setup() {
   Serial.begin(9600);
   leftservo.attach(3);     //Connect left servo white wire to pin 3
   rightservo.attach(6); //Connect right servo white wire to pin 6
-  midservo.attach(5);  
 
   
 }
 
 void loop() {
+
  
 move();
 
@@ -41,8 +41,8 @@ void move_straight(){
   
   if (analogRead(M) >= black && analogRead(LF) <= white && analogRead(RF) <= white){
  
-  leftservo.write(110);     
-  rightservo.write(70); //if its on a line, move forward
+  leftservo.write(180);     
+  rightservo.write(0); //if its on a line, move forward
 } 
 
 /*else if(){
@@ -56,9 +56,9 @@ else if(){
 
 void move(){
 
-  Serial.println(analogRead(LF));
-  Serial.println(analogRead(M));
-  Serial.println(analogRead(RF));
+  //Serial.println(analogRead(LF));
+ // Serial.println(analogRead(M));
+ Serial.println(analogRead(LF));
   if (analogRead(M) >= black && (analogRead(LF) >= white||analogRead(RF) >= white)){ //if at least two sensors are black, move for
     leftservo.write(110);     
     rightservo.write(70); 
@@ -90,7 +90,7 @@ void empty(){
 
 
 void move_one(){ //move forward until it's at a cross section
-  while((M>=black && RF>=black && RB>=black)!=true){
+  while(analogRead(M) >= black && (analogRead(LF) >= white||analogRead(RF) >= white)){
     move_straight();}
         
     
