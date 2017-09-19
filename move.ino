@@ -14,6 +14,7 @@ int RB=A3;
 int M =A4;
 int black= 750; //black sensor reading
 int white= 750; // white sensor reading 
+int threshold = 750;
 void setup() {
   Serial.begin(9600);
   leftservo.attach(3);     //Connect left servo white wire to pin 3
@@ -54,27 +55,34 @@ else if(){
     rightservo.write(0);}*/
 }
 
+//move is the line follow
 void move(){
 
   //Serial.println(analogRead(LF));
  // Serial.println(analogRead(M));
- Serial.println(analogRead(LF));
-  if (analogRead(M) >= black && (analogRead(LF) >= white||analogRead(RF) >= white)){ //if at least two sensors are black, move for
-    leftservo.write(110);     
-    rightservo.write(70); 
+ //Serial.println(analogRead(LF));
+  if (analogRead(M) >= black && (analogRead(LF) >= white||analogRead(RF) >= white)){ //if at least two sensors are black, move forward
+    leftservo.write(103);     
+    rightservo.write(85); 
 } 
 
-else if(analogRead(LF)<=white &&analogRead(M) <= white){ //if leftfront sensor is white, move right
-   leftservo.write(100);     
-   rightservo.write(180);}
+//if leftfront and middle sensor is white and rightfront is black, move right, left wheel faster
+else if((analogRead(LF)<=threshold && analogRead(M)<=threshold) && analogRead(RF)>=threshold){
+   leftservo.write(180);     
+   rightservo.write(90);
+   delay(250);
+}
 
-else if(analogRead(RF)<=white&&analogRead(M) <= white){ //if rightfront sensor is white, move left
-     leftservo.write(0);     
-    rightservo.write(80);}
+//if rightfront and middle sensor is white and leftfront is black, move left, right wheel faster
+else if((analogRead(RF)<=threshold && analogRead(M)<=threshold) && analogRead(RF)>=threshold){
+    leftservo.write(3);     
+    rightservo.write(83);
+    delay(250);
+}
 
-/*else if(analogRead(RF)<=white && analogRead(LF)<=white){
-     leftservo.write(0);     
-    rightservo.write(80);}*/
+if((analogRead(M) <= threshold && analogRead(LF) <= threshold) && analogRead(RF) <= threshold) {
+  leftservo.write(94);     
+  rightservo.write(94); 
 }
   
 void empty(){
