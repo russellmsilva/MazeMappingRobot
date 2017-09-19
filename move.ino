@@ -6,6 +6,7 @@ Servo rightservo;
 
 
 //create servo object for right wheel
+//real speed for servos not moving is 94
 
 int LF=A0;
 int LB=A1;
@@ -13,8 +14,13 @@ int RF=A2;
 int RB=A3;
 int M =A4;
 int black= 750; //black sensor reading
-int white= 750; // white sensor reading 
-int threshold = 750;
+int white= 750; // white sensor reading
+int threshold = 840; //over 750 is black, under 750 is white
+int threshold_l = 7800;
+int threshold_r = 950;
+int backblack = 900;
+int backwhite = 500;
+
 void setup() {
   Serial.begin(9600);
   leftservo.attach(3);     //Connect left servo white wire to pin 3
@@ -26,11 +32,13 @@ void setup() {
 void loop() {
 
  
-move();
+//move();
+Serial.print(analogRead(LB));
+Serial.println(analogRead(RB));
 
 //move_straight();
 //move_one();
-//figure_eight();  
+figure_eight();  
  
 }
 
@@ -61,29 +69,44 @@ void move(){
   //Serial.println(analogRead(LF));
  // Serial.println(analogRead(M));
  //Serial.println(analogRead(LF));
-  if (analogRead(M) >= black && (analogRead(LF) >= white||analogRead(RF) >= white)){ //if at least two sensors are black, move forward
+  if (analogRead(M) >= threshold /*&& (analogRead(LF) >= white||analogRead(RF) >= white)*/){ //if at least two sensors are black, move forward
     leftservo.write(103);     
     rightservo.write(85); 
 } 
 
 //if leftfront and middle sensor is white and rightfront is black, move right, left wheel faster
-else if((analogRead(LF)<=threshold && analogRead(M)<=threshold) && analogRead(RF)>=threshold){
-   leftservo.write(180);     
-   rightservo.write(90);
-   delay(250);
+else if((analogRead(LF)<=threshold) /*&& analogRead(M)<=threshold) && analogRead(RF)>=threshold*/){
+   leftservo.write(98);     
+   rightservo.write(94);
+   /*if((analogRead(M) <= threshold && analogRead(LF) <= threshold) && analogRead(RF) <= threshold) {
+      leftservo.write(94);     
+      rightservo.write(88);
+      delay(250);*/
 }
+
 
 //if rightfront and middle sensor is white and leftfront is black, move left, right wheel faster
-else if((analogRead(RF)<=threshold && analogRead(M)<=threshold) && analogRead(RF)>=threshold){
-    leftservo.write(3);     
-    rightservo.write(83);
-    delay(250);
+else if(analogRead(RF)<=threshold /*&& analogRead(M)<=threshold) && analogRead(RF)>=threshold*/){
+    leftservo.write(94);     
+    rightservo.write(89);
+    /*if((analogRead(M) <= threshold && analogRead(LF) <= threshold) && analogRead(RF) <= threshold) {
+       leftservo.write(100);     
+       rightservo.write(94);
+       delay(250);*/
+}
 }
 
-if((analogRead(M) <= threshold && analogRead(LF) <= threshold) && analogRead(RF) <= threshold) {
+/*if((analogRead(M) <= threshold && analogRead(LF) <= threshold) && analogRead(RF) <= threshold) {
   leftservo.write(94);     
   rightservo.write(94); 
-}
+}*/
+
+
+
+/*else if(analogRead(RF)<=white && analogRead(LF)<=white){
+     leftservo.write(0);     
+    rightservo.write(80);}*/
+
   
 void empty(){
   while (analogRead(LF)<=white&&analogRead(RF)<=white&&analogRead(M)<=white == true){
@@ -98,19 +121,18 @@ void empty(){
 
 
 void move_one(){ //move forward until it's at a cross section
-  while(analogRead(M) >= black && (analogRead(LF) >= white||analogRead(RF) >= white)){
-    move_straight();}
+  while(analogRead(M) >= threshold && (analogRead(LB) <= backwhite && analogRead(RB) <= backwhite)){
+    move();
+    Serial.print(analogRead(LB));
+    Serial.println(analogRead(RB));}
         
     
   }
 
 
 void figure_eight(){
- if  ((M>= black && (LF>=black||RF>=black)&& LB>=black && RB>=black)!=true){
+ //if  ((M>= black && LB>=black && RB>=black)!=true){
   move_one();
-  }
-
- else{
   turn_right();
   move_one();
   turn_right();
@@ -127,28 +149,28 @@ void figure_eight(){
   move_one();
   turn_left();
   move_one();
- }
+ //}
  
   }
 
  void turn_right(){
-  
- leftservo.write(180);      
- rightservo.write(180);
-  delay(1);
-  while((analogRead(LF)>=black && analogRead(RF)>=black)!=true){
-   leftservo.write(180);     
-   rightservo.write(180); }
+ leftservo.write(98);      
+ rightservo.write(94);
+ delay(1);
+ while(analogRead(M)<=threshold){
+   leftservo.write(98);     
+   rightservo.write(94);
+   }
   
   }
  
  void turn_left(){
-  leftservo.write(0);     
-  rightservo.write(0);
+  leftservo.write(94);     
+  rightservo.write(89);
     delay(1);
-  while((analogRead(LF)>=black && analogRead(RF)>=black)!=true){
-    leftservo.write(0);     
-    rightservo.write(0); }
+  while(analogRead(M)<=threshold){
+    leftservo.write(94);     
+    rightservo.write(89); }
   
   }
  
