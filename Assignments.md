@@ -7,4 +7,8 @@ layout: default
 
 ### [Lab 1](./Lab1.md)
 
+## Milestones
+
+###[Milestone 1](./milestone1.md)
+
 
