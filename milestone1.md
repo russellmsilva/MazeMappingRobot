@@ -34,6 +34,12 @@ The three front sensors were meant to detect whether the robot was on a line. In
       }
     }
   
+Our first (presentable) test run worked like [this.] (https://youtu.be/zvR32bmpkww)! 
+We later decided to slow down the servos so that our robot could line follow more smoothly. [Here](https://youtu.be/_Q0ooO84H1s)! it is.
+
+
+
+
 #### Figure Eight
 
 We included our line-following code with the figure 8 code to make things easier, and as a result, our figure eight implementation is relatively straight forward: if the back two sensors detected a line, then it meant that the robot was at a cross section, and would subsequently turn right and follow the line (4 times) before turning left and following the line (also 4 times). When turning, we commanded one wheel to stop while allowing the other wheel to keep moving, allowing the robot to turn in the direction of the wheel that had stopped. Below is our code for detecting cross sections:
@@ -81,6 +87,6 @@ And as mentioned previously, our _figure_eight_ function was simply having the r
     }
 
  
-
+[Here](https://youtu.be/_kyliNbJiFA)! is a video of the robot following a figure eight.
 
 
