@@ -34,8 +34,8 @@ The three front sensors were meant to detect whether the robot was on a line. In
       }
     }
   
-Our first (presentable) test run worked like [this.](https://youtu.be/zvR32bmpkww)
-We later decided to slow down the servos so that our robot could line follow more smoothly. [Here](https://youtu.be/_Q0ooO84H1s) it is.
+Our first (presentable) test run worked like [this.](https://youtu.be/_Q0ooO84H1s)
+We later decided to slow down the servos so that our robot could line follow more smoothly. [Here](https://youtu.be/zvR32bmpkww) it is.
 
 
 
