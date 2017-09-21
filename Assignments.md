@@ -9,6 +9,6 @@ layout: default
 
 ## Milestones
 
-###[Milestone 1](./milestone1.md)
+### [Milestone 1](./milestone1.md)
 
 
