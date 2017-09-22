@@ -81,9 +81,9 @@ Here is our modified fft_adc_serial (from the examples) code for 660Hz Detection
 Our IR system for light frequency detection consisted of an Arduino with a specialized program (see code below), a LM358 op amp for amplification, and our Phototransistor circuit.
 
 Our op-amp was designed according to Figure #2. By selecting R1 to be a 20K resistor and R2 to be a 10K resistor we were able to achieve a voltage gain of 3x.
- 
- ![Op Amp PinOut](./images/Op Amp.png)
- ![Inverting Amplifier Schematic](./images/inverting op amp.gif)
+
+![Op Amp PinOut](./images/Op Amp.PNG)
+![Inverting Amplifier Schematic](./images/inverting op amp.GIF)
     
 In order to test our IR system’s ability to detect the three different treasure frequencies, we connected three different leds to our Arduino. One LED shined when 7kHz was detected, another LED shined when 12 kHz was detected, and a third LED shined when 17 kHz was detected. Only one LED shined at a time and the detection range was about half of a foot.
 
