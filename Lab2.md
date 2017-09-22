@@ -24,7 +24,7 @@ Based on our previous FFT_anaylsis (see Figure #1), we concluded that bins 4 and
 
 A demo was performed in which a LED shined only when 660 Hz was detected. A video showing the effects on the LED with 585 Hz vs 660 Hz vs 735 Hz is shown below.
 
-A demo was performed in which a LED shined only when 660 Hz was detected. A video showing the effects on the LED with 585 Hz vs 660 Hz vs 735 Hz is shown [here](https://www.youtube.com/watch?v=yrrrwozsazk).
+A demo was performed in which a LED shined only when 660 Hz was detected. A video showing the effects on the LED with 585 Hz vs 660 Hz vs 735 Hz is shown [here](https://www.youtube.com/watch?v=yrrrwozsazk) .
 
 Here is our modified fft_adc_serial (from the examples) code for 660Hz Detection:
 ```
