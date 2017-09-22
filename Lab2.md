@@ -71,4 +71,94 @@ Here is our modified fft_adc_serial (from the examples) code for 660Hz Detection
 
 ### Optical
 
+Our IR system for light frequency detection consisted of an Arduino with a specialized program (see code below), a LM358 op amp for amplification, and our Phototransistor circuit.
+
+Our op-amp was designed according to Figure #2. By selecting R1 to be a 20K resistor and R2 to be a 10K resistor we were able to achieve a voltage gain of 3x.
+ <image> <image> yay
+    
+In order to test our IR system’s ability to detect the three different treasure frequencies, we connected three different leds to our Arduino. One LED shined when 7kHz was detected, another LED shined when 12 kHz was detected, and a third LED shined when 17 kHz was detected. Only one LED shined at a time and the detection range was about half of a foot.
+
+A demo with the LED configuration described above is shown in the following video:
+
+https://www.youtube.com/watch?v=DN9lzJqB21Q 
+
+The light frequency outputted from the treasure was manipulated by hooking up the positive and negative headers below the potentiometer to an oscilloscope. The oscilloscope monitored the frequency and amplitude of the signal as we turned the potentiometer with a screw driver. This configuration is shown below in Figure 3.
+
+Insert picture here
+
+Below is our modified fft_adc_serial code for Treasure Signal Detection:
+
+    for (byte i = 0 ; i < FFT_N/2 ; i++) {
+    //If the value of this bin number is greater than the current maximum, store //the value in maximum and the bin number in index.
+       if (fft_log_out[i] > maximum - 5) {
+          if (i > 5)  //Bin numbers less than five tend to be maximums for  
+                  //treasure signals. Therefore we cut them out for easier
+                  //signal detection.
+        	{
+             maximum = fft_log_out[i];
+        	   index = i;
+          }
+       }
+
+       if (i == 127) { //Checks what the maximum bin number was at the last bin  
+                   //(FFT_N/2 - 1)
+         if (index == 45 || index == 46 || index == 47) {  	//7K
+         	start1++;
+         	//Shine LED from Digital Pin 8 if the bin numbers for 7K are       
+            //detected for at least 5 iterations.
+         	if (start1 > 5) {
+           	   digitalWrite(8, HIGH);
+        	   delay (1000);
+        	   digitalWrite(8, LOW);
+      	}
+    	}
+
+    	//If the maximum didn't occur at the above indices, reset the increment  
+      //variable start1 to 0
+    	else {
+      	start1 = 0;
+    	}
+
+    	if (index == 79 || index == 80 || index == 81) {  	//12K
+      	start2++;
+      	//Shine LED from Digital Pin 9 if the bin numbers for 12K are 
+            //detected for at least 5 iterations.
+      	if (start2 > 5) {
+        	   digitalWrite(9, HIGH);
+        	   delay (1000);
+        	   digitalWrite(9, LOW);
+      	}
+    	}
+
+    	//If the maximum didn't occur at the above indices, reset the increment 
+      //variable start2 to 0
+    	else {
+      	start2 = 0;
+    	}
+
+    	if (index == 113 || index == 114 || index == 115) {  	//17K
+      	start3++;
+      	//Shine LED from Digital Pin 10 if the bin numbers for 17K are 
+            //detected for at least 5 iterations.
+      	if (start3 > 5) {                                 	 
+        	   digitalWrite(10, HIGH);
+        	   delay (1000);
+        	   digitalWrite(10, LOW);        	 
+      	}
+    	}
+   	 
+    	//If the maximum didn't occur at the above indices, reset the increment 
+      //variable start3 to 0
+    	else {
+      	start3 = 0;
+    	}
+    	
+      maximum = 0; //resets maximum checking at the end of the loop
+    	index = 0; //resets the index at which a maximum occurs at the end of 
+                 //the loop
+       }
+    }
+
+
+
 
