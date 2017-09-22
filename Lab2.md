@@ -15,7 +15,9 @@ This microphone is a passive sensor device that uses the energy provided by the 
 
 Since the circuitry and amplifier were already integrated into the Electret Capsule microphone circuitry, we just had to connect the microphone’s three pins to the Arduino. The VCC, GND, and OUT pins on the microphone were connected to the +5 volts, GND, and A0 pins respectively on the Arduino. After we connected the microphone, fast fourier transforms were utilized, specifically in the modified fft_adc_serial program, to distinguish a 660 Hz signal from room noise along with 585 and 735 Hz signals. 
 
-Based on our previous FFT_anaylsis with the oscilloscope, we concluded that bins 4 and 5 represented maximum bin values in a 660 Hz signal. Therefore, we monitored the succession of bins 4 and 5 occurring as maximums in the program. From keeping track of the indices of the FFT maximums, we blinked an LED every time a balance of bins 4 and 5 were received from the FFT analysis.
+Based on our previous FFT_anaylsis (see Figure #1), we concluded that bins 4 and 5 represented maximum bin values in a 660 Hz signal. Therefore, we monitored the succession of bins 4 and 5 occurring as maximums in the program. From keeping track of the indices of the FFT maximums, we blinked an LED every time a balance of bins 4 and 5 were received from the FFT analysis.
+
+A demo was performed in which a LED shined only when 660 Hz was detected. A video showing the effects on the LED with 585 Hz vs 660 Hz vs 735 Hz is shown below.
 
 A demo was performed in which a LED shined only when 660 Hz was detected. A video showing the effects on the LED with 585 Hz vs 660 Hz vs 735 Hz is shown [here](https://www.youtube.com/watch?v=yrrrwozsazk).
 
