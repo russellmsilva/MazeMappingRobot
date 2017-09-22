@@ -4,6 +4,8 @@
 
 The purpose of this lab was to successfully implement two sensors: one would detect a 660Hz whistle blow, and the other would capture inputs from an IR sensor blinking at 7kHz; both are important components to completing the second milestone of the robot. When successfully integrated onto the robot, the robot would be able to detect the whistle blow to signify the beginning of its maze mapping, and utilize the IR sensor inputs to detect treasures.
 
+### Prelab
+
 ### Acoustic
 
 The acoustic team used a Microphone connected with an Arduino Board along with FFT analysis programming in order to detect a 660 Hz signal.
@@ -15,7 +17,7 @@ Since the circuitry and amplifier were already integrated into the Electret Caps
 
 Based on our previous FFT_anaylsis with the oscilloscope, we concluded that bins 4 and 5 represented maximum bin values in a 660 Hz signal. Therefore, we monitored the succession of bins 4 and 5 occurring as maximums in the program. From keeping track of the indices of the FFT maximums, we blinked an LED every time a balance of bins 4 and 5 were received from the FFT analysis.
 
-A demo was performed in which a LED shined only when 660 Hz was detected. A video showing the effects on the LED with 585 Hz vs 660 Hz vs 735 Hz is shown here[https://www.youtube.com/watch?v=yrrrwozsazk].
+A demo was performed in which a LED shined only when 660 Hz was detected. A video showing the effects on the LED with 585 Hz vs 660 Hz vs 735 Hz is shown here[.\https://www.youtube.com/watch?v=yrrrwozsazk].
 
 
 ### Optical
