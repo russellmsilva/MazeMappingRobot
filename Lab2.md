@@ -17,7 +17,58 @@ Since the circuitry and amplifier were already integrated into the Electret Caps
 
 Based on our previous FFT_anaylsis with the oscilloscope, we concluded that bins 4 and 5 represented maximum bin values in a 660 Hz signal. Therefore, we monitored the succession of bins 4 and 5 occurring as maximums in the program. From keeping track of the indices of the FFT maximums, we blinked an LED every time a balance of bins 4 and 5 were received from the FFT analysis.
 
-A demo was performed in which a LED shined only when 660 Hz was detected. A video showing the effects on the LED with 585 Hz vs 660 Hz vs 735 Hz is shown here[.\https://www.youtube.com/watch?v=yrrrwozsazk].
+A demo was performed in which a LED shined only when 660 Hz was detected. A video showing the effects on the LED with 585 Hz vs 660 Hz vs 735 Hz is shown [here](https://www.youtube.com/watch?v=yrrrwozsazk).
+
+Here is our modified fft_adc_serial (from the examples) code for 660Hz Detection:
+
+    for (byte i = 0 ; i < FFT_N/2 ; i++) {
+       //If the value of this bin number is greater than the current maximum,     
+       //store the value in maximum and the bin number in index.
+       if (fft_log_out[i] > maximum) {
+        	maximum = fft_log_out[i];
+        	index = i;
+       }
+    
+       if (i == 127) {  //Checks what the maximum bin number was at the last bin  
+                      	//(FFT_N/2 - 1)
+
+       if (index == 4) {  	//Increment start1
+               start1++;
+            }
+
+       if (index == 5) {  	//Increment start2
+          start2++;}
+
+       if (start1 == 20){  //Too many bin 4's indicate a 585 Hz Signal. Reset  
+                       //Start2.
+          start2 = 0;
+       }
+    
+       if (start2 == 20) {	//Too many bin 5's indicate a 735 Hz Signal. Reset
+                        //Start1.
+          start1 = 0;     	 
+        }
+     	 
+        if (start1 > 3 && start2 > 2)	//A balance of bin 4's and 5's indicate a 
+                                    //660 Hz Signal. Shine the LED.
+        {
+            digitalWrite(10, HIGH);
+            delay (1000);
+            digitalWrite(10, LOW);
+            }
+
+        if (index != 4 && index != 5) {   //Resets both incrementers
+          start_time = 0;
+          start1 = 0;
+          start2 = 0;
+        }
+        maximum = 0; //resets maximum checking at the end of the loop
+        index = 0; //resets the index at which a maximum occurs at the end of
+                   	//the loop
+        }
+        }
 
 
 ### Optical
+
+
