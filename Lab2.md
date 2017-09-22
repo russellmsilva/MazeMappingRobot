@@ -5,6 +5,11 @@
 The purpose of this lab was to successfully implement two sensors: one would detect a 660Hz whistle blow, and the other would capture inputs from an IR sensor blinking at 7kHz; both are important components to completing the second milestone of the robot. When successfully integrated onto the robot, the robot would be able to detect the whistle blow to signify the beginning of its maze mapping, and utilize the IR sensor inputs to detect treasures.
 
 ### Prelab
+We started by adding the Open Music Lab FFT library to our Arduino IDE by putting the directory into the libraries folder of the IDE.
+
+Before doing the FFT analysis on the signal on the Arduino Board, we analyzed the signal by using an oscilloscope. A video that displays the microphone’s output connected directly to the oscilloscope is displayed below
+
+After analyzing the signal with the oscilloscope, we concluded the signal received was strong enough for FFT analysis without external amplification(because of what). Using the built fft_adc_serial code, we were able to see the FFT’s outputs from the default number of bins (FFT_N / 2 = 128). After terminating the program, we copied and pasted a single iteration of values into Excel for 660 Hz, 1320 Hz, and a control group frequency (no sound/room noise). Figure #1 displays what was graphed in Excel from these data points. We found that that the 660Hz peak was at the 4th/5th bin. As we increase the frequency of the tested sound waves, the bin number will also increase. In addition, the other test frequency of 1320Hz occured at about bin 9/10, which is double the bin number of 660Hz. This shows that our FFT analysis is working correctly. When working with the microphone, we used a web application that was recommended by the course staff: [here] (http://www.szynalski.com/tone-generator/)
 
 ### Acoustic
 
@@ -22,7 +27,7 @@ A demo was performed in which a LED shined only when 660 Hz was detected. A vide
 A demo was performed in which a LED shined only when 660 Hz was detected. A video showing the effects on the LED with 585 Hz vs 660 Hz vs 735 Hz is shown [here](https://www.youtube.com/watch?v=yrrrwozsazk).
 
 Here is our modified fft_adc_serial (from the examples) code for 660Hz Detection:
-
+```
     for (byte i = 0 ; i < FFT_N/2 ; i++) {
        //If the value of this bin number is greater than the current maximum,     
        //store the value in maximum and the bin number in index.
@@ -69,14 +74,16 @@ Here is our modified fft_adc_serial (from the examples) code for 660Hz Detection
                    	//the loop
         }
         }
-
+```
 
 ### Optical
 
 Our IR system for light frequency detection consisted of an Arduino with a specialized program (see code below), a LM358 op amp for amplification, and our Phototransistor circuit.
 
 Our op-amp was designed according to Figure #2. By selecting R1 to be a 20K resistor and R2 to be a 10K resistor we were able to achieve a voltage gain of 3x.
- <image> <image> yay
+ 
+ <Op Amp picture (2)>
+ 
     
 In order to test our IR system’s ability to detect the three different treasure frequencies, we connected three different leds to our Arduino. One LED shined when 7kHz was detected, another LED shined when 12 kHz was detected, and a third LED shined when 17 kHz was detected. Only one LED shined at a time and the detection range was about half of a foot.
 
@@ -89,7 +96,7 @@ The light frequency outputted from the treasure was manipulated by hooking up th
 Insert picture here
 
 Below is our modified fft_adc_serial code for Treasure Signal Detection:
-
+```
     for (byte i = 0 ; i < FFT_N/2 ; i++) {
     //If the value of this bin number is greater than the current maximum, store //the value in maximum and the bin number in index.
        if (fft_log_out[i] > maximum - 5) {
@@ -160,7 +167,7 @@ Below is our modified fft_adc_serial code for Treasure Signal Detection:
                  //the loop
        }
     }
-
+```
 
 
 
