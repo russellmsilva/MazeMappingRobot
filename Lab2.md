@@ -89,7 +89,7 @@ In order to test our IR system’s ability to detect the three different treasur
 
 A demo with the LED configuration described above is shown in the following video:
 
-[here] (https://www.youtube.com/watch?v=DN9lzJqB21Q)
+[here] (https://www.youtube.com/watch?v=DN9lzJqB21Q).
 
 The light frequency outputted from the treasure was manipulated by hooking up the positive and negative headers below the potentiometer to an oscilloscope. The oscilloscope monitored the frequency and amplitude of the signal as we turned the potentiometer with a screw driver. This configuration is shown below in Figure 3.
 
