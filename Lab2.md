@@ -93,7 +93,7 @@ https://www.youtube.com/watch?v=DN9lzJqB21Q
 
 The light frequency outputted from the treasure was manipulated by hooking up the positive and negative headers below the potentiometer to an oscilloscope. The oscilloscope monitored the frequency and amplitude of the signal as we turned the potentiometer with a screw driver. This configuration is shown below in Figure 3.
 
-Insert picture here
+![Signal Magnitude vs Bin Number](./images/signalbin.png)
 
 Below is our modified fft_adc_serial code for Treasure Signal Detection:
 ```
