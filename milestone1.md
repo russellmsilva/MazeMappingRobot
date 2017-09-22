@@ -5,7 +5,7 @@
 The objective of the milestone was to have the robot follow a line of black tape and traverse a grid in the shape of a figure 8.
 
 #### Materials
-- 5 QRE-1113 sensors
+- 5 [QRE-1113 sensors](https://cdn.sparkfun.com/datasheets/Sensors/Proximity/QRE1113.pdf)
 - 2 Servos 
 - A lot of jumper wires
 
