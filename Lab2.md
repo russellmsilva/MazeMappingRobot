@@ -7,9 +7,12 @@ The purpose of this lab was to successfully implement two sensors: one would det
 ### Prelab
 We started by adding the Open Music Lab FFT library to our Arduino IDE by putting the directory into the libraries folder of the IDE.
 
-Before doing the FFT analysis on the signal on the Arduino Board, we analyzed the signal by using an oscilloscope. A video that displays the microphone’s output connected directly to the oscilloscope is displayed below
+Before doing the FFT analysis on the signal on the Arduino Board, we analyzed the signal by using an oscilloscope. A video that displays the microphone’s output connected directly to the oscilloscope is displayed [here](https://www.youtube.com/watch?v=D_nysJqLe4c) .
 
 After analyzing the signal with the oscilloscope, we concluded the signal received was strong enough for FFT analysis without external amplification(because of what). Using the built fft_adc_serial code, we were able to see the FFT’s outputs from the default number of bins (FFT_N / 2 = 128). After terminating the program, we copied and pasted a single iteration of values into Excel for 660 Hz, 1320 Hz, and a control group frequency (no sound/room noise). Figure #1 displays what was graphed in Excel from these data points. We found that that the 660Hz peak was at the 4th/5th bin. As we increase the frequency of the tested sound waves, the bin number will also increase. In addition, the other test frequency of 1320Hz occured at about bin 9/10, which is double the bin number of 660Hz. This shows that our FFT analysis is working correctly. When working with the microphone, we used a web application that was recommended by the course staff: [here](http://www.szynalski.com/tone-generator/)
+
+![Signal Magnitude vs Bin Number](./images/signalbin.png)
+Figure 1 : Signal Magnitude vs. Bin Number
 
 ### Acoustic
 
@@ -21,8 +24,6 @@ This microphone is a passive sensor device that uses the energy provided by the 
 Since the circuitry and amplifier were already integrated into the Electret Capsule microphone circuitry, we just had to connect the microphone’s three pins to the Arduino. The VCC, GND, and OUT pins on the microphone were connected to the +5 volts, GND, and A0 pins respectively on the Arduino. After we connected the microphone, fast fourier transforms were utilized, specifically in the modified fft_adc_serial program, to distinguish a 660 Hz signal from room noise along with 585 and 735 Hz signals. 
 
 Based on our previous FFT_anaylsis (see Figure #1), we concluded that bins 4 and 5 represented maximum bin values in a 660 Hz signal. Therefore, we monitored the succession of bins 4 and 5 occurring as maximums in the program. From keeping track of the indices of the FFT maximums, we blinked an LED every time a balance of bins 4 and 5 were received from the FFT analysis.
-
-A demo was performed in which a LED shined only when 660 Hz was detected. A video showing the effects on the LED with 585 Hz vs 660 Hz vs 735 Hz is shown below.
 
 A demo was performed in which a LED shined only when 660 Hz was detected. A video showing the effects on the LED with 585 Hz vs 660 Hz vs 735 Hz is shown [here](https://www.youtube.com/watch?v=yrrrwozsazk) .
 
@@ -84,16 +85,18 @@ Our op-amp was designed according to Figure #2. By selecting R1 to be a 20K resi
 
 ![Op Amp PinOut](./images/OpAmp.png)
 ![Inverting Amplifier Schematic](./images/invertingopamp.gif)
-    
+
+Figure 2 : (image courtesy of http://ecetutorials.com/analog-electronics/inverting-and-non-inverting-amplifiers/ 
+Op-amp Pinout from the LM358 documentation:
+http://www.ti.com/lit/ds/symlink/lm258a.pdf)
+
 In order to test our IR system’s ability to detect the three different treasure frequencies, we connected three different leds to our Arduino. One LED shined when 7kHz was detected, another LED shined when 12 kHz was detected, and a third LED shined when 17 kHz was detected. Only one LED shined at a time and the detection range was about half of a foot.
 
 A demo with the LED configuration described above is shown in the following video:
 
-[here] (https://www.youtube.com/watch?v=DN9lzJqB21Q).
+[here](https://www.youtube.com/watch?v=DN9lzJqB21Q).
 
 The light frequency outputted from the treasure was manipulated by hooking up the positive and negative headers below the potentiometer to an oscilloscope. The oscilloscope monitored the frequency and amplitude of the signal as we turned the potentiometer with a screw driver. This configuration is shown below in Figure 3.
-
-![Signal Magnitude vs Bin Number](./images/signalbin.png)
 
 Below is our modified fft_adc_serial code for Treasure Signal Detection:
 ```
