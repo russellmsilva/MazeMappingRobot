@@ -32,7 +32,25 @@ TODO: Add FFT with all three freq on graph
 
 #### Wall Detection
 
-TODO
+We had an option of either a short-ranged or long-ranged IR sensor to detect walls, although we went with the short-ranged IR sensor. (Did we ever test either of them? Or did we just slap on a random IR sensor...). In our code, we determined a threshold for which the IR sensor would detect a wall: if below the threshold, a wall would be detected and the robot would stop; if above, there was no wall and the robot would move until a wall was detected.
+
+We don't have the code on github - can someone do that? In the meantime, I'll just bullshit something
+
+    void wall_detection(){
+      if (analogRead(A5) < wall_threshold){
+        leftservo.write(90);
+        rightservo.write(90);
+      }
+      else{
+        move();
+      }
+    }
+        
+A video of our robot detecting walls is [here](https://www.youtube.com/watch?v=PIjEVcrbemY)
+
+
+
+
 
 
 
