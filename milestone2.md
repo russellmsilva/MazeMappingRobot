@@ -29,7 +29,7 @@ Blue LED = 12 kHz
 
 Green LED = 17kHz
 
-TODO: Add FFT with all three freq on graph
+![treasure FFT graph](./images/treasure_bin_detection.png) 
 
 ## Wall Detection
 
