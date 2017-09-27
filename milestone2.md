@@ -9,6 +9,8 @@ One of the objectives of the milestone was to be able to detect and classify bet
 - IR treasure
 - Oscilliscope
 - A line-following robot
+- [TI LM358 Op-Amp](http://www.ti.com/lit/ds/symlink/lm158-n.pdf) 
+- Phototransistor
 - Some wires
 
 #### Treasure Detection
@@ -25,6 +27,12 @@ Red LED = 7kHz
 Blue LED = 12 kHz
 
 Green LED = 17kHz
+
+TODO: Add FFT with all three freq on graph
+
+#### Wall Detection
+
+TODO
 
 
 
