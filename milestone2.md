@@ -23,11 +23,11 @@ This video (as shown in Lab 2) reiterates our IR system’s ability to detect an
 
 In this demonstartion, we show our detection for each frequency with a 3 LED setup. The program on the arduino detects the bins that contain the peak of the FFT. Then we output to a certain pin to light the correct LED. We also have an inverting Op-Amp inorder to get a more accurate bin read on the FFT.
 
-Red LED = 7kHz
+Red LED = 7kHz (bins 46 and 47)
 
-Blue LED = 12 kHz
+Blue LED = 12 kHz (bin 80)
 
-Green LED = 17kHz
+Green LED = 17kHz (bin 114)
 
 ![treasure FFT graph](./images/treasure_bin_detection.png) 
 
