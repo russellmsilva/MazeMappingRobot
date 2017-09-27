@@ -21,7 +21,9 @@ This video (as shown in Lab 2) reiterates our IR system’s ability to detect an
 In this demonstartion, we show our detection for each frequency with a 3 LED setup. The program on the arduino detects the bins that contain the peak of the FFT. Then we output to a certain pin to light the correct LED. We also have an inverting Op-Amp inorder to get a more accurate bin read on the FFT.
 
 Red LED = 7kHz
+
 Blue LED = 12 kHz
+
 Green LED = 17kHz
 
 
