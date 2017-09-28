@@ -33,30 +33,33 @@ Green LED = 17kHz (bin 114)
 
 ## Wall Detection
 
-TODO: code? 
+We attached a [distance sensor]( http://www.sharp-world.com/products/device/lineup/data/pdf/datasheet/gp2y0a41sk_e.pdf) to the front of our robot so that it could detect walls and stop accordingly.  We added to our previous move_one function (see Milestone 1) because we wanted our robot to not only detect a wall but also stop at the cross section in front of the wall. It was determined that the values outputted by the distance sensor to the Arduino would start decreasing as it approached the wall. By sampling the output of the sensor at every 50 ms, we were able to check if the robot was approaching (and a short distance from) the wall at every cross section. 
 
-### Materials
-- A line-following robot
-- short distance IR sensor
-- Breadboard
-- Wires
+ 
+Below is our code: 
 
-### Process 
-We had an option of either a short-ranged or long-ranged IR sensor to detect walls, although we went with the short-ranged IR sensor. (Did we ever test either of them? Or did we just slap on a random IR sensor...). In our code, we determined a threshold for which the IR sensor would detect a wall: if below the threshold, a wall had been detected and the robot would stop; if above, there was no wall and the robot would move until a wall was detected.
+    void move_one(){   
+    
+        //move forward until it's at a cross section
+        while((analogRead(LB) >= threshold_l &&analogRead(RB) >=threshold_r)!=true){
+            move();//  line following function from milestone 1
+            past= analogRead(A5); // read and save output 
+            delay(50);
+            current=analogRead(A5); // read and save output 50ms later
+             }
+             
+       // once at intersection, check to see if robot is approaching
+       if(current+15<past){ 
+        // included a "buffer" of 15 so that minor disturbances would not cause robot to stop prematurely/unpredictabily
+        leftservo.write(94);      
+        rightservo.write(94);
+        delay(10000);  
+       }  
 
-We don't have the code on github - can someone do that? In the meantime, I'll just write something
-
-    void wall_detection(){
-      if (analogRead(A5) < wall_threshold){
-        leftservo.write(90);
-        rightservo.write(90);
-      }
-      else{
-        move();
-      }
-    }
+  }
+    
         
-A video of our robot detecting walls is [here](https://www.youtube.com/watch?v=PIjEVcrbemY)
+See our robot detect and stop at walls [here](https://www.youtube.com/watch?v=PIjEVcrbemY) and [here](https://www.youtube.com/watch?v=ub0Cnr-BQ_A).
 
 
 
