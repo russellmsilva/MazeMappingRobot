@@ -33,7 +33,7 @@ Green LED = 17kHz (bin 114)
 
 ## Wall Detection
 
-We attached a [distance sensor]( http://www.sharp-world.com/products/device/lineup/data/pdf/datasheet/gp2y0a41sk_e.pdf) to the front of our robot so that it could detect walls and stop accordingly.  We added to our previous move_one function (see [Milestone 1](https://kristinanemeth.github.io/group14/milestone1.html)) because we wanted our robot to not only detect a wall but also stop at the cross section in front of the wall. It was determined that the values outputted by the distance sensor to the Arduino would start decreasing as it approached the wall. By sampling the output of the sensor at every 50 ms, we were able to check if the robot was approaching (and a short distance from) the wall at every cross section. 
+We attached a [distance sensor]( http://www.sharp-world.com/products/device/lineup/data/pdf/datasheet/gp2y0a41sk_e.pdf) to the front of our robot so that it could detect walls and stop accordingly.  We added to our previous move_one function (see [Milestone 1](https://kristinanemeth.github.io/group14/milestone1.html)) because we wanted our robot to not only detect a wall but also stop at the cross section in front of the wall. It was determined that the values outputted by the distance sensor to the Arduino would start decreasing as it approached the wall. To set this threshold value, we checked the output value over serial for a variety of distances. By sampling the output of the sensor at every 50 ms, we were able to check if the robot was approaching (and a short distance from) the wall at every cross section. We decided to set the robot to stop at the cross sections so that the robot will stop at a position which is easy to renavigate from.
 
  
 Below is our code: 
