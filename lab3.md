@@ -24,8 +24,8 @@ always @ (posedge CLOCK_25) begin
 			  end
 	 End
 ```
-![Square Wave](./images/signalbin.png)
+![Square Wave](./images/squarewave.jpg)
 
 ### Sin Wave
 The next phase we decided to implement was a single sine wave to generate a better clearer sounding tone. To implement this we needed to use an 8-bit R2R DAC because the output from the FPGA to the speaker is not longer one of two values as with the square wave. We wire the inputs from GPIO pins to pins 1-8 of the DAC and then connected pin 16 of the DAC to the speaker input. This wiring setup is depicted in the following picture.
-![FPGA Setup](./images/signalbin.png)
+![FPGA Setup](./images/audiosetup.jpg)
