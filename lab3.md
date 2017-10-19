@@ -5,11 +5,11 @@
 Graphics: Take external inputs to the FPGA and display them on a screen. This is the beginning of our “maze” 
 Acoustics: Take a external input to the FPGA and generate a short ‘tune’ consisting of at least three tones to a speaker via an 8-bit DAC.
 
-###Graphics 
+### Graphics 
 
 Team (Russell, Michelle, Joan)
 
-###Materials: 
+### Materials: 
 -1 VGA screen
 -1 VGA cable
 -1 VGA connector (Your lab report must include a section on how the DAC on the provided VGA connectors works and how the resistor values were chosen)
