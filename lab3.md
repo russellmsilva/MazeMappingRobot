@@ -78,7 +78,7 @@ end
 ```
 ![Sin Wave](./images/sinwave.JPG)
 
-#Tri Tone
+### Tri Tone
 To implement the tri tone, we decided to use three tones given by sin waves with different frequencies to create this. To implement this we used a setup similar to the code for the sin wave and repeated a similar version of the sin code three times. To cycle through these tones we implemented a finite state machine. The transition between each of the states, we wait until one second passes dependent on the clock cycle to move onto the next state. The wiring setup between the FPGA, to the DAC, to the speaker is the same as the setup for the individual sin wave. Our finite state machine is shown below:
 
 ```
