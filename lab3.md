@@ -2,7 +2,8 @@
 
 ### Objective
 
-### Acoustic Team
+### Acoustic Team 
+(Giacomo, Kristina)
 
 ### Materials:
 * Lab Speaker
