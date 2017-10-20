@@ -244,7 +244,7 @@ For the 2-bit color ( blue), the resistance for the most significant bit is 197.
 
 It should be noted that resistors were already chosen and soldered into the DAC we used to complete this lab. 
 
-**C. Saving Memory ** 
+**C. Saving Memory** 
 
 In order to make our program more efficient and adaptable for future uses (e.g. more grid spaces with images), we decided to implement a double “for” loop that sequenced over a two dimensional memory array. The two dimensional array was initialized as a register named “gridscreen” storing eight bit values as shown in our merged code. Each element in “gridscreen” contained 8 bits in order to properly store the 8 bit data representations of the pixel colors. 
 always @ (posedge CLOCK_50) begin
@@ -311,7 +311,7 @@ The adaptability of this code will be helpful when displaying a maze for the fin
 
 The efficiency of the code will mitigate potential screen latency in the final competition when displaying the robot’s location on the screen. This is because our simplified iterative system consists of a lower amount of data storages and calculations, conserving memory and computational power.
 
-**D. Arduino to FPGA to Screen **
+**D. Arduino to FPGA to Screen**
 
 In the final part of the lab, we had to connect the Arduino Uno to the FPGA board. To do this, we connected two external switches (and used a 1.2k pullout resistor) to the Arduino Uno and connected the Arduino Uno to the FGPA board. Since the robot’s primary controller is the Arduino, the eventual plan is to have the Arduino process the maze, send the data to the FGPA, which will then project it onto the VGA screen. The switches were connected to digital pins of the Arduino board and their signals sent to the FPGA course; our code is shown below:
 
@@ -342,7 +342,7 @@ void loop(){
 ```
 The Arduino has an output of 5V and the FPGA receives 3.3V signals – thus, a voltage divider was needed to regulate the voltage. We used this setup below and used resistor values of 50 and 100. 
 
-![image](./images/voltagedivider.PNG)
+![image](./images/voltagedivider.png)
 
 We then had to connect the Arduino outputs to the GPIO (31 and 33) pins of the FPGA board. Once completed, we connected the FPGA to the VGA screen and tested the switches. This was our final setup: 
 
