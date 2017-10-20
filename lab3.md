@@ -173,11 +173,11 @@ The video of the implemented tri tone waves can be seen [here](https://www.youtu
 (Russell, Michelle, Joan)
 
 ### Materials 
-1 VGA screen
-1 VGA cable
-1 VGA connector
-1 VGA switch
-Various resistors
+*1 VGA screen
+*1 VGA cable
+*1 VGA connector
+*1 VGA switch
+*Various resistors
 
 Our team decided to sequentially divide our work into four portions. The first task was to display the logic levels of two input switches on the FPGA board to four LEDs on the FPGA board. Second, the logic levels of two input switches on the FPGA board would be displayed to the computer screen. Third, the code would be modified to save memory space and be able to display a “map” later on in the semester.  Last, outputs from the Arduino Uno would be displayed onto the computer screen.
 
@@ -310,3 +310,35 @@ Moreover, if a 10x10 grid was drawn, only the code in the control blocks from th
 The adaptability of this code will be helpful when displaying a maze for the final competition. The memory arrays can be easily updated to display image files instead of colors and several control statements can be added inside the body of the double for loop in order to identify and display which grid space the robot is located in real time. 
 
 The efficiency of the code will mitigate potential screen latency in the final competition when displaying the robot’s location on the screen. This is because our simplified iterative system consists of a lower amount of data storages and calculations, conserving memory and computational power.
+
+In the final part of the lab, we had to connect the Arduino Uno to the FPGA board. To do this, we connected two external switches (and used a 1.2k pullout resistor) to the Arduino Uno and connected the Arduino Uno to the FGPA board. Since the robot’s primary controller is the Arduino, the eventual plan is to have the Arduino process the maze, send the data to the FGPA, which will then project it onto the VGA screen. The switches were connected to digital pins of the Arduino board and their signals sent to the FPGA course; our code is shown below:
+
+ ```
+const int buttonPin1 = 10;
+const int buttonPin2 = 11;
+const int buttonPin1out = 2;
+const int buttonPin2out = 7;
+int buttonState1 = 0;
+int buttonState2 = 0;    
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(buttonPin1, INPUT);    
+  pinMode(buttonPin2, INPUT);  
+  pinMode(buttonPin1out, OUTPUT);    
+  pinMode(buttonPin2out, OUTPUT);
+}     
+
+void loop(){
+  buttonState1 = digitalRead(buttonPin1);
+  buttonState2 = digitalRead(buttonPin2);
+  digitalWrite(buttonPin1out, buttonState1);
+  digitalWrite(buttonPin2out, buttonState2);
+  Serial.println(buttonState1);
+  Serial.println(buttonState2);
+}
+```
+The Arduino has an output of 5V and the FPGA receives 3.3V signals – thus, a voltage divider was needed to regulate the voltage. We used this setup below and used resistor values of 50 and 100. 
+
+We then had to connect the Arduino outputs to the GPIO (31 and 33) pins of the FPGA board. Once completed, we connected the FPGA to the VGA screen and tested the switches. Our video is [here](https://www.youtube.com/watch?v=bx4GTp5HWR8).
+
