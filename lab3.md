@@ -340,7 +340,7 @@ void loop(){
 ```
 The Arduino has an output of 5V and the FPGA receives 3.3V signals – thus, a voltage divider was needed to regulate the voltage. We used this setup below and used resistor values of 50 and 100. 
 
-![image](./images/voltage divider.PNG)
+![image](./images/voltagedivider.PNG)
 
 We then had to connect the Arduino outputs to the GPIO (31 and 33) pins of the FPGA board. Once completed, we connected the FPGA to the VGA screen and tested the switches. This was our final setup: 
 
