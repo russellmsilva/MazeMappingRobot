@@ -177,7 +177,7 @@ Acoustics: Take a external input to the FPGA and generate a short ‘tune’ con
 ### Materials 
 1 VGA screen
 1 VGA cable
-1 VGA connector (Your lab report must include a section on how the DAC on the provided VGA connectors works and how the resistor values were chosen)
+1 VGA connector
 1 VGA switch
 Various resistors
 
