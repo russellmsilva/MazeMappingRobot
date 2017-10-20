@@ -181,7 +181,7 @@ The video of the implemented tri tone waves can be seen [here](https://www.youtu
 
 Our team decided to sequentially divide our work into four portions. The first task was to display the logic levels of two input switches on the FPGA board to four LEDs on the FPGA board. Second, the logic levels of two input switches on the FPGA board would be displayed to the computer screen. Third, the code would be modified to save memory space and be able to display a “map” later on in the semester.  Last, outputs from the Arduino Uno would be displayed onto the computer screen.
 
-A.Switches to LED lights on the FPGA board
+**A. Switches to LED lights on the FPGA board**
 
 We implemented a finite state machine that would check if the current “gridarray” coordinate matched that of the inputs and would save a 1 to that register accordingly.  Next, the machine go to state_0 and increment the “gridarray” coordinates. [Here](https://youtu.be/ve1l59f2dZU) is our code working.
 
@@ -226,7 +226,7 @@ if(state==1'b0) begin //increment grid index
 	state <= 1'b1;		  
 end
 ```
-B.Switches on FPGA board to computer screen grid
+**B. Switches on FPGA board to computer screen grid**
       
 In the second part, instead of outputting to LED lights, we outputted to four pins on the FPGA board (GPIO_0_D ). These GPIO pins were used in controlling the colored square on the screen. Here is a video demonstrating the changing position of the square based on switch logic levels:
 
@@ -244,7 +244,7 @@ For the 2-bit color ( blue), the resistance for the most significant bit is 197.
 
 It should be noted that resistors were already chosen and soldered into the DAC we used to complete this lab. 
 
-C.Saving Memory 
+**C. Saving Memory ** 
 
 In order to make our program more efficient and adaptable for future uses (e.g. more grid spaces with images), we decided to implement a double “for” loop that sequenced over a two dimensional memory array. The two dimensional array was initialized as a register named “gridscreen” storing eight bit values as shown in our merged code. Each element in “gridscreen” contained 8 bits in order to properly store the 8 bit data representations of the pixel colors. 
 always @ (posedge CLOCK_50) begin
@@ -310,6 +310,8 @@ Moreover, if a 10x10 grid was drawn, only the code in the control blocks from th
 The adaptability of this code will be helpful when displaying a maze for the final competition. The memory arrays can be easily updated to display image files instead of colors and several control statements can be added inside the body of the double for loop in order to identify and display which grid space the robot is located in real time. 
 
 The efficiency of the code will mitigate potential screen latency in the final competition when displaying the robot’s location on the screen. This is because our simplified iterative system consists of a lower amount of data storages and calculations, conserving memory and computational power.
+
+**D. Arduino to FPGA to Screen **
 
 In the final part of the lab, we had to connect the Arduino Uno to the FPGA board. To do this, we connected two external switches (and used a 1.2k pullout resistor) to the Arduino Uno and connected the Arduino Uno to the FGPA board. Since the robot’s primary controller is the Arduino, the eventual plan is to have the Arduino process the maze, send the data to the FGPA, which will then project it onto the VGA screen. The switches were connected to digital pins of the Arduino board and their signals sent to the FPGA course; our code is shown below:
 
