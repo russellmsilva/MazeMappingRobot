@@ -173,11 +173,11 @@ The video of the implemented tri tone waves can be seen [here](https://www.youtu
 (Russell, Michelle, Joan)
 
 ### Materials 
-*1 VGA screen
-*1 VGA cable
-*1 VGA connector
-*1 VGA switch
-*Various resistors
+* 1 VGA screen
+* 1 VGA cable
+* 1 VGA connector
+* 1 VGA switch
+* Various resistors
 
 Our team decided to sequentially divide our work into four portions. The first task was to display the logic levels of two input switches on the FPGA board to four LEDs on the FPGA board. Second, the logic levels of two input switches on the FPGA board would be displayed to the computer screen. Third, the code would be modified to save memory space and be able to display a “map” later on in the semester.  Last, outputs from the Arduino Uno would be displayed onto the computer screen.
 
