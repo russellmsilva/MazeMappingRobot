@@ -1,6 +1,8 @@
 ## Lab 3
 
-### Objective
+### Objectives
+Graphics: Take external inputs to the FPGA and display them on a screen. This is the beginning of our “maze” 
+Acoustics: Take a external input to the FPGA and generate a short ‘tune’ consisting of at least three tones to a speaker via an 8-bit DAC.
 
 ### Acoustic Team 
 (Giacomo, Kristina)
@@ -166,10 +168,6 @@ end
 ```
 The video of the implemented tri tone waves can be seen [here](https://www.youtube.com/watch?v=4RYInz8DY74). The video of the tri tone sound can be seen [here](https://www.youtube.com/watch?v=qpzVlRkj_Dc).
 
-
-### Objectives
-Graphics: Take external inputs to the FPGA and display them on a screen. This is the beginning of our “maze” 
-Acoustics: Take a external input to the FPGA and generate a short ‘tune’ consisting of at least three tones to a speaker via an 8-bit DAC.
 
 ### Graphics
 (Russell, Michelle, Joan)
