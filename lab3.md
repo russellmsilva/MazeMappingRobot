@@ -185,7 +185,7 @@ Our team decided to sequentially divide our work into four portions. The first t
 
 A.Switches to LED lights on the FPGA board
 
-We implemented a finite state machine that would check if the current “gridarray” coordinate matched that of the inputs and would save a 1 to that register accordingly.  Next, the machine go to state_0 and increment the “gridarray” coordinates. ![Here](https://youtu.be/ve1l59f2dZU) is our code working.
+We implemented a finite state machine that would check if the current “gridarray” coordinate matched that of the inputs and would save a 1 to that register accordingly.  Next, the machine go to state_0 and increment the “gridarray” coordinates. [Here](https://youtu.be/ve1l59f2dZU) is our code working.
 
 Here is the code for this part:
 ```
