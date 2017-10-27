@@ -25,7 +25,7 @@ On the receiving end, this two digit number would be converted back to an indivi
    int y = recieved_y_variable / 10        //The divisor is the most significant digit
    ```
    
-Once individual x and y values were extracted, we converted them into bit values which explained the in the maze communication section. The bit values would determine the digital outputs that would send the information parallely to the FPGA. For example, if x = 2 and y = 3, x would be set to 2’b10 and y would be set to 3’b011. Next, the digital pins corresponding to the most significant bit in the x value and 2 least significant bits in the y values would be set to HIGH, and the rest of the digital pins would be set to LOW.
+Once individual x and y values were extracted, we converted them into bit values which is explained in the maze communication section. The bit values would determine the digital outputs that would send the information parallely to the FPGA. For example, if x = 2 and y = 3, x would be set to 2’b10 and y would be set to 3’b011. Next, the digital pins corresponding to the most significant bit in the x value and 2 least significant bits in the y values would be set to HIGH, and the rest of the digital pins would be set to LOW.
 
 
 ### FPGA Team
@@ -129,7 +129,8 @@ always @ (posedge CLOCK_50) begin
 end
 ```
 
-After ensuring that the Arduino was outputting correctly, we then built a series of voltage dividers (100 and 50 ohms) to pass the data from the Arduino to the FPGA, due to the voltage mismatches between the two boards, and connected the Arduino outputs to the appropriate GPIO pins. Our setup is shown below:
+In order to communicate information from the Arduino to the FPGA, we choose to implement a parallel implementation over SPi or I2C. This was by converting the x and y values on the receiving RF Arduino into bit values. The x values had two bits associated with them (the robot can only be at x coordinates from 0 to 3, therefore there are 4 possible options - 00, 01, 10, 11). The  y values had three bits associated with them (the robot can only be at y coordinates from 0 to 4, therefore there are 5 possible options - 00, 01, 10, 11, 100). 
+We needed to use voltage dividers (of values of 100 and 50) for each of the bits corresponding to the x.  S photo of our setup is below:
 
 ![lab4setup](./images/lab4setup.jpeg).
 
