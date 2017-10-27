@@ -8,6 +8,7 @@ layout: default
 ### [Lab 1](./Lab1.md)
 ### [Lab 2](./Lab2.md)
 ### [Lab 3](./lab3.md)
+### [Lab 4](./lab4.md)
 
 ## Milestones
 
