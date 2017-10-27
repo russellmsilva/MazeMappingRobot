@@ -119,18 +119,55 @@ Our code for the FPGA is shown below:
 ```      
 We abandoned our attempt at SPI after we ran into problems debugging. Instead, we implemented parallel communication between the Arduino and the FPGA board due to time constraints and our unfamiliarity with SPI protocol. Additionally, the Arduino pins required for the RF module utilized the same pins as that of the SPI, so instead of using a multiplexer or some other form of hardware solution for this, we decided to implement the parallel communication. 
 
-```insert parallel code here ```
+```
+always @ (posedge CLOCK_50) begin
+   	x1 = GPIO_0_D[25];
+   	x2 = GPIO_0_D[24];
+   	y1 = GPIO_0_D[27];
+   	y2 = GPIO_0_D[26];
+   	y3 = GPIO_0_D[31];
+end
+```
 
 After ensuring that the Arduino was outputting correctly, we then built a series of voltage dividers (100 and 50 ohms) to pass the data from the Arduino to the FPGA, due to the voltage mismatches between the two boards, and connected the Arduino outputs to the appropriate GPIO pins. Our setup is shown below:
 
 ![lab4setup](./images/lab4setup.jpeg).
 
-In order to communicate information from the Arduino to the FPGA, we choose to implement a parallel implementation due to its relative simplicity compared to the SPI protocol.  We converted the x and y values on the receiving RF Arduino into bit values. The x values had two bits associated with them (the robot can only be at x coordinates from 0 to 3, therefore there are 4 possible options - 00, 01, 10, 11). The  y values had three bits associated with them (the robot can only be at y coordinates from 0 to 4, therefore there are 5 possible options - 00, 01, 10, 11, 100). Combined, they would represent the 20 grid coordinates of the maze. 
+The robot was simulated to move across the screen back and forth in the x directions. Once a side was reached, the simulated robot would move one space down the screen. Once the final grid space has been reached (bottom right corner of the grid), the simulated robot would reset itself at (0,0)
 
-For the final step, we had to code the color for the states the simulated robot passed through. The default state for every coordinate was "untraversed", meaning it was colored red on the grid. As the robot received new coordinates from the Arduino, it would move to the directed square and color it blue, indicating it as the square it was currently on; as the robot moved onto a new square, the FPGA would color the last coordinate of the robot green, indicating that the robot had visited the square already. If the robot revisited a square, it would turn blue again, just to indicate the robot's position, before turning back to green once the robot left the square. 
+Here is a video of the serial monitor displaying the new coordinates of the simulated robot that are sent to the fpga to be displayed on the screen:
 
-That scenario is unfortunately theoretical. The  actual grid is not updating correctly. The radio is set up to snake through the grid: it would start at (0,0), move right 3 coordinates, move down 1 coordinate, move left 3 coordinates, etc, of which the grid is not updating correctly. A video of our current result is shown below; we have not yet finished debugging the code:
+https://www.youtube.com/watch?v=iMkuTcneBeA 
 
-Insert video here.
+Based on the new x coordinate and y coordinate of the simulated robot, the memory array for the grid was updated to store the color green into the current grid square. Once a grid square was colored green, it would be set to blue to indicate that the area has already been explored. If the robot was to reach an explored area again, the area would turn green indicating the robot’s position regardless of whether the grid square was explored or not. 
+The following picture displays the grid for the initial position of the simulated robot which is (0,0). The green square displays the starting area of the robot and the red squares display unexplored areas for the simulated robot.
 
-We ran into many bugs when attempting to implement the grid, the first of which were floating variables: since we did not assign initial variables for some of the values in either the Arduino code or the FPGA (or assign a common ground between the two boards), we had grid initializations with random green squares in the supposedly default red. A second problem that emerged was that the 3rd bit of y coordinate was never transmitting correctly: the 0, 2, and 4th rows of the grid were turning green at the correct times, while the 1st and 3rd rows remained red. When debugging, 
+![image](./images/greensquare.jpeg)
+
+While we did not have the chance to test this section of the code due to the previous issues, we wrote out the following code to so that the previously visited locations would turn blue. To implement this we would save the location to two registers, then this register would be used in the next cycle after the new current location had been updated to change the location to blue. The following is the write out of the code.
+
+```
+   gridscreen[lastsquare_x][lastsquare_y] = 8'b000_000_11;
+   lastsquare_x = grid_coord_x;
+   lastsquare_y = grid_coord_y;
+```
+
+The actual grid is not updating correctly. The radio is set up to snake through the grid: it would start at (0,0), move right 3 coordinates, move down 1 coordinate, move left 3 coordinates, etc, of which the grid is not updating correctly. A video of our current result is shown below; we have not yet finished debugging the code:
+
+[Attempt 1](https://youtu.be/67F9fmcdOR8)
+[Attempt 2](https://youtu.be/riq3GrkjOTQ)
+[Attempt 3](https://youtu.be/VIkMuR-udGA)
+
+We ran into many bugs when attempting to implement the grid. The initial problem we faced was flickering squares between red and green when trying to display the grid. We fixed this issue by implementing the previously described ready bit so that the initial grid would be displayed every cycle. After this point the grid was displaying properly however there were inconsistent values of “visited” blocks that would show up on the grid. One potential cause we found was that the values on the arduino and FPGA code were left floating so they could have been incrementing intermittently. We fixed this issue by initializing the values both on the arduino and FPGA side. After this there was some consistency in the incorrect values, the first and third rows consistently remained red. Because these rows were the odd rows we determined that the least significant bit was not displaying correctly. To check the overall FPGA logic to ensure that it was properly evaluating this value, we hard coded the value of 1 to the least significant bit. The results of this test was that both of the odd rows started changing to the green color when anticipated. This confirmed that our FPGA logic was correct. To further debug this issue, we tried switching the pins on both the arduino and the FPGA. We then tried probing the line with the oscilloscope and received the correct high voltage signal. This confirmed that FPGA was receiving the signal. Then we tried outputting this value to an LED on the FPGA. The LED however would not light up to the corresponding signal. Another hypothesis that we had about the potential issue is that the sampling rate on the FPGA was too high. We tried switching the 25 clock however this did not fix the issue. Additionally, we changed the delay between the sending of each packet from the arduino to the FPGA in case the FPGA needed more time to read the data. However, this also did not fix our issue.
+
+Here is the FPGA initialization code:
+```
+ initial begin
+    	rdy = 0;
+   	  x1  = 0;
+   	  x2  = 0;
+   	  y1  = 0;
+   	  y2  = 0;
+   	  y3  = 0;
+      end  
+```
