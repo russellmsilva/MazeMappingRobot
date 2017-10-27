@@ -116,7 +116,7 @@ Our code for the FPGA is shown below:
    	      rf = 1'b0;
  	        end
       end
-      ```
+```      
 We abandoned our attempt at SPI after we ran into problems debugging. Instead, we implemented parallel communication between the Arduino and the FPGA board due to time constraints and our unfamiliarity with SPI protocol. Additionally, the Arduino pins required for the RF module utilized the same pins as that of the SPI, so instead of using a multiplexer or some other form of hardware solution for this, we decided to implement the parallel communication. 
 
 ```insert parallel code here ```
