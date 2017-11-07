@@ -11,8 +11,8 @@ public class Arduino {
 	
 public Arduino() {
 	
-	current_xcoord= 0;
-	current_ycoord= 0;
+	current_xcoord= 3;
+	current_ycoord= 4;
 	direction=1;   
 		
 }
