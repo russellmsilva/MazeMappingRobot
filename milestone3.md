@@ -140,6 +140,8 @@ On the robot itself, we have a long range IR sensor for the front wall detection
 
 We ran out of analog ports for the the sensors, so we decided to implement a mux (model 4051BC) to alternate reading between them -- we connected the left wall sensors and the left/right front line sensors of the robot to the mux, and coded the robot to read the sensors as needed. A diagram of our wiring is below:
 
+![image](./images/mux.PNG)
+
 The total numbers of channels being transmitted to the mux is 4: the left and right IR sensors, and the front left/right line sensors. Pins 10 and 9 were the address bits for the mux, and determined which sensors to set to high and which to low; pin 3 connected the mux to Arduino analog A3, 5-7 to ground, and pin 16 to the Arduino 5V source. Our preliminary code for the mux (2-input only) is shown below:
 
   ```
