@@ -115,6 +115,6 @@ We implemented DFS with two linked lists and used our “frontier” list as a s
    
 ```
 
-
+There are limitations to our current code. For example, we know that the 
 
 
