@@ -189,4 +189,4 @@ In the future, we plan to implement a faster way for the robot to navigate back 
 
 #### Attempts
 
-[Here](add link). is a video of one of our attempts of getting the robot running. The robot can be seen sensing a wall, stopping because of the wall and turning around.
+[Here](https://www.youtube.com/watch?v=TyjdIg3QVlc). is a video of one of our attempts of getting the robot running. The robot can be seen sensing a wall, stopping because of the wall and turning around.
