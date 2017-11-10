@@ -21,7 +21,7 @@ Our first step was to decide on how to “translate” a maze into code. We foll
 
 Our group chose to implement the simulation in Java. However, we did not know about the simulation code provided to us until we had already implemented depth first search (DFS). Therefore, our algorithm is not compatible with the graphical representation provided to us. However, we are still able to show that our algorithm works!  
 
-# A. Proof our algorithm works
+##### A. Proof our algorithm works
 
 Here is a video of our code running:
 
@@ -97,7 +97,7 @@ Figure 2. This is how the maze would be set up in real life. Picture is taken fr
 As you can see, the locations our algorithm outputs match the grids the robot traverses in Team Alpha’s ![video](https://www.youtube.com/watch?v=tvfH1x9lJSg). 
 
 
-# B. How we implemented our algorithm (see MapNav.java and Arduino.java) 
+##### B. How we implemented our algorithm (see MapNav.java and Arduino.java) 
 
 We chose to create a Arduino object which contains the current location of our robot ( the x and y coordinates) and the direction our robot is facing.  The appropriate functions ( ie. setters and getters) were implemented. We are assuming that our robot starts at the right-bottom grid. See Figure 1.  The grid corresponds to the index [4][3] on our matrix.  It should be noted that we refer to the “x-coordinate” as the column index and the “y-coordinate” as the row index. 
 
