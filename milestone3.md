@@ -187,4 +187,6 @@ Additionally, instead of reading in from a hard coded matrix containing informat
 
 In the future, we plan to implement a faster way for the robot to navigate back to a previous location when it reaches a "dead end." This may include implementing Dijkstra's algorithm. 
 
+#### Attempts
 
+[Here](add link). is a video of one of our attempts of getting the robot running. The robot can be seen sensing a wall, stopping because of the wall and turning around.
