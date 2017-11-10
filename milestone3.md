@@ -138,9 +138,43 @@ On the robot itself, we have a long range IR sensor for the front wall detection
 
 #### B. Multiplexer
 
-We ran out of analog ports for the the sensors, so we decided to implement a mux (model 4051BC) to alternate reading between them -- we connected the left/right wall sensors and the left/right front line sensors of the robot to the mux. A diagram of our wiring is below:
+We ran out of analog ports for the the sensors, so we decided to implement a mux (model 4051BC) to alternate reading between them -- we connected the left wall sensors and the left/right front line sensors of the robot to the mux, and coded the robot to read the sensors as needed. A diagram of our wiring is below:
 
-TODO: Add Mux photo
+The total numbers of channels being transmitted to the mux is 4: the left and right IR sensors, and the front left/right line sensors. Pins 10 and 9 were the address bits for the mux, and determined which sensors to set to high and which to low; pin 3 connected the mux to Arduino analog A3, 5-7 to ground, and pin 16 to the Arduino 5V source. Our preliminary code for the mux (2-input only) is shown below:
+
+  ```
+  int totalChannels = 2;
+
+  int addressA = 2;
+
+  int A = 0;      //Address pin A
+
+  void setup() {
+    Serial.begin(9600);
+    // Prepare address pins for output
+    pinMode(addressA, OUTPUT);
+    // Prepare read pin 
+    pinMode(A3, INPUT);
+  }
+
+  void loop() {
+    //Select each pin and read value
+    for(int i=0; i<2; i++){
+      A = bitRead(i,0); //Take first bit from binary value of i channel.
+
+      //Write address to mux
+      digitalWrite(addressA, A);
+      //Read and print value
+
+      Serial.print("Channel ");
+      Serial.print(i);
+      Serial.print(" value: ");
+      Serial.println(analogRead(A3));
+    
+    }
+    delay(2000);
+  }
+```
 
 We did run into some issues once we added the multiplexer. Once we implemented the mux above on our robot, we started having problems for line detection and wall sensing. When we tested the robot in the maze, the line following became choppier than we have seen and the robot would only turn right. It seemed to detect walls and intersections periodically, so we believe that the problem stems from the numerous iterations that the robot is going through. 
 
