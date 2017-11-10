@@ -23,7 +23,7 @@ Our group chose to implement the simulation in Java. However, we did not know ab
 
 #### A. Proof our algorithm works
 
-![Here](https://www.youtube.com/watch?v=H1WoLMxlXM0) is a video of our code running. Here is what our code printed out:
+![Here](https://www.youtube.com/v=H1WoLMxlXM0) is a video of our code running. Here is what our code printed out:
 ```
 x location:3
 y location:4
@@ -178,5 +178,8 @@ The total numbers of channels being transmitted to the mux is 4: the left and ri
 
 We did run into some issues once we added the multiplexer. Once we implemented the mux above on our robot, we started having problems for line detection and wall sensing. When we tested the robot in the maze, the line following became choppier than we have seen and the robot would only turn right. It seemed to detect walls and intersections periodically, so we believe that the problem stems from the numerous iterations that the robot is going through. We believe that this is an issue with the software side and think that it would be best to restart the implementation that we had set up. This way we will have less chance of failure, as we would be looking for any and all bugs periodically rather than merging existing code together.
 
+#### Implementing DFS in Arduino
+
+In place of the LinkedList from Java, we will use a library ![QList ](https://github.com/SloCompTech/QList/blob/master/README.md) from Arduino. Additionally, now that our robot is physically moving to different grids, at each “pop” of the stack, we will check to see if the “pop” is adjacent to the current location of the robot. If not, we will iterative through the nodesSearch until we find an adjacent grid that will take us to the new “popped” location. 
 
 
