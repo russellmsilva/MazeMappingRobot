@@ -117,4 +117,28 @@ We implemented DFS with two linked lists and used our “frontier” list as a s
 
 There are limitations to our current code. For example, we know that the 
 
+### Real Life
+
+Our group was tasked with choosing an algorithm to dictate the maze exploration of the robot. We believe that Depth First Search (DFS), would be the best algorithm to use in this case (as we have shown in through our simulation). However, due to time constraints, we were not able to get a DFS algorithm working on our robot. Therefore we tried implementing the wall sensing code with a multiplexer for our multiple analog signals in our robot.
+
+In order to implement depth first search on our robot, we had to implement wall sensing at each of the grid’s intersections to provide wall information to the algorithm. 
+
+Our code for wall sensing is as follows:
+
+TODO//explain code here
+
+At each intersection, we analyzed the incoming data from left, forward, and right proximity sensors. These data values were averaged over 7 iterations so that outlier proximity sensor values did not affect the movement of the robot. 
+If the current_average on one sensor at the current intersection has a value 10 lower or higher than the past_average from the past intersection, the sensor will register a change of whether there is a wall in front of it. This change affected wallFront for the front sensor, wallLeft for the left sensor, and wallRight for the right sensor. We negated these boolean variables every time this change was recorded.
+
+We stored wallFront, wallLeft, and wallRight into a byte variable called currentWallValue for more in our algorithm. 
+
+#### Multiplexer
+
+We ran out of analog ports for the the sensors, so we decided to implement a mux (model 4051BC) to alternate reading between them -- we connected the left wall sensors and the left/right front line sensors of the robot to the mux. A diagram of our wiring is below:
+
+TODO: Add Mux photo
+
+We did run into some issues once we added the multiplexer. Once we implemented the mux above on our robot, we started having problems for line detection and wall sensing. When we tested the robot in the maze, the line following became choppier than we have seen and the robot would only turn right. It seemed to detect walls and intersections periodically, so we believe that the problem stems from the numerous iterations that the robot is going through. 
+
+
 
