@@ -92,7 +92,7 @@ Here is the maze we used (both in matrix form and in real life):
 ![Maze grid](./images/Maze.jpg)
 
 Figure 2. This is how the maze would be set up in real life. Picture is taken from video provided by Team Alpha. 
-As you can see, the locations our algorithm outputs match the grids the robot traverses in Team Alpha’s ![video](https://www.youtube.com/watch?v=tvfH1x9lJSg). 
+As you can see, the locations our algorithm outputs match the grids the robot traverses in Team Alpha’s [video](https://www.youtube.com/watch?v=tvfH1x9lJSg). 
 
 
 #### B. How we implemented our algorithm (see MapNav.java and Arduino.java) 
