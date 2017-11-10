@@ -182,4 +182,8 @@ We did run into some issues once we added the multiplexer. Once we implemented t
 
 In place of the LinkedList from Java, we will use a library [QList ](https://github.com/SloCompTech/QList/blob/master/README.md) from Arduino. Additionally, now that our robot is physically moving to different grids, at each “pop” of the stack, we will check to see if the “pop” is adjacent to the current location of the robot. If not, we will iterate through the nodesSearch until we find an adjacent grid that will take us to the new “popped” location. 
 
+Additionally, instead of reading in from a hard coded matrix containing information about the walls, we will be using wall information from the distance sensor readings. 
+
+In the future, we plan to implement a faster way for the robot to navigate back to a previous location when it reaches a "dead end." This may include implementing Dijkstra's algorithm. 
+
 
