@@ -23,7 +23,7 @@ Our group chose to implement the simulation in Java. However, we did not know ab
 
 #### A. Proof our algorithm works
 
-![Here](https://www.youtube.com/v=H1WoLMxlXM0) is a video of our code running. Here is what our code printed out:
+[Here](https://www.youtube.com/watch?v=H1WoLMxlXM0) is a video of our code running. Here is what our code printed out:
 ```
 x location:3
 y location:4
@@ -180,6 +180,6 @@ We did run into some issues once we added the multiplexer. Once we implemented t
 
 #### Implementing DFS in Arduino
 
-In place of the LinkedList from Java, we will use a library ![QList ](https://github.com/SloCompTech/QList/blob/master/README.md) from Arduino. Additionally, now that our robot is physically moving to different grids, at each “pop” of the stack, we will check to see if the “pop” is adjacent to the current location of the robot. If not, we will iterative through the nodesSearch until we find an adjacent grid that will take us to the new “popped” location. 
+In place of the LinkedList from Java, we will use a library [QList ](https://github.com/SloCompTech/QList/blob/master/README.md) from Arduino. Additionally, now that our robot is physically moving to different grids, at each “pop” of the stack, we will check to see if the “pop” is adjacent to the current location of the robot. If not, we will iterative through the nodesSearch until we find an adjacent grid that will take us to the new “popped” location. 
 
 
