@@ -180,6 +180,6 @@ We did run into some issues once we added the multiplexer. Once we implemented t
 
 #### Implementing DFS in Arduino
 
-In place of the LinkedList from Java, we will use a library [QList ](https://github.com/SloCompTech/QList/blob/master/README.md) from Arduino. Additionally, now that our robot is physically moving to different grids, at each “pop” of the stack, we will check to see if the “pop” is adjacent to the current location of the robot. If not, we will iterative through the nodesSearch until we find an adjacent grid that will take us to the new “popped” location. 
+In place of the LinkedList from Java, we will use a library [QList ](https://github.com/SloCompTech/QList/blob/master/README.md) from Arduino. Additionally, now that our robot is physically moving to different grids, at each “pop” of the stack, we will check to see if the “pop” is adjacent to the current location of the robot. If not, we will iterate through the nodesSearch until we find an adjacent grid that will take us to the new “popped” location. 
 
 
