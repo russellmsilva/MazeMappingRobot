@@ -23,7 +23,7 @@ Our group chose to implement the simulation in Java. However, we did not know ab
 
 #### A. Proof our algorithm works
 
-![Here](https://www.youtube.com/watch?v=H1WoLMxlXM0) is a video of our code running. Here is what our code printed out:
+![Here](https://youtu.be/vCll1Vz8dtY) is a video of our code running. Here is what our code printed out:
 ```
 x location:3
 y location:4
