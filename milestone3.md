@@ -121,6 +121,8 @@ There are limitations to our current code. For example, we know that the
 
 Our group was tasked with choosing an algorithm to dictate the maze exploration of the robot. We believe that Depth First Search (DFS), would be the best algorithm to use in this case (as we have shown in through our simulation). However, due to time constraints, we were not able to get a DFS algorithm working on our robot. Therefore we tried implementing the wall sensing code with a multiplexer for our multiple analog signals in our robot.
 
+####A . Wall Sensing
+
 In order to implement depth first search on our robot, we had to implement wall sensing at each of the grid’s intersections to provide wall information to the algorithm. 
 
 Our code for wall sensing is as follows:
@@ -132,9 +134,11 @@ If the current_average on one sensor at the current intersection has a value 10 
 
 We stored wallFront, wallLeft, and wallRight into a byte variable called currentWallValue for more in our algorithm. 
 
-#### Multiplexer
+On the robot itself, we have a long range IR sensor for the front wall detection, and two short IR sensors for the left and right wall detection. These two imputs were connected to the multiplexer that we connected to the arduino
 
-We ran out of analog ports for the the sensors, so we decided to implement a mux (model 4051BC) to alternate reading between them -- we connected the left wall sensors and the left/right front line sensors of the robot to the mux. A diagram of our wiring is below:
+#### B. Multiplexer
+
+We ran out of analog ports for the the sensors, so we decided to implement a mux (model 4051BC) to alternate reading between them -- we connected the left/right wall sensors and the left/right front line sensors of the robot to the mux. A diagram of our wiring is below:
 
 TODO: Add Mux photo
 
