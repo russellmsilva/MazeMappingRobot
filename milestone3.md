@@ -5,7 +5,7 @@
 
 The goal of this milestone is to implement algorithm to facilitate maze exploration on a 5x4 grid of this layout: 
 
-![Figure 1. Maze grid](group14/images/IMG_5137.JPG)
+![Figure 1. Maze grid](./images/IMG_5137.JPG)
 
 Ultimately, we want working algorithm that facilitates maze exploration and indication that all that can be explored has been explored- in simulation and in real life. 
 
