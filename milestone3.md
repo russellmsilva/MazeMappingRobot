@@ -23,7 +23,7 @@ Our group chose to implement the simulation in Java. However, we did not know ab
 
 #### A. Proof our algorithm works
 
-![Here](https://youtu.be/vCll1Vz8dtY) is a video of our code running. Here is what our code printed out:
+![Here](https://www.youtube.com/watch?v=H1WoLMxlXM0) is a video of our code running. Here is what our code printed out:
 ```
 x location:3
 y location:4
@@ -140,8 +140,6 @@ On the robot itself, we have a long range IR sensor for the front wall detection
 
 We ran out of analog ports for the the sensors, so we decided to implement a mux (model 4051BC) to alternate reading between them -- we connected the left wall sensors and the left/right front line sensors of the robot to the mux, and coded the robot to read the sensors as needed. A diagram of our wiring is below:
 
-![image](./images/mux.PNG)
-
 The total numbers of channels being transmitted to the mux is 4: the left and right IR sensors, and the front left/right line sensors. Pins 10 and 9 were the address bits for the mux, and determined which sensors to set to high and which to low; pin 3 connected the mux to Arduino analog A3, 5-7 to ground, and pin 16 to the Arduino 5V source. Our preliminary code for the mux (2-input only) is shown below:
 
   ```
@@ -178,7 +176,7 @@ The total numbers of channels being transmitted to the mux is 4: the left and ri
   }
 ```
 
-We did run into some issues once we added the multiplexer. Once we implemented the mux above on our robot, we started having problems for line detection and wall sensing. When we tested the robot in the maze, the line following became choppier than we have seen and the robot would only turn right. It seemed to detect walls and intersections periodically, so we believe that the problem stems from the numerous iterations that the robot is going through. 
+We did run into some issues once we added the multiplexer. Once we implemented the mux above on our robot, we started having problems for line detection and wall sensing. When we tested the robot in the maze, the line following became choppier than we have seen and the robot would only turn right. It seemed to detect walls and intersections periodically, so we believe that the problem stems from the numerous iterations that the robot is going through. We believe that this is an issue with the software side and think that it would be best to restart the implementation that we had set up. This way we will have less chance of failure, as we would be looking for any and all bugs periodically rather than merging existing code together.
 
 
 
