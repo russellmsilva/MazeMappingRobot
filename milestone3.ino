@@ -7,15 +7,16 @@ Servo rightservo;
 
 //create servo object for right wheel
 //real speed for servos not moving is 94
-
-int LF=A0;
-int LB=A1;
-int RF=A2;
-int RB=A3;
-int M =A4;
+//mux connects to left and right line sensors and left and right wall sensors
+int A = 0;
+int B = 0;
+int LB=A0;
+//mux connected to A1
+int RB=A2;
+int M=A4;
 int black= 750; //black sensor reading
 int white= 750; // white sensor reading
-int threshold = 840; //over 750 is black, under 750 is white
+int threshold = 750; //over 750 is black, under 750 is white
 int threshold_l = 780;
 int threshold_r = 950;
 int backblack = 900;
@@ -41,29 +42,42 @@ double curr_average_left;
 double past_average_front;
 double past_average_right;
 double past_average_left;
-int iterations;
-bool wallFront;
-bool wallLeft;
-bool wallRight;
-byte currentWallValue; 
+int iteration;
+bool wallFront = false;
+bool wallLeft = false;
+bool wallRight = false;
+byte currentWallValue;
+int totalChannels = 8;
+int addressA = 4;
+int addressB = 10;
+int leftBackline;
+int rightBackline;
+int leftIR;
+int rightIR;
+long randTurn;
+int ifstatement = 0;
+
 
 
 void setup() {
   Serial.begin(9600);
   leftservo.attach(3);     //Connect left servo white wire to pin 3
   rightservo.attach(6); //Connect right servo white wire to pin 6
-
   
+  pinMode(addressA, OUTPUT);
+  pinMode(A1, INPUT);
 }
 
 void loop() {
-
+  Serial.println(analogRead(A1));
   move_one();
+  randTurn = random(0,10);
+  wall_locate();
   intersection_action();
  
 }
 
-void move_straight(){
+/*void move_straight(){
   Serial.println(analogRead(LF));
   Serial.println(analogRead(M));
   Serial.println(analogRead(RF));
@@ -74,30 +88,48 @@ void move_straight(){
   leftservo.write(180);     
   rightservo.write(0); //if its on a line, move forward
   } 
-}
+}*/
 
 
 //move is the line follow
 void move(){
 
-  Serial.println(analogRead(LF));
+ /* Serial.println(analogRead(LF));
  Serial.println(analogRead(M));
- Serial.println(analogRead(LF));
-  if (analogRead(M) >= threshold /*&& (analogRead(LF) >= white||analogRead(RF) >= white)*/){ //if at least two sensors are black, move forward
+ Serial.println(analogRead(LF)); */
+ Serial.println(analogRead(A3));
+ Serial.println(threshold);
+    A = 1;
+    B = 1;
+    digitalWrite(addressA, A);
+    digitalWrite(addressB, B); 
+  if (analogRead(A3) >= threshold /*&& (analogRead(LF) >= white||analogRead(RF) >= white)*/){ //if at least two sensors are black, move forward
+    Serial.print("a");
+    Serial.println(analogRead(A3));
+    
     leftservo.write(103);     
     rightservo.write(85); 
     
     } 
 
 //if leftfront and middle sensor is white and rightfront is black, move right, left wheel faster
-  else if((analogRead(LF)<=threshold) /*&& analogRead(M)<=threshold) && analogRead(RF)>=threshold*/){
+   else if((analogRead(A1)<=threshold) /*&& analogRead(M)<=threshold) && analogRead(RF)>=threshold*/){
+    Serial.print("b");
+    Serial.println(analogRead(A1));
    leftservo.write(98);     
    rightservo.write(94);
+   ifstatement = 1;
   }
 
 
 //if rightfront and middle sensor is white and leftfront is black, move left, right wheel faster
-  else if(analogRead(RF)<=threshold /*&& analogRead(M)<=threshold) && analogRead(RF)>=threshold*/){
+    A = 0;
+    B = 1;
+    digitalWrite(addressA, A);
+    digitalWrite(addressB, B);
+  if(!ifstatement && (analogRead(A1)<=threshold) /*&& analogRead(M)<=threshold) && analogRead(RF)>=threshold*/){
+    Serial.print("c");
+    Serial.println(analogRead(A1));
     leftservo.write(94);     
     rightservo.write(89);
     /*if((analogRead(M) <= threshold && analogRead(LF) <= threshold) && analogRead(RF) <= threshold) {
@@ -105,33 +137,33 @@ void move(){
        rightservo.write(94);
        delay(250);*/
   }
+  ifstatement = 0;
 }
 
 
   
-void empty(){
+/*void empty(){
   while (analogRead(LF)<=white&&analogRead(RF)<=white&&analogRead(M)<=white == true){
       move_straight(); //if all three sensors are white, move forward until line is found
   }
   
   leftservo.write(90);     
   rightservo.write(90); 
-}
+} */
   
   
 
 
 void move_one(){ //move forward until it's at a cross section
+    
   while((analogRead(LB) >= threshold_l &&analogRead(RB) >=threshold_r)!=true){
-    wall_locate();
     move();
     past= analogRead(A5);
     delay(50);
     current=analogRead(A5);
     
     
-    }
-    
+    } 
   if(current+15<past){
       leftservo.write(94);      
       rightservo.write(94);
@@ -144,7 +176,12 @@ void move_one(){ //move forward until it's at a cross section
  leftservo.write(98);      
  rightservo.write(98);
  delay(500);
- while(analogRead(LF)<=threshold){
+ //this is dependent on left front line
+    A = 1;
+    B = 1;
+    digitalWrite(addressA, A);
+    digitalWrite(addressB, B); 
+ while(analogRead(A1)<=threshold){
    leftservo.write(98);     
    rightservo.write(98);
    }
@@ -155,103 +192,88 @@ void move_one(){ //move forward until it's at a cross section
   leftservo.write(89);     
   rightservo.write(89);
     delay(500);
-  while(analogRead(RF)<=threshold){
+
+    A = 1;
+    B = 0;
+    digitalWrite(addressA, A);
+    digitalWrite(addressB, B);
+   //this is dependent on right front line
+  while(analogRead(A1)<=threshold){
     leftservo.write(89);     
     rightservo.write(89); }
   
   }
 
-  //run continously until it hits an intersection - put this into move one
   void wall_locate() {
-  while((analogRead(LB) >= threshold_l &&analogRead(RB) >=threshold_r)!=true){
-  move();
-
-  currentWallValue= 0;
+    past_sum_front = current_sum_front;
+    past_sum_left = current_sum_left;
+    past_sum_right = current_sum_right;
+    past_average_front = curr_average_front;
+    past_average_left = curr_average_left;
+    past_average_right = past_average_right;
     
-  if (iterations < 8) //why less than 8
-  {
-    //Analog pin for front long distance sensor
-    past_front = analogRead(A5);
-    //Analog pin for left long distance sensor
-    past_left = analogRead(A6);
-    //Analog pin for right distance sensor
-    past_right = analogRead(A7);
-
-    //Sums past values
-    past_sum_front = past_sum_front + past_front;
-    past_sum_left = past_sum_left + past_left;
-    past_sum_right = past_sum_right + past_right;
-    iterations++;
-    delay(10);
-  }
-
-  else
-  {
+  while(iteration < 7) {
     //Analog pin for front sensor
     current_front = analogRead(A5);
     //Analog pin for left sensor
-    current_left = analogRead(A6);
+    A = 0;
+    B = 0;
+    digitalWrite(addressA, A);
+    digitalWrite(addressB, B);
+    current_left = analogRead(A1);
     //Analog pin for right sensor
-    current_right = analogRead(A7);
+    A = 1;
+    B = 0;
+    digitalWrite(addressA, A);
+    digitalWrite(addressB, B);
+    current_right = analogRead(A1);
 
     //Sums current values
     current_sum_front = current_sum_front + current_front;
     current_sum_left = current_sum_left + current_left;
     current_sum_right = current_sum_right + current_right;
-    iterations++;
+    iteration++;
     delay(10);
   }
 
-  if (iterations = 7)
+  if (iteration = 7)
   {
-    past_average_front = past_sum_front / double(iterations);
-    past_sum_front = 0;
-    past_average_left = past_sum_left / double(iterations);
-    past_sum_left = 0;
-    past_average_right = past_sum_right / double(iterations);
-    past_sum_right = 0;
-  }
-
-  if (iterations = 14)
-  {
-    curr_average_front = current_sum_front / double(iterations - 7);
+    curr_average_front = current_sum_front / double(iteration - 7);
     current_sum_front = 0;
-    curr_average_left = current_sum_left / double(iterations - 7);
+    curr_average_left = current_sum_left / double(iteration - 7);
     current_sum_left = 0;
-    curr_average_right = current_sum_right / double(iterations - 7);
+    curr_average_right = current_sum_right / double(iteration - 7);
     current_sum_right = 0;
-    iterations = 0;
-}
+    iteration = 0;
+  }
    
   
   // robot will be continuously reading data but will only act upon the data received at each intersection
   //at intersection the wall action will be taken dependent on values collected at the intersection/prior to it with the summation of the values
-//
-//maximum of 280 milliseconds(14 iterations * 20 millisecond delay per iteration)
+  //
+  //maximum of 280 milliseconds(14 iterations * 20 millisecond delay per iteration)
+  //change the difference value of this addition to fix wall sensing
+    Serial.print("front average ");
+    Serial.println(curr_average_front);
+    Serial.print("left average");
+    Serial.println(curr_average_left);
+    Serial.print("right average");
+    Serial.println(curr_average_right);
 
-    if(curr_average_front+4<past_average_front)
+    if(curr_average_front+10<past_average_front)
     {
-        wallFront = true;
+        wallFront = !wallFront;
     }  
 
-  else
-    wallFront = false;
-
-    if(curr_average_left+4<past_average_left)
+    if(curr_average_left+50<past_average_left)
     {
-                        wallLeft = true;
+        wallLeft = !wallLeft;
     }  
 
-  else
-    wallLeft = false;
-
-    if(curr_average_right+4<past_average_right)
+    if(curr_average_right+50<past_average_right)
     {
-                  wallRight = true;
+        wallRight = !wallRight;
     }  
-
-  else
-    wallRight = false;
 
 
             //Convert bool values into currentWallValue (first bit: wallFront, second bit: wallLeft,                //third bit: wallRight)
@@ -279,7 +301,6 @@ void move_one(){ //move forward until it's at a cross section
   else
     currentWallValue = B000;
   }
-}
 
 void intersection_action() {
             //UNAVOIDABLE ACTIONS (e.g. if there is a dead end you must turn around)
@@ -308,11 +329,13 @@ else if (currentWallValue = B110)
                        //wall in front of the robot
 else if (currentWallValue = B100)
       {
-          turn_right();
+          if(randTurn > 5)
+            turn_right();
+          else
+            turn_left();
       }
 
+    currentWallValue= 0;
                        //no walls just goes into next set of moving forward to the next intersection
   
   }
-
-
