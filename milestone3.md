@@ -121,7 +121,7 @@ There are limitations to our current code. For example, we know that the
 
 Our group was tasked with choosing an algorithm to dictate the maze exploration of the robot. We believe that Depth First Search (DFS), would be the best algorithm to use in this case (as we have shown in through our simulation). However, due to time constraints, we were not able to get a DFS algorithm working on our robot. Therefore we tried implementing the wall sensing code with a multiplexer for our multiple analog signals in our robot.
 
-####A . Wall Sensing
+#### A . Wall Sensing
 
 In order to implement depth first search on our robot, we had to implement wall sensing at each of the grid’s intersections to provide wall information to the algorithm. 
 
