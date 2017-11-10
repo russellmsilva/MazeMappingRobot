@@ -115,8 +115,6 @@ We implemented DFS with two linked lists and used our “frontier” list as a s
    
 ```
 
-There are limitations to our current code. For example, we know that the 
-
 ### Real Life
 
 Our group was tasked with choosing an algorithm to dictate the maze exploration of the robot. We believe that Depth First Search (DFS), would be the best algorithm to use in this case (as we have shown in through our simulation). However, due to time constraints, we were not able to get a DFS algorithm working on our robot. Therefore we tried implementing the wall sensing code with a multiplexer for our multiple analog signals in our robot.
