@@ -1,6 +1,6 @@
 //#include <QList.h>
-#include "QList.h"
-#include "QList.cpp"
+//#include "QList.h"
+//#include "QList.cpp"
 
 #include <Servo.h>
 
@@ -32,6 +32,7 @@ int current;
 /// DFS variables
 int curr_x;
 int curr_y;
+int curr_direction;
 
 int frontier[30];
 int sp1=0;
@@ -57,12 +58,16 @@ void setup() {
   rightservo.attach(6); //Connect right servo white wire to pin 6
  curr_x=3;
  curr_y=4;
+ sp1=0;
+ sp2=0;
+ sp3=0;
   
 }
 
 void loop() {
 
- 
+ DFS();
+ delay(10000);
 //move();
 //Serial.println(analogRead(LB));
 //Serial.println(analogRead(RB));
@@ -224,52 +229,63 @@ void figure_eight(){
   void DFS(){
 
         // to stores path travelled 
-    int wall_map[][4] = { { 9, 1, 3, 5 }, { 8, 6, 13, 12}, { 12, 11, 6, 12 }, { 8, 3, 7, 14 }, { 10, 3, 3, 7 } };
-    int temp[] = {curr_y,curr_x };
-    frontier[sp1++]=temp;
-    path[sp3++]=temp;
-    Serial.println("x location:" + curr_x);
-    Serial.println("y location:" + curr_y);
+    int wall_map[][5] = { { 9, 1, 3, 5 }, { 8, 6, 13, 12}, { 12, 11, 6, 12 }, { 8, 3, 7, 14 }, { 10, 3, 3, 7 } };
+    
+    frontier[sp1++]=curr_y;
+    frontier[sp1++]=curr_x;
+    path[sp3++]=curr_y;
+    path[sp3++]=curr_x;
+    
+    Serial.println("x location:" + String(curr_x));
+    Serial.println("y location:" + String(curr_y));
     Serial.println("...");
-
+     delay(1000);
     // save current state to frontier
     //String wallinfo = Integer.toBinaryString(wall_map[curr_x][curr_y]);
     int wallinfo= wall_map[curr_y][curr_x];
     /*while (wallinfo.length() < 4) {
       wallinfo = "0" + wallinfo;
     }*/
-    //System.out.println(wallinfo);
+    Serial.println(String(wallinfo));
+    delay(1000);
     //System.out.println(wallinfo.length());
 
     // append adjacent nodes to frontier
 
     for (int i = 0; i < 4; i++) {
 
-      //System.out.println("first for loop");
-      //System.out.println(wallinfo.charAt(i));
+      Serial.println("first for loop");
+      Serial.println(bitRead(wallinfo,i));
 
-      if (bitRead(wallinfo,i) == '0') {
-        //System.out.println("west");
-        if (i == 0) {
+      if (bitRead(wallinfo,i)==0) {
+       
+        delay(1000);
+        if (i == 3) {
+          Serial.println("west");
           int west[2] = { curr_y, curr_x - 1 };
-          //System.out.println(west[0]);
-          //System.out.println(west[1]);
+          Serial.println(String(west[0]));
+          Serial.println(String(west[1]));
 
           if (frontier_contains(west[0], west[1])!=true && nodesSearched_contains(west[0], west[1]) !=true) {
-            frontier[sp1]=west;
-            //System.out.print("added something");
+            frontier[sp1++]=west[0];
+            frontier[sp1++]=west[1];
+            Serial.print("added something");
+            delay(1000);
           }
           // append coordinates for the "west" square onto frontier, if it is not already
           // in frontier or searched
         }
 
-        else if (i == 1) {
-          //System.out.println("east");
-          int east[] = { curr_y, curr_x + 1 };
+        else if (i == 2) {
+          Serial.println("east");
+          delay(1000);
+          int east[2] = {curr_y, curr_x + 1 };
 
           if (frontier_contains(east[0], east[1])!=true && nodesSearched_contains(east[0], east[1]) !=true) {
-            frontier[sp1++]=east;
-            //System.out.print("added something");
+            frontier[sp1++]=east[0];
+             frontier[sp1++]=east[1];
+            Serial.print("added something");
+            delay(1000);
 
           }
 
@@ -277,25 +293,31 @@ void figure_eight(){
           // in frontier or searched
         }
 
-        else if (i == 2) {
-          //System.out.println("south");
-          int south[] = { curr_y - 1, curr_x };
+        else if (i == 1) {
+          Serial.println("south");
+          delay(1000);
+          int south[2] = { curr_y - 1, curr_x };
           if (frontier_contains(south[0], south[1])!=true && nodesSearched_contains(south[0], south[1]) !=true) {
-            frontier[sp1++]=south;
-            //System.out.print("added something");
+            frontier[sp1++]=south[0];
+            frontier[sp1++]=south[1];
+            Serial.print("added something");
+            delay(1000);
           }
 
           // append coordinates for the "south" square onto frontier, if it is not already
           // in frontier or searched
         }
 
-        else if (i == 3) {
-          //System.out.println("north");
-          int north[] = { curr_y + 1, curr_x };
+        else if (i == 0) {
+          Serial.println("north");
+          delay(1000);
+          int north[2] = { curr_y + 1, curr_x };
 
           if (frontier_contains(north[0], north[1])!=true && nodesSearched_contains(north[0], north[1]) !=true) {
-            frontier[sp1++]=north;
-            //System.out.print("added something");
+            frontier[sp1++]=north[0];
+            frontier[sp1++]=north[1];
+            Serial.print("added something");
+            delay(1000);
           }
 
           // append coordinates for the "north" square onto frontier, if it is not already
@@ -306,24 +328,42 @@ void figure_eight(){
 
     //System.out.println("empty" + frontier.isEmpty());
     while (sp1!=-1) {
-      //System.out.println("while loop");
+      Serial.println("while loop");
 
+      Serial.println("frontier");
+      for(int a ; a<30; a++){
+        Serial.print(String(frontier[a]));
+        }
+
+         Serial.println("nodesSearched");
+      for(int b ; b<30; b++){
+        Serial.print(String(nodesSearched[b]));
+        }
+      Serial.println("path");
+      for(int c ; c<30; c++){
+        Serial.print(String(path[c]));
+        }
+
+        
+
+      
+      delay(1000);
+       
+      int temp_x = frontier[--sp1];
       int temp_y = frontier[--sp1];
 
-      int temp_x = frontier[--sp1];
-
-       while(temp_y!=path[sp3]&& temp_x!=path[sp3-1]){
+       /*while(temp_x!=path[sp3]&& temp_y!=path[sp3-1]){
         
             /// NEED TO PHYSICALLY MOVE ROBOT
            
-           curr_y=path[--sp3]; 
-           curr_x=path[--sp3];
+           curr_x=path[--sp3]; 
+           curr_y=path[--sp3];
            
-           Serial.println("x location:" + curr_x);
-           Serial.println("y location:" + curr_y);
+           Serial.println("x location:" + String(curr_x));
+           Serial.println("y location:" + String(curr_y));
            Serial.println("...");
    
-        }
+        }*/
 
       
       curr_y=temp_y;
@@ -332,19 +372,21 @@ void figure_eight(){
 
       
 
-      Serial.println("x location:" + curr_x);
-      Serial.println("y location:" + curr_y);
+      Serial.println("x location:" + String(curr_x));
+      Serial.println("y location:" + String(curr_y));
       Serial.println("...");
 
-      path[sp3++]=current;
-      nodesSearched[sp2++]=current;
-      //System.out.println("check:" + nodesSearched.contains(current));
+      path[sp3++]=temp_y;
+       path[sp3++]=temp_x;
+      nodesSearched[sp2++]=temp_y;
+      nodesSearched[sp2++]=temp_x;
+      //Serial.println("check:" + nodesSearched_contains(curr_x,curr_y));
 
-      // System.out.println(wall_map[4][3]);
-      // System.out.println(wall_map.length);
+      Serial.println(String(wall_map[curr_y][curr_x]));
+      
 
-      //System.out.println("out of bounds error x check:" + robot.getX());
-      //System.out.println("out of bounds error y check:" + robot.getY());
+      //Serial.println("out of bounds error x check:" + robot.getX());
+      //Serial.println("out of bounds error y check:" + robot.getY());
 
       wallinfo = wall_map[curr_y][curr_x];
      /* while (wallinfo.length() < 4) {
@@ -354,26 +396,33 @@ void figure_eight(){
       // append adjacent nodes to frontier
 
       for (int b = 0; b <4; b++) {
-        //System.out.println("embedded for loop" + " substring is:" + wallinfo.charAt(b));
+        //Serial.println("embedded for loop" + " substring is:" + bitRead(wallinfo,b));
         
-        if (bitRead(wallinfo,b) == '0') {
+        if (bitRead(wallinfo,b) == 0) {
 
-          if (b == 0) {
-            int west[] = { curr_y, curr_x - 1 };
+         
+          
+          if (b == 3) {
+            int west[2] = { curr_y, curr_x - 1 };
             //System.out.println("check 1 :" + nodesSearched.contains(west));
             if (frontier_contains(west[0], west[1])!=true && nodesSearched_contains(west[0], west[1]) !=true) {
-              frontier[sp1++]=west;
-              //System.out.println("added west:" + west[0] + west[1]);
+              frontier[sp1++]=west[0];
+              frontier[sp1++]=west[1];
+              Serial.println("added west:" + String(west[0]) + String(west[1]));
             }
             // append coordinates for the "west" square onto frontier, if it is not already
             // in frontier or searched
           }
 
-          else if (b == 1) {
-            int east[] = { curr_y, curr_y + 1 };
+          else if (b == 2) {
+            int east[2] = { curr_y, curr_x + 1 };
 
             if (frontier_contains(east[0], east[1])!=true && nodesSearched_contains(east[0], east[1]) !=true) {
-              frontier[sp1++]=east;
+              frontier[sp1++]=east[0];
+               frontier[sp1++]=east[1];
+
+
+               
               //System.out.println("added east" + east[0] + east[1]);
             }
 
@@ -381,11 +430,12 @@ void figure_eight(){
             // in frontier or searched
           }
 
-          else if (b == 2) {
+          else if (b == 1) {
 
-            int south[] = { curr_y + 1, curr_x };
+            int south[2] = {curr_y + 1, curr_x };
             if (frontier_contains(south[0], south[1])!=true && nodesSearched_contains(south[0], south[1]) !=true) {
-              frontier[sp1++]=south;
+              frontier[sp1++]=south[0];
+              frontier[sp1++]=south[1];
               //System.out.print("added south");
             }
 
@@ -393,13 +443,17 @@ void figure_eight(){
             // in frontier or searched
           }
 
-          else if (b == 3) {
+          else if (b == 0) {
+            
 
-            int north[] = {curr_y-1, curr_x };
+            int north[2] = {curr_y-1, curr_x };
 
             if (frontier_contains(north[0], north[1])!=true && nodesSearched_contains(north[0], north[1]) !=true) {
-              frontier[sp1++]=north;
-              //System.out.print("added north");
+              frontier[sp1++]=north[0];
+              frontier[sp1++]=north[1];
+              
+              
+              Serial.print(String(north[0])+ String(north[1]));
             }
 
             // append coordinates for the "north" square onto frontier, if it is not already
