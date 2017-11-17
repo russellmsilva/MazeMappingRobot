@@ -371,14 +371,14 @@ void figure_eight(){
    
         }
 
-      //if( temp_y!=path[sp3-2] && temp_x!=path[sp3-1]){
+      if( temp_y!=path[sp3-2] || temp_x!=path[sp3-1]){
         
         
            curr_y=path[sp3-2];// NEED TO PHYSICALLY MOVE ROBOT
            curr_x=path[sp3-1];
            Serial.println("x location:" + String(curr_x));
            Serial.println("y location:" + String(curr_y));
-           Serial.println("..."); //}
+           Serial.println("..."); }
 
      
       curr_y=temp_y;
