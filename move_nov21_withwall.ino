@@ -356,7 +356,7 @@ void wall_sense() {
     
     wallFront=analogRead(A5);
 
-    
+    delay(40);
     //Analog pin for left wall sensor
     C = 1;
     A = 0;
@@ -364,7 +364,7 @@ void wall_sense() {
     digitalWrite(addressA, A);
     digitalWrite(addressB, B);
     digitalWrite(addressC, C);
-    delay(20);
+    delay(40);
     wallLeft = analogRead(A1);//left wall sensor
     //Serial.println("Left Wall: " + String(front_left, DEC));
     
@@ -376,7 +376,7 @@ void wall_sense() {
     digitalWrite(addressA, A);
     digitalWrite(addressB, B);
     digitalWrite(addressC, C);
-    delay(20);
+    delay(40);
     wallRight = analogRead(A1); //right wall sensor
     //Serial.println("Right Wall: " + String(front_right, DEC));
     //Serial.println("Sensor Direct: " + String(analogRead(A5), DEC));
@@ -740,11 +740,11 @@ boolean frontier_contains( int y, int x){
   Serial.println("right sensor   "+ String(wallRight));
   Serial.println("left sensor   "+ String(wallLeft));
   
-  if (wallFront> 450){ front=1;}  /// THESE IF STATEMENTS NEED TO BE REWRITTEN TAKING INTO ACCOUNT PAST VALUES COMPARED TO CURRENT
+  if (wallFront> 400){ front=1;}  /// THESE IF STATEMENTS NEED TO BE REWRITTEN TAKING INTO ACCOUNT PAST VALUES COMPARED TO CURRENT
 
-  if (wallRight> 200){ right=1;}
+  if (wallRight> 400){ right=1;}
 
-  if (wallLeft> 200)  {left=1;}
+  if (wallLeft> 150)  {left=1;}
 
   // if direction= 1 north , then front = north , right equals east, left equals west, south equals 0
   // if direction= 2 east , then front= east
