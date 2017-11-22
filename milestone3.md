@@ -191,7 +191,3 @@ In the future, we plan to implement a faster way for the robot to navigate back 
 
 [Here](https://www.youtube.com/watch?v=TyjdIg3QVlc). is a video of one of our attempts of getting the robot running. The robot can be seen sensing a wall, stopping because of the wall and turning around.
 
-#### FINAL WORKING ATTEMPT 
-
-[Here](https://www.youtube.com/watch?v=uH1z1_MfQ2Y) is the video of our code finally working after implementing a "backtrack" when our robot reaches a dead end. Our debugging process included adjusting the mux code to correctly select the right inputs and adjusting wall-sensing values to implement the correct. The working code can be found on our Github page. 
-
