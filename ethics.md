@@ -1,7 +1,8 @@
 Giacomo Di Liberto, Russell Silva, Kristina Nemeth, Michelle Feng, Joan Song
 ECE 3400 Ethics Assignment
 11/20/2017
-Ethics: AI Drones and Warfare
+
+## Ethics: AI Drones and Warfare
 
 ### Introduction
 Artificial intelligence is defined as the ability for a machine “to perform tasks commonly associated with intelligent beings.”1 Examples of this technology include SIRI, facial recognition and self-driving cars. The recent rise in the use of unmanned and autonomous systems, such as drones and vehicles, has shed light on another potential use for AI: warfare. The development of what some call “killer” robots has led to questions of whether or not intelligent weapons should be designed at all, and, if they were, what their potential impact would be.2 A recent open letter titled “Research Priorities for Robust and Beneficial Artificial Intelligence”  endorsed by Elon Musk, Stephen Hawking, and leading AI researchers posit the belief that continued development of AI weaponry would lead to a global AI arms race, if any major military force adopted it in a meaningful capacity.3 Based on the tone and content of the letter, it seems that Musk et al. believe that technological development in AI is inevitable; however, this growth will quickly facilitate the development of autonomous weapons that do not possess the same restrictions as “meaningful human control”. 3Once this occurs, an artificial intelligence arms race similar to that of the nuclear arms race will also proceed.
