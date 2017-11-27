@@ -9,6 +9,7 @@ layout: default
 ### [Lab 2](./Lab2.md)
 ### [Lab 3](./lab3.md)
 ### [Lab 4](./Lab4.md)
+### [Ethics Homework](./Ethics.md)
 
 ## Milestones
 
