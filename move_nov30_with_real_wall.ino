@@ -1,5 +1,10 @@
 #include <Servo.h> 
 
+#include "nRF24L01.h"
+#include "RF24.h"
+#include "printf.h"
+#include <SoftwareSerial.h>
+
 Servo leftservo; 
 Servo midservo; //create servo object for left wheel
 Servo rightservo;
@@ -672,11 +677,11 @@ boolean frontier_contains( int y, int x){
     walls= (front*1)+(left*8)+(right*4); //+2
     }
 
-  else if (curr_direction==2){walls= (front*4)+(left*1)+(right*2);//+8 }
+  else if (curr_direction==2){walls= (front*4)+(left*1)+(right*2);}//+8 
 
-  else if(curr_direction==3){ walls= (front*2)+(left*4)+(right*8); //+1 }
+  else if(curr_direction==3){ walls= (front*2)+(left*4)+(right*8);} //+1 
 
-  else if(curr_direction==4){ walls= (front*8)+(left*2)+(right*1); //+4}
+  else if(curr_direction==4){ walls= (front*8)+(left*2)+(right*1);} //+4
 
   wall_map_real[curr_y][curr_x]=walls;
   if(curr_y==4 && curr_x==3&& curr_direction==1){
