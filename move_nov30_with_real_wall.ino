@@ -70,9 +70,9 @@ void setup() {
 
 curr_x=3;
 curr_y=4;
- sp1=0;
- sp2=0;
- sp3=0;
+sp1=0;
+sp2=0;
+sp3=0;
 curr_direction=1;
 
   pinMode(addressA, OUTPUT);
@@ -229,7 +229,7 @@ delay(100);
 
 leftservo.write(90);  // STOP     
 rightservo.write(94);
-delay(1000);
+delay(100);
      
   }
 
@@ -297,7 +297,7 @@ void wall_sense() {
     digitalWrite(addressA, A);
     digitalWrite(addressB, B);
     digitalWrite(addressC, C);
-    delay(40);
+    delay(50);
     wallLeft = analogRead(A4);//left wall sensor
     Serial.println("Left Wall Direct: " + String(analogRead(A4), DEC));
     
@@ -309,7 +309,7 @@ void wall_sense() {
     digitalWrite(addressA, A);
     digitalWrite(addressB, B);
     digitalWrite(addressC, C);
-    delay(40);
+    delay(50);
     wallRight = analogRead(A4);
     //right wall sensor
     //Serial.println("Right Wall: " + String(front_right, DEC));
@@ -322,13 +322,12 @@ void wall_sense() {
   void DFS(){
 
         // to stores path travelled 
-    
-    
      leftservo.write(90);      
      rightservo.write(94);
      delay(1000);
     
-     writeWallInfo();
+    writeWallInfo();
+    
     
     //frontier[sp1++]=curr_y;
     //frontier[sp1++]=curr_x;
@@ -358,7 +357,6 @@ void wall_sense() {
 
       if (bitRead(wallinfo,i)==0) {
        
-        delay(1000);
         if (i == 3) {
           Serial.println("west");
           int west[2] = { curr_y, curr_x - 1 };
@@ -447,8 +445,8 @@ void wall_sense() {
 
         
        
-      int temp_x = frontier[--sp1];
-      int temp_y = frontier[--sp1];
+     int temp_x = frontier[--sp1];
+     int temp_y = frontier[--sp1];
 
 
       if((movePossible(curr_y, curr_x,temp_y,temp_x)!=true)){// if next one next location is not attainable. 
@@ -472,7 +470,7 @@ void wall_sense() {
         // once more so you don't skip a spot
          int x=path[--sp3];
          int y=path[--sp3];
-          move_to(y,x);
+         move_to(y,x);
 
 
            
@@ -486,7 +484,7 @@ void wall_sense() {
 
       }
 
-        move_to(temp_y,temp_x);
+      move_to(temp_y,temp_x);
       //curr_x=temp_x; // NEED TO PHYSICALLY MOVE ROBOT
       //curr_y=temp_y;//
       
@@ -509,8 +507,10 @@ void wall_sense() {
       //Serial.println("out of bounds error y check:" + robot.getY());
 
       wallinfo = wall_map_real[curr_y][curr_x];
+
       
       Serial.println("Reading in wall info as"+String(wallinfo));
+      
 
       for (int b = 3; b >=0; b--) {
         //Serial.println("embedded for loop" + " substring is:" + bitRead(wallinfo,b));
@@ -657,9 +657,9 @@ boolean frontier_contains( int y, int x){
   
   if (wallFront> 400){ front=1;}  
 
-  if (wallRight> 400){ right=1;}
+  if (wallRight> 380){ right=1;}
 
-  if (wallLeft> 400)  {left=1;}
+  if (wallLeft> 380)  {left=1;}
 
   // if direction= 1 north , then front = north , right equals east, left equals west, south equals 0
   // if direction= 2 east , then front= east
@@ -669,17 +669,19 @@ boolean frontier_contains( int y, int x){
   int walls=15;  
   
   if(curr_direction==1){   
-    walls= (front*1)+(left*8)+(right*4)+2;
+    walls= (front*1)+(left*8)+(right*4); //+2
     }
 
-  else if (curr_direction==2){ walls= (front*4)+(left*1)+(right*2)+8; }
+  else if (curr_direction==2){walls= (front*4)+(left*1)+(right*2);//+8 }
 
-  else if(curr_direction==3){ walls= (front*2)+(left*4)+(right*8)+1; }
+  else if(curr_direction==3){ walls= (front*2)+(left*4)+(right*8); //+1 }
 
-  else if(curr_direction==4){ walls= (front*8)+(left*2)+(right*1)+4; }
+  else if(curr_direction==4){ walls= (front*8)+(left*2)+(right*1); //+4}
 
   wall_map_real[curr_y][curr_x]=walls;
-  Serial.println("the wall value at this location is :" + String(walls));
+  if(curr_y==4 && curr_x==3&& curr_direction==1){
+  wall_map_real[curr_y][curr_x]= wall_map_real[curr_y][curr_x]+2;}
+  Serial.println("the wall value at this location is :" + String(wall_map_real[curr_y][curr_x]));
 
   /// SEND CURRENT LOCATION curr_y && curr_x
 
@@ -734,11 +736,13 @@ boolean frontier_contains( int y, int x){
 
      else if(direction_difference == -2) {
       turn_right();
-       turn_right();
+      turn_right();
     }
     
-    else if(direction_difference == 3)
-      turn_right();
+    else if(direction_difference == 3){
+      turn_right();}
+
+      
     else if(direction_difference == 2) {
       turn_right();
       turn_right();
