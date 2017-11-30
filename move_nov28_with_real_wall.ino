@@ -24,11 +24,12 @@ int front_right;
 
 
 
-int black= 750; //black sensor reading
-int white= 750; // white sensor reading
+//int black= 750; //black sensor reading
+//int white= 750; // white sensor reading
+
 int threshold = 790; //over 750 is black, under 750 is white
-int threshold_lb = 800;
-int threshold_rb = 890;
+//int threshold_lb = 800;
+//int threshold_rb = 890;
 
 int wallFront;
 int wallLeft;
@@ -89,11 +90,22 @@ curr_direction=1;
 void loop() {
   //analogWrite(A4, 100);
   //Serial.println("Sensor Direct: " + String(analogRead(A4), DEC));
-//move_one();
-line_sense();
+move_one();
+//delay(500);
+//line_sense();
 
-//leftservo.write(95);     
-//rightservo.write(88); 
+//leftservo.write(95);   // TESTING move right (not sharp turn)  
+//rightservo.write(92);
+
+
+//leftservo.write(93);  // TESTING move left  (not sharp turn)   
+//rightservo.write(84);
+
+// TESTING GO STRAIGHT
+//leftservo.write(96);     
+//rightservo.write(88);
+
+
 //
 //move();
   //Serial.println("LB"+String(analogRead(LB)));
@@ -106,12 +118,13 @@ line_sense();
 
 //wall_sense();
 //analogRead(A5)
-//Serial.println("front sensor "+ String(wallFront));
-//Serial.println("right sensor "+ String(wallRight));
-//Serial.println("left sensor  "+ String(wallLeft));
+//Serial.println("WALL front sensor "+ String(wallFront));
+//Serial.println("WALL right sensor "+ String(wallRight));
+//Serial.println("WALL left sensor  "+ String(wallLeft));
+
   
 //delay(1000);
-
+//delay(500);
 //DFS();
  //move_to(4,2);
  //move_to(4,1);
@@ -133,6 +146,8 @@ line_sense();
  //move_to(3,1);
  //move_to(3,2);
  //move_to(3,3);
+
+//figure_eight();
   
 }
 
@@ -147,7 +162,7 @@ void move(){
     line_sense(); 
   
   //if rightfront and middle sensor is white and leftfront is black, move left, right wheel faster
-  if(front_right<=700){
+  if(front_right<=760){
     leftservo.write(93);     
     rightservo.write(84);
     //Serial.println("third if");
@@ -155,7 +170,7 @@ void move(){
   }
 
   //if leftfront and middle sensor is white and rightfront is black, move right, left wheel faster
-   else if(front_left<=750){
+   else if(front_left<=760){
    leftservo.write(95);     
    rightservo.write(92);
    //Serial.println("second if");
@@ -163,7 +178,7 @@ void move(){
 
 
     else if (analogRead(A3)>650){ //if at least two sensors are black, move forward
-    leftservo.write(95);     
+    leftservo.write(96);     
     rightservo.write(88);
     
     //Serial.println("first if");
@@ -203,7 +218,7 @@ void move_one(){ //move forward until it's at a cross section
 leftservo.write(95);  // default move straight    
 rightservo.write(88);
 delay(100);
-  while((((analogRead(LB)+analogRead(RB))/2) >=920)!=true){
+  while((((analogRead(LB)+analogRead(RB))/2) >=850)!=true){
     //Serial.println("middle line: " + String(analogRead(M), DEC));
     //Serial.println("right back: "+ String(analogRead(RB), DEC));
     //Serial.println("left back: "+ String(analogRead(LB), DEC));
@@ -214,7 +229,7 @@ delay(100);
 
 leftservo.write(90);  // STOP     
 rightservo.write(94);
-delay(100);
+delay(1000);
      
   }
 
@@ -224,7 +239,7 @@ delay(100);
  rightservo.write(97);
  delay(200);
 
- while(analogRead(A3)<=threshold){
+ while(analogRead(A3)<=850){
    leftservo.write(99);     
    rightservo.write(97);
    }
@@ -235,7 +250,7 @@ delay(100);
   leftservo.write(87);     
   rightservo.write(86);
     delay(200);
-  while(analogRead(A3)<=threshold){
+  while(analogRead(A3)<=850){
     leftservo.write(87);     
     rightservo.write(85); }
   
@@ -253,8 +268,8 @@ delay(100);
     digitalWrite(addressA, A);
     digitalWrite(addressB, B);
     digitalWrite(addressC, C);
-    delay(20);
-    front_left = analogRead(A1);//left line sensor
+    delay(40);
+    front_left = analogRead(A4);//left line sensor
     Serial.println("Left Front: " + String(front_left, DEC));
     //Analog pin for right sensor
     A = 0;
@@ -263,8 +278,8 @@ delay(100);
     digitalWrite(addressA, A);
     digitalWrite(addressB, B);
     digitalWrite(addressC, C);
-    delay(20);
-    front_right = analogRead(A1); //right line sensor
+    delay(40);
+    front_right = analogRead(A4); //right line sensor
     Serial.println("Right Front: " + String(front_right, DEC));
     //Serial.println("Sensor Direct: " + String(analogRead(A5), DEC));
     Serial.println(" ");
@@ -283,8 +298,8 @@ void wall_sense() {
     digitalWrite(addressB, B);
     digitalWrite(addressC, C);
     delay(20);
-    wallLeft = analogRead(A1);//left wall sensor
-    //Serial.println("Left Wall: " + String(front_left, DEC));
+    wallLeft = analogRead(A4);//left wall sensor
+    Serial.println("Left Wall Direct: " + String(analogRead(A1), DEC));
     
     
     //Analog pin for right  wall sensor
@@ -295,9 +310,10 @@ void wall_sense() {
     digitalWrite(addressB, B);
     digitalWrite(addressC, C);
     delay(50);
-    //wal ; //right wall sensor
+    wallRight = analogRead(A4);
+    //right wall sensor
     //Serial.println("Right Wall: " + String(front_right, DEC));
-    //Serial.println("Sensor Direct: " + String(analogRead(A5), DEC));
+    Serial.println("Right Sensor Direct: " + String(analogRead(A1), DEC));
     Serial.println(" ");
   }
 
@@ -639,9 +655,9 @@ boolean frontier_contains( int y, int x){
   
   if (wallFront> 400){ front=1;}  /// THESE IF STATEMENTS NEED TO BE REWRITTEN TAKING INTO ACCOUNT PAST VALUES COMPARED TO CURRENT
 
-  if (wallRight> 400){ right=1;}
+  if (wallRight> 350){ right=1;}
 
-  if (wallLeft> 150)  {left=1;}
+  if (wallLeft> 350)  {left=1;}
 
   // if direction= 1 north , then front = north , right equals east, left equals west, south equals 0
   // if direction= 2 east , then front= east
