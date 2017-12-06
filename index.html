@@ -2709,8 +2709,56 @@ Our complete basestation including the FPGA, voltage dividers for each connectio
 We had trouble with milestone 3 and 4 so there was a lot left to be accomplished. First off, for sanity check, we installed a PCB (for the mux and amplifier) on the robot to clean up the wiring. A diagram and schematic are shown below:
 <img class="img-fluid d-block mx-auto" src = "img/final/pcb.PNG">
 <img class="img-fluid d-block mx-auto" src = "img/final/schematic.PNG">
-	
-Secondly, we attempted to implement treasure detection; we provide the following videos to show that our treasure detection works individually, outside of the robot:
+
+We also reorganized our mux:<table style="width:100%">
+  <tr>
+    <th>Select Bits</th>
+    <th>Input Number</th> 
+    <th>Sensor Output</th>
+  </tr>
+  <tr>
+    <td>000</td>
+    <td>Y0</td>
+    <td>Front Treasure Detector</td>
+  </tr>
+  <tr>
+    <td>001</td>
+    <td>Y1</td>
+    <td>Left Front Line Sensor</td>
+  </tr>
+  <tr>
+    <td>010</td>
+    <td>Y2</td>
+    <td>Right Front Line Sensor</td>
+  </tr>
+  <tr>
+    <td>011</td>
+    <td>Y3</td>
+    <td>Right Wall Sensor</td>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>Y4</td>
+    <td>Left Wall Sensor</td>
+  </tr>
+  <tr>
+    <td>101</td>
+    <td>Y5</td>
+    <td>Right Treasure Detector</td>
+  </tr>
+  <tr>
+    <td>110</td>
+    <td>Y6</td>
+    <td>Left Treasure Detector</td>
+  </tr>
+  <tr>
+    <td>111</td>
+    <td>Y7</td>
+    <td>Microphone</td>
+  </tr>
+</table><br>
+
+We attempted to implement treasure detection; we provide the following videos to show that our treasure detection works individually, outside of the robot:
 <ul class = "text-left">
 	<li><a href = "https://youtu.be/FST1E7Mr6SI">17 kHz</a> </li>
 	<li><a href = "https://youtu.be/NgXMoeAj8s8">12 kHz</a> </li>
