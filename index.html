@@ -2530,7 +2530,7 @@ end
 <p class = "text-left">In order to make our program more efficient and adaptable for future uses (e.g. more grid spaces with images), we decided to implement a double “for” loop that sequenced over the two dimensional memory arrays.  The display of walls and an image at each square was done by coloring squares over each other. For example, a left wall would be displayed by creating a square with a slightly larger width to the left, and the grid square’s color (with normal width) corresponding to whether it was explored or explored would be colored over this square.<br><br>
 
 In addition, we decided to use images in our final fpga code to make our display more captivating. This was done by using a bitmap that had a one dimensional array of hexadecimal values that each had a color value for each pixel. The line of code <code>PIXEL_COLOR = imgdisplay[(PIXEL_COORD_X << 7) + PIXEL_COORD_Y]</code> was vital in display the image correctly as the bitmap was only one column long, and does not automatically account for a two dimensional space. PIXEL_COORD_X was shifted to the left by 7 bitwise placeholders (equivalent to multiplying by 128) because the texture used was 128 pixels long on the x axis. Thus, 128 values of the bitmap represents one column in the y axis.<br><br>
-The line “$readmemh("test.txt", imgdisplay)” was coded in the initialization in order for VHDL to read the bitmap.
+The line "$readmemh("test.txt", imgdisplay)" was coded in the initialization in order for VHDL to read the bitmap.
 <pre class="highlight"><code style="text-align:left"><ul>PIXEL_WIDTH = 10'd128;
 PIXEL_HEIGHT = 10'd95;
 if ((PIXEL_COORD_X < 2 * PIXEL_WIDTH) && (PIXEL_COORD_Y < 2 * PIXEL_HEIGHT)) begin
@@ -2574,7 +2574,7 @@ The efficiency of the code mitigated potential screen latency when displaying th
 Even though our treasure detection hardware failed before our competition, the following simulation demonstrates how our display would have looked with treasure detection. (Note: the beige walls may be hard to see). The simulation was implemented by an RF transmission of hard coded values from the DFS() function. </p>
 <a href = "https://www.youtube.com/watch?v=Wo4zb_Uf4Ho"> </a>
 <h5 class = "text-left">Radio</h5>
-<p class = "left-align">In the competition, information was communicated wirelessly through a transmitting radio on the robot and a receiving radio connected to our FPGA basestation. <br><br>
+<p class = "text-left">In the competition, information was communicated wirelessly through a transmitting radio on the robot and a receiving radio connected to our FPGA basestation. <br><br>
 A transmitter() function was used in the main code for the transmitting arduino on the robot. This was to ensure that information could be transmitted at the right time in the DFS() function by simply calling the transmitter() function. <br><br>
 Two bytes “loc” and “loc2” had to be used in order to transmit the current position, wall information, and treasure information. The current position was stored in “loc.” The treasure information held in two bits was shifted to the left four times to account for the four bits representing wall information (front wall, left wall, right wall, back wall) in “loc2.” The radio.write() function transmitted the data. Code taken from the RF_master example code was also utilized in case a timeout occurred if the arduino on the other end did not receive the data. <pre class="highlight"><code style="text-align:left"><ul>void transmitter(byte loc, byte loc2){
     // First, stop listening so we can talk.
