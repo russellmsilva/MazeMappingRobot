@@ -1823,13 +1823,886 @@ end</ul>
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
+                  <!-- Project Details Go Here -->                  <h2 id="milestone-3">Milestone 3</h2>
+
+<h3 class = "text-left" id="objectives">Objectives</h3>
+
+<p class = "text-left">The goal of this milestone is to implement algorithm to facilitate maze exploration on a 5x4 grid of this layout:</p>
+
+<p class = "text-left"><img class="img-fluid d-block mx-auto" src="img/mile3/mazegrid.jpg" alt="Figure 1. Maze grid" />
+Figure 1. Maze grid. Each intersection represents a grid location. “x” is where the robot starts and north is the top of the grid.</p>
+
+<p class = "text-left">Ultimately, we want working algorithm that facilitates maze exploration and indication that all that can be explored has been explored- in simulation and in real life.</p>
+
+<h3 class = "text-left" id="storing-the-maze">Storing the Maze</h3>
+
+<p class = "text-left">Our first step was to decide on how to “translate” a maze into code. We followed the advice of <a href="https://cei-lab.github.io/ECE3400-2017-teamAlpha/milestone3.html" target="_blank">team alpha</a> and chose to save information about the maze in two 5x4 matrices. One 5x4 matrix contains data on whether or not each location on the maze has or has not been explored (1 being unexplored and 0 being explored). Each index of the matrix corresponds to the respective coordinate on the real maze grid. The other matrix contains information about the walls in the maze. Each corresponding index of the matrix contains a decimal number (0 to 15). Each decimal number can be converted to a 4-bit binary number, where each bit will represent the presence (or absence) of a wall. A 1 indicates the absence of a wall and a 0 represents the presence of a wall. Please see Figure I for how we specified directions (“north,” “south” etc.) The bits are organized as follows:
+                                              West East South North
+           Ex. 0011 would mean there is a wall to the west and east of the robot.</p>
+
+<h3 class = "text-left" id="simulation">Simulation</h3>
+
+<p class = "text-left">Our group chose to implement the simulation in Java. However, we did not know about the simulation code provided to us until we had already implemented depth first search (DFS). Therefore, our algorithm is not compatible with the graphical representation provided to us. However, we are still able to show that our algorithm works!</p>
+
+<h4 class = "text-left" id="a-proof-our-algorithm-works">A. Proof our algorithm works</h4>
+
+<p class = "text-left"><a href="https://www.youtube.com/watch?v=H1WoLMxlXM0" target="_blank">Here</a> is a video of our code running. Here is what our code printed out:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code style = "text-align:left"><ul>x location:3
+y location:4
+...
+x location:2
+y location:4
+...
+x location:1
+y location:4
+...
+x location:0
+y location:4
+...
+x location:0
+y location:3
+...
+x location:0
+y location:2
+...
+x location:0
+y location:1
+...
+x location:0
+y location:0
+...
+x location:1
+y location:0
+...
+x location:2
+y location:0
+...
+x location:3
+y location:0
+...
+x location:3
+y location:1
+...
+x location:3
+y location:2
+...
+x location:3
+y location:3
+...
+x location:1
+y location:1
+...
+x location:1
+y location:3
+...
+x location:2
+y location:3
+...
+x location:3
+y location:4
+...
+all searched[[I@7f31245a, [I@6d6f6e28, [I@135fbaa4, [I@45ee12a7, [I@330bedb4, [I@2503dbd3, [I@4b67cf4d, [I@7ea987ac, [I@12a3a380, [I@29453f44, [I@5cad8086, [I@6e0be858, [I@61bbe9ba, [I@610455d6, [I@511d50c0, [I@60e53b93, [I@5e2de80c]
+</ul></code></pre></div></div>
+<p class = "text-left">Here is the maze we used (both in matrix form and in real life):</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code style = "text-align:left"><ul>{ { 9, 1, 3, 5 },                    
+{ 8, 6, 13, 12}, 
+{ 12, 11, 6, 12 }, 
+{ 8, 3, 7, 14 }, 
+{ 10, 3, 3, 7 } };</ul>
+</code></pre></div></div>
+<p class = "text-left"><img class="img-fluid d-block mx-auto" src="img/mile3/Maze.jpg" alt="Maze grid" /></p>
+
+<p class = "text-left">Figure 2. This is how the maze would be set up in real life. Picture is taken from video provided by Team Alpha. 
+As you can see, the locations our algorithm outputs match the grids the robot traverses in Team Alpha’s <a href="https://www.youtube.com/watch?v=tvfH1x9lJSg" target="_blank">video</a>.</p>
+
+<h4 class = "text-left" id="b-how-we-implemented-our-algorithm-see-mapnavjava-and-arduinojava">B. How we implemented our algorithm (see MapNav.java and Arduino.java)</h4>
+
+<p class = "text-left">We chose to create a Arduino object which contains the current location of our robot ( the x and y coordinates) and the direction our robot is facing.  The appropriate functions ( ie. setters and getters) were implemented. We are assuming that our robot starts at the right-bottom grid. See Figure 1.  The grid corresponds to the index [4][3] on our matrix.  It should be noted that we refer to the “x-coordinate” as the column index and the “y-coordinate” as the row index.</p>
+
+<p class = "text-left">We implemented DFS with two linked lists and used our “frontier” list as a stack. The pseudocode is as follows:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code style = "text-align:left"><ul>   LinkedList&lt;Arduino&gt; frontier;            // contains grid location that still need to be searched 
+   LinkedList&lt;Arduino nodesSearched;         // contains grid locations that have been searched.
+   
+   while  (frontier is not empty){
+      //Pop from top of frontier
+      if(there is no wall &amp;&amp; adjacent grid is not in frontier &amp;&amp; adjacent grid is not in nodesSearched){
+      //Append adjacent grid locations to top of frontier
+    }
+    }
+        
+   //Print out that all possible nodes have been searched
+   </ul>
+</code></pre></div></div>
+
+<h3 class = "text-left" id="real-life">Real Life</h3>
+
+<p class = "text-left">Our group was tasked with choosing an algorithm to dictate the maze exploration of the robot. We believe that Depth First Search (DFS), would be the best algorithm to use in this case (as we have shown in through our simulation). However, due to time constraints, we were not able to get a DFS algorithm working on our robot. Therefore we tried implementing the wall sensing code with a multiplexer for our multiple analog signals in our robot.</p>
+
+<h4 class = "text-left" id="a--wall-sensing">A . Wall Sensing</h4>
+<p class = "text-left">In order to implement depth first search on our robot, we had to implement wall sensing at each of the grid’s intersections to provide wall information to the algorithm. 
+Our code for wall sensing tried to accomplish acquiring correcting readings from the three proximity sensors on the front of our robot (one sensor facing left, one sensor facing right, one sensor facing forward) and appropriate testing of these readings. We choose to implement side facing sensors so that the robot could determine all wall locations without turning to use the front wall sensor. This choice helps us maximize for speed.  We approached this in the following four steps (see function wall_locate() in the linked code):</p>
+<h4 class = "text-left" id="1">1</h4>
+<p class = "text-left">Averaging of values collected from the proximity sensors: At each intersection, we analyzed the incoming data from left, forward, and right proximity sensors. These data values were averaged over 7 iterations so that outlier proximity sensor values did not affect the movement of the robot.</p>
+<h4 class = "text-left" id="2">2</h4>
+<p class = "text-left">Determining the existence of a wall based on the differences between current and past values: At each intersection, the current wall sensor values are compared to the previous wall sensor values. If the difference between the wall sensor values is higher than 10 then this will be registered as a change in whether a wall was detected or not. As an example if the “current_average” on one sensor at the current intersection has a value 10 lower or higher than the past_average from the past intersection, the sensor will register a change of whether there is a wall in front of it. This change affected the variable wallFront for the front sensor, wallLeft for the left sensor, and wallRight for the right sensor. We negated these boolean variables every time this change was recorded.</p>
+<h4 class = "text-left" id="3">3</h4>
+<p class = "text-left">Storing the wall information at a specific location: We stored wallFront, wallLeft, and wallRight into a byte variable called currentWallValue for more efficiency in our algorithm and in order to communicate wall information to the DFS() in bit form. Each wall corresponded to a value of 1, 2, or 4 in binary form. For example, if there were walls to the left, right, and forward of the robot this byte variable would be B111.</p>
+<h4 class = "text-left" id="4">4</h4>
+<p class = "text-left">Testing: We implemented a testing algorithm (not the DFS()) to see if the robot was moving properly according to the current wall information. For example, if there were walls to the front, left, and right of the robot, the robot would have to turn around in order to evade the dead end. The robot’s full turn around was accomplished by calling the function turn_right() twice. 
+<a href="https://github.com/kristinanemeth/group14/blob/master/milestone3.ino">Link to Wall Sensing Code</a>.</p>
+
+<h4 class = "text-left" id="b-overall-flow">B. Overall Flow</h4>
+<p class = "text-left">The overall setup of the code functioned according the following flowchart:
+<img class="img-fluid d-block mx-auto" src="img/mile3/codeblockdiagram.png" alt="Code Flow Chart" />
+Move One is the function which prompted the robot to move one intersection forward. At the intersection, the robot would read the wall values as described in the previous section. Upon reading the wall values and determining the walls in the current location as previously described in step 3, the robot would turn in accordance to the wall locations as described previously in step 4. If the robot determined it should loop forward without turning, the code would loop back to move one. If the robot determined that it had searched all the possible locations, the robot would turn on an led. This last section has not been implemented in our code yet, but we plan to implement this section to display that the robot has explored the entire maze. The code for this section can be found at the same link as the wall sensing code.</p>
+
+<h4 class = "text-left" id="c-multiplexer">C. Multiplexer</h4>
+
+<p class = "text-left">We ran out of analog ports for the the sensors, so we decided to implement a mux (model 4051BC) to alternate reading between them – we connected the left wall sensors and the left/right front line sensors of the robot to the mux, and coded the robot to read the sensors as needed. A diagram of our wiring is below:</p>
+
+<p class = "text-left">The total numbers of channels being transmitted to the mux is 4: the left and right IR sensors, and the front left/right line sensors. Pins 10 and 9 were the address bits for the mux, and determined which sensors to set to high and which to low; pin 3 connected the mux to Arduino analog A3, 5-7 to ground, and pin 16 to the Arduino 5V source. Our preliminary code for the mux (2-input only) is shown below:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code style = "text-align:left"><ul>int totalChannels = 2;
+  int addressA = 2;
+  int A = 0;      //Address pin A
+
+  void setup() {
+    Serial.begin(9600);
+    // Prepare address pins for output
+    pinMode(addressA, OUTPUT);
+    // Prepare read pin 
+    pinMode(A3, INPUT);
+  }
+
+  void loop() {
+    //Select each pin and read value
+    for(int i=0; i&lt;2; i++){
+      A = bitRead(i,0); //Take first bit from binary value of i channel.
+
+      //Write address to mux
+      digitalWrite(addressA, A);
+      //Read and print value
+
+      Serial.print("Channel ");
+      Serial.print(i);
+      Serial.print(" value: ");
+      Serial.println(analogRead(A3));
+    
+    }
+    delay(2000);
+  }</ul>
+</code></pre></div></div>
+
+<p class = "text-left">We did run into some issues once we added the multiplexer. Once we implemented the mux above on our robot, we started having problems for line detection and wall sensing. When we tested the robot in the maze, the line following became choppier than we have seen and the robot would only turn right. It seemed to detect walls and intersections periodically, so we believe that the problem stems from the numerous iterations that the robot is going through. We believe that this is an issue with the software side and think that it would be best to restart the implementation that we had set up. This way we will have less chance of failure, as we would be looking for any and all bugs periodically rather than merging existing code together.</p>
+
+<h4 class = "text-left" id="implementing-dfs-in-arduino">Implementing DFS in Arduino</h4>
+
+<p class = "text-left">In place of the LinkedList from Java, we will use a library <a href="https://github.com/SloCompTech/QList/blob/master/README.md" target="_blank">QList </a> from Arduino. Additionally, now that our robot is physically moving to different grids, at each “pop” of the stack, we will check to see if the “pop” is adjacent to the current location of the robot. If not, we will iterate through the nodesSearch until we find an adjacent grid that will take us to the new “popped” location.</p>
+
+<p class = "text-left">Additionally, instead of reading in from a hard coded matrix containing information about the walls, we will be using wall information from the distance sensor readings.</p>
+
+<p class = "text-left">In the future, we plan to implement a faster way for the robot to navigate back to a previous location when it reaches a “dead end.” This may include implementing Dijkstra’s algorithm.</p>
+
+<h4 class = "text-left" id="attempts">Attempts</h4>
+
+<p class = "text-left"><a href="https://www.youtube.com/watch?v=TyjdIg3QVlc" target="_blank">Here</a>. is a video of one of our attempts of getting the robot running. The robot can be seen sensing a wall, stopping because of the wall and turning around.</p>
+                  <button class="btn btn-primary" data-dismiss="modal" type="button">
+                    <i class="fa fa-times"></i>
+                    Close Project</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+	<!-- Modal 8 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal8" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 mx-auto">
+                <div class="modal-body">
                   <!-- Project Details Go Here -->
-					<h2 id="lab-2">Final Robot</h2>
+                        <h2 id="milestone-3">Milestone 4</h2>
+
+<h3 class = "text-left" id="updates">Updates</h3>
+
+<h4 class = "text-left" id="robot-update">Robot Update:</h4>
+<p class = "text-left">To improve the consistency of our robot, we worked to fix a majority of our wiring to make it significantly neater. We switched the breadboard to a (through hole) board with soldered on resistors for the pins which connected directly to the arduino and headers for the power and ground. We additionally switched the male to female wiring on all the line sensors from individual wires to a grouped male to female wire in a set of three for the power, ground and sensor output lines. These changes made our robot easier to debug and created less disconnection of wires.</p>
+
+<h4 class = "text-left" id="milestone-3-update">Milestone 3 update:</h4>
+<p class = "text-left">We switched to storing our locations for DFS in an int array instead of using the QList because we were worried about memory. Now, we only have to save an integer array and an additional integer which serves as our “pointer” in the array. Every time we “pop”  a location, we decrease the pointer value and every time we add to the “stack,” we write into the array and then increment the pointer.</p>
+
+<p class = "text-left"><a href="https://www.youtube.com/watch?v=uH1z1_MfQ2Y" target="_blank">Here</a> is a video of our maze mapping.</p>
+
+<h3 class = "text-left" id="objectives">Objectives</h3>
+<p class = "text-left">For this milestone, we needed a system that could display the walls and treasure in a maze as the robot found them. We also needed our system to display a “done” signal on the screen, and play a “done” signal on the speaker when the maze was successfully mapped.</p>
+
+<h3 class = "text-left" id="treasure-detection-and-display">Treasure Detection and Display</h3>
+<p class = "text-left">To do the treasure detection, we simply have to integrate the code and hardware from lab 2 into the DFS code. We copied the circuit from Lab 2 three times over (1 for each treasure detector implemented - left, front, and right) and connected three LEDs to the remaining digital outputs of the Arduino. We will have to reorganize our current mux to wire the additional treasure detectors, since we ran out of analog pins. Below are our new select signals and their corresponding outputs:</p>
+<table style="width:100%">
+  <tr>
+    <th>Select Bits</th>
+    <th>Input Number</th> 
+    <th>Sensor Output</th>
+  </tr>
+  <tr>
+    <td>000</td>
+    <td>Y0</td>
+    <td>Left Front Line Sensor</td>
+  </tr>
+  <tr>
+    <td>001</td>
+    <td>Y1</td>
+    <td>Right Front Line Sensor</td>
+  </tr>
+  <tr>
+    <td>010</td>
+    <td>Y2</td>
+    <td>Left Wall Sensor</td>
+  </tr>
+  <tr>
+    <td>011</td>
+    <td>Y3</td>
+    <td>Right Wall Sensor</td>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>Y4</td>
+    <td>Front Treasure Detector</td>
+  </tr>
+  <tr>
+    <td>101</td>
+    <td>Y5</td>
+    <td>Right Treasure Detector</td>
+  </tr>
+  <tr>
+    <td>110</td>
+    <td>Y6</td>
+    <td>Left Treasure Detector</td>
+  </tr>
+  <tr>
+    <td>111</td>
+    <td>Y7</td>
+    <td>Microphone</td>
+  </tr>
+</table><br>
+<p class = "text-left">We plan on connecting the microphone to the empty Y7 slot.</p>
+
+<p class = "text-left">To incorporate the treasure detection in our main code, we will only need minor changes from the previous labs, since our Lab 2 code is already working. This will likely require two functions in our main code: treasure_detect and treasure_display. Treasure_detect will iterate through the analog pins 4-7 to detect if there was a treasure available and output 00 (no treasure), 01 (7 kHz), 10 (12 kHz), and 11 (17 kHz) depending on treasure availability and frequency. Treasure_display will light the appropriate LEDs as dictated by treasure_detect output .The fft bin number will also have to be changed, since it takes up a large amount of Arduino memory and we’re utilizing three treasure detectors instead of just one.</p>
+
+<h3 class = "text-left" id="wall-display-on-the-fpga">Wall Display on the FPGA</h3>
+
+<p class = "text-left">Our DFS code already handles the wall detection and converts the wall sensor data into something which can be sent to the FPGA in 4 bits where each bit represents the presence and absence of a wall. Additionally, at each “move_to” function, we are able to output the location of the robot in five bits.</p>
+
+<p class = "text-left">We improved our Lab 4 FPGA Display by adding walls to each grid space in the 5 x 4 grid array. We took in wall data from the receiving side of the radio transmission on the Arduino through four additional GPIO pins on the FPGA.</p>
+
+<p class = "text-left">We added memory array registers for the walls which were wall1, wall2, wall3, and wall4 for the top wall, bottom wall, left wall, and right wall respectively.
+This was the beginning and end of our memory array initialization:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code style = "text-align:left"><ul>wall1[0][0] = 8'b000_000_00;
+wall1[0][1] = 8'b000_000_00;
+wall1[0][2] = 8'b000_000_00;
+…
+wall4[3][2] = 8'b000_000_00;
+wall4[3][3] = 8'b000_000_00;
+wall4[3][4] = 8'b000_000_00;</ul>
+</code></pre></div></div>
+<p class = "text-left">Based on the binary values received from the four additional GPIO pins, we set the walls at each grid space utilizing the memory array above. We change the color from our screen background (black: 8’b000_000_00) to white (8’b111_111_11). 
+Wall Determination at a Grid Point:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code style = "text-align:left"><ul>if (val == 1'b1) begin
+    if (wallFront) begin 
+          	wall1[grid_coord_x][grid_coord_y] = 8'b111_111_11; 
+    end
+   	 
+    if (wallBottom) begin
+        	wall2[grid_coord_x][grid_coord_y] = 8'b111_111_11;
+    end
+
+    if (wallLeft) begin	 
+          	wall3[grid_coord_x][grid_coord_y] = 8'b111_111_11;	 
+    end
+   	 
+    if (wallRight) begin
+        	wall4[grid_coord_x][grid_coord_y] = 8'b111_111_11;
+    end
+end</ul>
+</code></pre></div></div>
+<p class = "text-left">Once we set the walls at a certain grid space, we displayed the updated representation of the maze by iterating over memory array within the double for loop we implemented in Lab 3:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code style = "text-align:left"><ul>//Upper Walls
+if(((j * PIXEL_WIDTH + 10'd0 &lt; PIXEL_COORD_X) &amp;&amp; (PIXEL_COORD_X &lt; (j + 10'd1) * PIXEL_WIDTH - 10'd5)) &amp;&amp; ((i * PIXEL_HEIGHT &lt; PIXEL_COORD_Y) &amp;&amp; (PIXEL_COORD_Y &lt; (i + 10'd1) * PIXEL_HEIGHT - 10'd5))) begin
+PIXEL_COLOR = wall1[j][i];
+end</ul>
+</code></pre></div></div>
+<p class = "text-left">The video <a href="https://www.youtube.com/watch?v=h1z6HrVaSnU" target="_blank">here</a> displays how our wall data is displayed on the screen.</p>
+
+<h3 class = "text-left" id="done-signal">Done Signal</h3>
+
+<p class = "text-left">Our above implementation does not currently include a “done” message; however, we plan to include this into our final design by adding another connection between the receiving arduino and fpga that will send a high value when the dfs() reaches the “all nodes searched” state which is included in our original dfs() function. The DFS already displays “all nodes searched” on the serial monitor screen when the algorithm is complete.</p>
+
+<p class = "text-left">While we did not have the chance to implement the done signal using FPGA, we have determined our plan for implementation. The done signal will be displayed once the DFS algorithm has finished. To indicate that this being done, the robot’s current location square will turn purple which will signify that it has finished its search. This signal will be sent from the arduino on the robot that is running the DFS.</p>
+
+<h3 class = "text-left" id="done-sound">Done Sound</h3>
+<p class = "text-left">While we did not have the chance to implement the done sound, we have determined our plan for implementation. We will implement the same setup as used in lab 3, this includes an 8-bit DAC with the digital side wired to an FPGA and the analog side connected to the auxiliary jack. We will use the tri tone signal created in the lab to signify done. Please refer to <a href="https://kristinanemeth.github.io/group14/lab3.html">lab 3 on our website</a> for more information on the setup and code. The FPGA in use will be the same FPGA that is receiving the transmitted information from the robot and is used to display the map. This sound will be triggered by the same signal which will display the done signal.</p>
+
+
+
+                  <button class="btn btn-primary" data-dismiss="modal" type="button">
+                    <i class="fa fa-times"></i>
+                    Close Project</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+
+    <!-- Modal 9 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal9" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+					<h2 id="final">Final Robot</h2>
 					
-					<h3 id="objective">Objective</h3>
+					<h3 id="objective" class = "text-left">Objective</h3>
 					
-					<p class = "text-left">Lorem Ipsum dummy text insert</p>
+					<p class = "text-left">The goal of this course was to build an intelligent physical system that could perceive, reason about, and evaluate its system surroundings. Although throughout this semester, our robot has not always been intelligent and barely physical or system-like, our final project works. The robot that we built is capable of navigating a maze efficiently, analyzing its surroundings walls, detecting treasures, starting at the beginning of a microphone tone and producing a done signal.</p>
 					
+					<h4 id="objective" class = "text-left">Physical Description</h4>
+					
+					<p class = "text-left">Our robot is approximately 6 x 4 x 5 in3, with wheels of 3-inch radii and a pink base. A photo is shown below.
+<img class="img-fluid d-block mx-auto" src = "img/final/robot">
+Our chassis, wheels, ball caster, and mounts were the default designs provided to us at the beginning of the year and their cad files can be found on the course website. All other components pertaining to movement, treasure/wall/line detection, and radio transmission were also provided to us.<br><br>
+The robot was powered by two 9-volt batteries and an additional 5-volt battery. The first 9 volt battery supplied power to the Arduino, the wall sensors, and the line sensors; the second supplied power to the Servo motors that turned the robot’s wheels, and the final 5V power bank provided power to the microphone and phototransistors. <br><br>
+Our robot had 3 front grayscale line sensors in for line following, in order to make sure that the robot would have all 3 sensors on the black electrical tape. And if it was detecting that it would be off the tape, then the robot could correct its direction. <br><br>
+We also had two of these grayscale line sensors toward the middle and side of our robot. We did this in order to allow us to detect intersections. When those back sensors detected black tape, we would know that the robot is at an intersection and needs to make a decision of its next movement.<br><br>
+We decided to use two larger sized wheels that we found in lab at the beginning of the year because it allowed our robot to travel further for a given rotational speed of our parallax servos. And because the wheels were fairly thick, we were not worried about our turning capabilities.<br><br>
+We had our three wall sensors on the front of our robot in order to allow the robot to detect walls in front, to the left, and to the right of its position. We positioned the left and right wall sensors right above the front wall sensor because it seemed like the easiest place for us to mount them without having to do any 3D printing. We thought it would be seamless and was our best option as it just was able to detect the top portion of the walls.
+</p>
+<h4 class = "text-left" id="materials">Materials</h4>
+<ul class = "text-left">
+  <li>Arduino Uno</li>
+  <li>2 Continuous Parallax Servos</li>
+  <li>1k, 1.3k, 18k, 10k ohm resistors</li>
+  <li>Lab Speakers</li>
+  <li>8-bit R2R DAC</li>
+  <li>3.5 mm auxiliary jack</li>
+  <li>1 VGA screen</li>
+  <li>1 VGA cable</li>
+  <li>1 VGA connector</li>
+  <li>2 Nordic nRF24L01+ transceivers</li>
+  <li>5 <a href="https://cdn.sparkfun.com/datasheets/Sensors/Proximity/QRE1113.pdf" target="_blank">QRE-1113 sensors</a></li>
+  <li>3 <a href = "https://www.sparkfun.com/datasheets/Sensors/Infrared/gp2y0a02yk_e.pdf">infrared proximity sensor long range - Sharp GP2Y0A02YK0F</a></li>
+  <li>3 <a href = "https://www.sparkfun.com/datasheets/Sensors/Infrared/gp2y0a02yk_e.pdf"> Phototransistors</a>
+  <li>2 <a href = "http://www.ti.com/lit/ds/symlink/lm158-n.pdf">TI LM358 Op-Amp 9</a></li>
+  <li>1 <a href = "http://www.ti.com/lit/ds/symlink/cd4051b.pdf">CD4051B Mux</a></li>
+  <li>A lot of jumper wires</li></ul>
+  
+  <p class = "text-left">The final costs of our robot are detailed <a href = "https://docs.google.com/spreadsheets/d/1dkONkAu5EnMAdUYYcb0nrug6AKG9Ecd0xPhhyxQ5p8I/edit?usp=sharing">here</a>. Please note that we were not required to take into account the cost of the FPGA or Arduino Uno.</p>
+  
+  <h4 class = "text-left">Code Overview</h4>
+    <p class = "text-left">For clarity and convenience, we have decided to summarize our code below:</p>
+<ul class = "text-left">
+  <li><b>move()</b> - robot uses front three line sensors to line follow</li><pre class="highlight"><code style="text-align:left"><ul>
+if( robot is too far right) { go left }
+else if ( robot is too far left) { go right}
+else { move straight)}</ul></pre></code>
+<li><b>move_one()</b> - robot will move until it detects an intersection using the back to line sensors</li> 
+<pre class="highlight"><code style="text-align:left"><ul>
+while ( left back and right back sensors were not on the black line) {
+	move();
+}
+robot stop; </ul></pre></code>
+<li><b>turn_right()</b> - robot turns right</li>
+<li><b>turn_left()</b> - robot turns left</li>
+<li><b>line_sense()</b> - read in line sensor values</li>
+<li><b>wall_sense()</b> - read in wall sensor values</li>
+<li><b>change_direction()</b> - physically turns the robot to face the correct direction</li>
+<pre class="highlight"><code style="text-align:left"><ul>
+// north=1, east = 2, south= 3, west= 4
+// we used differences in the current and next directions to figure out how the robot should turn. Below is our code: 
+int direction_difference = curr_direction - next_direction;
+   if(direction_difference == -3){
+     turn_left();
+      }
+    else if(direction_difference == -1) {
+      turn_right();
+    }
+     else if(direction_difference == -2) {
+      turn_right();
+      turn_right();
+    }
+    else if(direction_difference == 3){
+      turn_right();}
+
+    else if(direction_difference == 2) {
+      turn_right();
+      turn_right();
+    }
+   
+    else if(direction_difference == 1) {
+      turn_left();
+    }</ul>
+</pre></code>
+<li><b>writeWallInfo()</b> - taking into account the direction the robot is facing, write in the wall information using the previously set standard of four bits in [north][south][east][west]. Wall information is saved as an integer.  Will also transmit wall information by radio. Details in DFS subsection under the “Movement” section</li>
+<li><b>move_to(int next_y, int next_x )</b> - moves from current location to adjacent grid location (next_y, next_x). At the beginning, change_direction() is called to turn robot to correct direction of travel. Next, move_one() is called. At the end of move_to(), the function writeWallInfo() is called to read and transmit wall information</li>
+<li><b>DFS</b> - algorithm for maze mapping, detailed in later section. Below is the pseudocode</li><pre class="highlight"><code style="text-align:left"><ul>
+int[] frontier;  /// grid coordinates to visit 
+int[] nodesSearched;  // grid coordinates
+int[]  path ;
+writeWallInfo();  // reads in wall information
+    Interpret wall information and adds to frontier stack accordingly 
+    move_to( pop from frontier); 
+while( frontier is not empty) {
+    writeWallInfo();
+    //Interpret wall information and adds to frontier stack accordingly
+    move_to( pop from frontier);
+}</ul></pre></code>
+<li><b>Microphone</b> - listens for the 660Hz audio signal for robot to start.</li>
+<li><b>treasure_setup</b> - setup for treasure_detect</li>
+<li><b>treasure_detect</b> - detects 7, 12, and 17kHz frequencies for treasures
+</ul></pre></code>  
+</ul>
+<h4 class = "text-left">Moving the Robot</h4>
+<h5 class = "text-left">Servos</h5>
+<p class = "text-left">We used two continuous parallax servos to power out robot. Determining the servo values for moving straight and turning took some trial and error. <br><br></p>
+These were our final servo values:
+<ul>
+<li class = "text-left">leftservo.write(95);  // default move straight  <br>  
+rightservo.write(88);</li>
+<li class = "text-left">leftservo.write(93);     // slight left<br>
+ rightservo.write(84);</li>
+<li class = "text-left">leftservo.write(95);     // slight right<br>
+   rightservo.write(92);</li>
+<li class = "text-left">leftservo.write(90);  // STOP     <br>
+rightservo.write(94);</li>
+<li class = "text-left">leftservo.write(97);     // turn right ( for turning corners) <br>
+   rightservo.write(98);</li>
+<li class = "text-left">leftservo.write(86);     // turn left ( for turning corners) <br>
+    rightservo.write(85);</li>
+</ul>
+<h5 class = "text-left">Line and Intersection Detection</h5>
+<p class = "text-left">For line detection, we installed 5 <a href = “https://cdn.sparkfun.com/datasheets/Sensors/Proximity/QRE1113.pdf”>line sensors</a> - three in the front for line following, and two in the back for intersection detection. The left back line sensor was connected to A0 on the Arduino, the right back line sensor on A2, and the middle front line sensor on A3. All remaining line sensors were connected via mux to A4 of the Arduino. 
+When testing the sensors, we determined a threshold value of 760, for which the line sensor would either detect white space or a black line -- over 760 meant that the sensor was on a black line; under meant the sensor was only seeing white space.<br><br>
+In order to determine whether the robot was on a line, we implemented the following logic. If the conditions for being on a line was not met, the robot would loop through the logic until it was on a line: 
+
+<img class="img-fluid d-block mx-auto" src = "img/final/linelogic">
+
+Our readjustment code is shown below:<pre class="highlight"><code style="text-align:left"><ul>//if rightfront and middle sensor is white and leftfront is black, move left, right wheel faster
+if(front_right<=760){
+    leftservo.write(93);     
+    rightservo.write(84);
+}
+//if leftfront and middle sensor is white and rightfront is black, move right, left wheel faster
+else if(front_left<=760){
+    leftservo.write(95);     
+    rightservo.write(92);
+}
+else if (analogRead(A3)>650){ //if at least two sensors are black, move forward
+    leftservo.write(96);     
+    rightservo.write(88);
+}</ul></code></pre>
+<p class = "text-left">We originally thought that we could determine intersection based on the front three sensors alone - if all three sensors saw a black line, then that would mean that the robot was at an intersection. However, the front sensors were positioned too closely on the robot to accurately pinpoint an intersection, and we decided to install an additional two sensors near the wheels. If the robot was on a line (as determined in the previous logic) and the back two sensors detected a black line, then the robot was considered at a cross section.</p>
+</p>
+</p>
+<h5 class = "text-left">Wall Detection</h5>
+<p class = "text-left">We used three long-distance IR sensors to detect left, front, and right walls around the robot. The left and right wall detectors were connected via mux to analog port A4 on the robot, and the front wall detector connected to port A5. Our logic to determine walls was similar to that of line detection: if the analogRead() value of the analog port was over a predetermined threshold value of 380, that meant that a wall was detected at that particular IR sensor; else, there was no wall.<br><br>
+When implementing wall detection, the robot often had issues accurately detecting a wall. This turned out to have multiple causes, the simplest of which involved wires hanging over the IR sensors and incorrectly sending wall-detected values to the robot. A second issue that came up later on during construction involved a faulty wire that no longer connected the Arduino to the sensor.
+</p>
+<h5 class = "text-left">Depth First Search (DFS)</h5>
+<p class = "text-left">
+Our goal was to implement an algorithm to facilitate maze exploration on a 5x4 grid of this layout: 
+
+<img class="img-fluid d-block mx-auto" src = "img/lab1/oscilloscope.">
+<p class = "text-left">
+Our first step was to decide on how to “translate” a maze into code. We followed the advice of <a href = "https://cei-lab.github.io/ECE3400-2017-teamAlpha/milestone3.html">Team Alpha</a> and chose to save information about the maze in two 5x4 matrices. One 5x4 matrix contains data on whether or not each location on the maze has or has not been explored (1 being unexplored and 0 being explored). Each index of the matrix corresponds to the respective coordinate on the real maze grid. The other matrix contains information about the walls in the maze. Each corresponding index of the matrix contains a decimal number (0 to 15). Each decimal number can be converted to a 4-bit binary number, where each bit will represent the presence (or absence) of a wall. A 1 indicates the absence of a wall and a 0 represents the presence of a wall. Please see Figure I for how we specified directions (“north,” “south” etc.) The bits are organized as follows:<pre><code>[West] [East] [South] [North]</pre></code>
+<p class = "text-left">Ex. 0011 would mean there is a wall to the west and east of the robot. 
+We chose to implement DFS because we believe this will allow the robot to navigate the maze more efficiently. If we were to implement breadth first search, the robot would spend too much time navigating back to an already visited coordinate on the grid. </p>
+<p  class = "text-left"><i><b>Simulation:</b></i></p>
+<p  class = "text-left">We first approached implementing DFS in simulation. We “hardcoded” our wall information into the DFS algorithm and made sure the right series of grid coordinates were outputted.</p>
+<p  class = "text-left"><b>Algorithm that facilitates maze exploration</b></p>
+<p  class = "text-left"><i>Writing in Arduino</i></p>
+<p class = "text-left">In Lab 3, we created a DFS simulation in Java. However, our current robot is incapable of interpreting Java, so it was necessary to convert the code into Arduino for the robot to read. At first, we considered using an Arduino library called QList. However, because our grid coordinates are numbers and we want to conserve memory, we decided to use integer matrices as our “stack.”  To implement this, we saved our grid coordinated in this format:</p> <pre><code>[y coordinate, x coordinate, y coordinate, x coordinate, 0, 0…….]   </pre></code>
+<p  class = "text-left">Additionally, we saved an integer to serve as our “pointer.”   In the matrix above, our  pointer would be the number, 4, which points to which index in the matrix we would “push” or “pop” from next. Everytime we added or removed a coordinate, we would increment the pointer accordingly.</p>
+<p  class = "text-left"><i>Implement a “backtrack”</i></p>
+<p class = "text-left">As with our Java simulation, we used a frontier stack to save the coordinates we will search and a nodesSearched stack to save the coordinates we already searched. Additionally, we implemented a path stack to help us “backtrack” when our robot reaches a dead end. This was not needed in simulation, however, in real life our robot would not know how to backtrack from (3,3) to (1,1).  This path stack saves the path of the robot and when the movePossible() function returns false for the robots current location and the next location on the frontier stack, the robot will know how to backtrack.  You will be able to see our robot “backtracking” in the videos below. </p>
+<p  class = "text-left"><i>Testing with hardcoded wall information first</i></p>
+<p class = "text-left"> In order to isolate the DFS algorithm and make sure it was working regardless of whether or not wall sensor values were accurate or not, we first hardcoded the wall information from the Java simulation. Once our robot was running as predicted. We added in the wall sensing values accordingly. </p>
+<p  class = "text-left"><i>Adding in wall sensing</i></p>
+<p class = "text-left">The challenge we faced with this was taking into account the direction of the robot. Fortunately, our team agreed early on that we would save the direction the robot was facing as a global variable early on. 
+Below is our code for writing wall data ( and later sending) : <pre class="highlight"><code style="text-align:left"><ul>void writeWallInfo(){
+  // WESN
+  // W=+8
+  // E=+4
+  // S=+2
+  // N=+1
+  front=0;
+  right=0;
+  left=0;
+  wall_sense(); // reads in wall information from mux
+  if (wallFront> 390 ){ front=1;}  
+  if (wallRight> 380){ right=1;}
+  if (wallLeft> 380)  {left=1;}
+  // if direction= 1 north , then front = north , right equals east, left equals west, south equals 0
+  // if direction= 2 east , then front= east
+  // if direction= 3 south  then front = south
+  // if direction= 4 west , then front= west
+  walls=15;  // value if there were walls on each side
+  if(curr_direction==1){   
+      walls= (front*1)+(left*8)+(right*4); 
+  }
+  else if(curr_direction==2){ walls= (front*4)+(left*1)+(right*2);}
+  else if(curr_direction==3){ walls= (front*2)+(left*4)+(right*8);} 
+  else if(curr_direction==4){ walls= (front*8)+(left*2)+(right*1);} 
+  wall_map_real[curr_y][curr_x]=walls;
+  if(curr_y==4 && curr_x==3&& curr_direction==1){ 
+/// usually we assume the “back” sensor reading would have shown no wall had we added a back sensor, however that is not the case for the starting location 
+  wall_map_real[curr_y][curr_x]= (front*1)+(left*8)+4+2;
+  }</ul>
+</pre></code></p>
+<p  class = "text-left">Please see the video of our DFS working <a href = "https://youtu.be/2WYu-yRnlyE">here.</a></p>
+
+<h5  class = "text-left">Microphone</h5>
+<p  class = "text-left">To detect a 660 Hz tone, we utilized an electret microphone (available here: https://www.adafruit.com/product/1063) that was provided to us. In the code, we took the FFT of the analogRead value of input A0 and, via experimentation, found that bin 2 returned the highest magnitude peak. Thus, to accurately detect an audio signal of 660, we coded the robot to take 10 FFTs in a row, and to start the robot if at least 5 FFTs had a peak at bin 2. A snippet of our code is shown below: <pre class="highlight"><code style="text-align:left"><ul>for (byte i = 0 ; i < FFT_N/2 ; i++) {
+      if (fft_log_out[i] > maximum) {
+            maximum = fft_log_out[i];
+            index = i;
+      }
+      if (i == 63) {  //Checks what the maximum bin number was at the last bin  
+                   //(FFT_N/2 - 1)
+            Serial.println("start_time"+String(index));
+            if (index == 2) {      //Increment start1
+              start1++;
+        }
+        Serial.println("times " + String(start1));
+        if (index != 2) {      //Increment start2
+              other++;
+        }
+
+        if(start1 > 5) {
+              other =0;
+        }
+    
+        if (start1 > 10 && other < 5)    //A balance of bin 4's and 5's indicate a 660 Hz Signal. Shine the LED.
+        {
+              Serial.println("working");
+              start = 1;
+        }
+</ul></code></pre>
+</p>
+<h5 class = "text-left">Treasure Detection</h5>
+<p  class = "text-left">Our goal was to have our robot detect “treasures” emitting from the walls at three different frequencies: 7, 12, and 17 kHz. In order to do this, we installed three phototransistors at the front, right, and left of the robot to detect frequencies; we then utilized a mux to query through each analog input and determine if a treasure was detected, and if so, at which frequency. A diagram of how it works is shown below: </p>
+
+<img>
+
+<p  class = "text-left">In order to extract the frequency-domain information from the phototransistors that would detect the treasures, we had to first take the Fourier transform of the time-domain signal; this was accomplished using the Fast Fourier Transform library available  <a href = "http://wiki.openmusiclabs.com/wiki/ArduinoFF">here</a>. The FFT algorithm, when applied, would take the time-domain signal, take the FFT of the signal, and return an array of elements that referred to the magnitude of the frequency component in that particular frequency bin.<br><br>
+For this particular robot, we decided to have the FFT return a 128-point array, since we ran into some memory issues with the robot, and the 128-point used significantly less memory than that of the 256-point FFT. Once the array was returned, we needed to check the bins at the frequency we wanted to detect the treasures. <br><br>
+After some trial and error, we determined that the optimal bins for detecting 7kHz treasures was between 22 and 24; for 12kHz, between 39-41, and for 17kHz, 55-57. A snippet of our code is below: <pre class="highlight"><code style="text-align:left"><ul>for ( i = 0; i < FFT_N/2 ; i++) {
+  if (fft_log_out[i] > maximum ) {
+        if (i > 5){
+              maximum = fft_log_out[i];
+              index = i;
+        }
+  }
+  if (i == 63) {  //last bin
+        if (index == 22 || index == 23 || index == 24) {      //7K
+                treasure = B00000001;
+        }
+        if (index == 39 || index == 40 || index == 41) {      //12K
+                treasure = B00000010;
+    } 
+        if (index == 55 || index == 56 || index == 57) {      //17K
+                treasure = B00000011;   
+        } 
+    maximum = 0; //resets maximum checking at the end of the loop
+    index = 0;
+  }
+}</pre></code></ul>
+
+<h5 class = "text-left">FPGA</h5>
+<p class = "text-left">An FPGA DE0-Nano was used to display the current position of the robot, wall information, treasure locations, and a signal indicating a completed exploration of the maze.  <br><br>
+We used Quartus in creating and uploading programs to the fpga. By using VHDL in Quartus, we implemented code that programmed the fpga to accurately display incoming information with sequential and combinational logic.<br><br>
+The incoming information to the FPGA was put into registered initialized in the beginning of the program. Registers x1, x2, y1, y2, and y3 represent the current x, y location from most significant bit to least significant bit. Registers wallF, wallL, wallR, and wallB were used in deciding wall locations at the current position independent of the robot’s orientation. Registers treasure1 and treasure2 were used to determine if a grid square had no treasure or a 7K, 12K, or 17K frequency treasure.<br><br><ul class = "text-left"><li>x1 = GPIO_0_D[25];            </li>
+<li>x2 = GPIO_0_D[29];            </li>
+<li>y1 = GPIO_0_D[27];            </li>
+<li>y2 = GPIO_0_D[26];            </li>
+<li>y3 = GPIO_0_D[31];            </li>
+<li>val = GPIO_0_D[33];           </li>
+<li>wallF = GPIO_0_D[28];         </li>
+<li>wallL = GPIO_0_D[32];         </li>
+<li>wallR = GPIO_1_D[25];         </li>
+<li>wallB = GPIO_0_D[30];         </li>
+<li>treasure1 = GPIO_1_D[27];     </li>
+<li>treasure2 = GPIO_1_D[29];     </li>
+</ul></p>
+<p class = "text-left"Since the GPIO inputs receive 3.3V signals and the Arduino’s digital pins output 5V signals, a voltage divider for each of bitwise connections was created to regulate the voltage to the FPGA.<br><br>
+
+We used this setup below with resistor values of 10K and 20K. These resistors values were chosen to match the current going down to the fpga so that noise pick-up and overvalued voltages could be avoided.<br><br>
+
+A two dimensional memory array called “gridscreen” was used in initializing unexplored grid squares. Two dimensional memory arrays “wall1,” “wall2,” “wall3,” and “wall4” were used in initializing wall colors at those locations for the top wall, bottom wall, left wall, and right wall respectively.<br><br>
+<pre class="highlight"><code style="text-align:left"><ul>always @ (posedge CLOCK_50) begin
+if (rdy == 0) begin
+           gridscreen[0][0] = 2'b00;
+           gridscreen[0][1] = 2'b00;
+           gridscreen[0][2] = 2'b00;
+           gridscreen[0][3] = 2'b00;
+           gridscreen[0][4] = 2'b00;
+           …
+           gridscreen[3][4] = 2'b00;
+           …
+           wall1[0][0] = 8'b000_000_00;
+           wall1[0][1] = 8'b000_000_00;
+           wall1[0][2] = 8'b000_000_00;
+           wall1[0][3] = 8'b000_000_00;
+           wall1[0][4] = 8'b000_000_00;
+           …
+           wall4[3][4] = 8'b000_000_00;
+           rdy = 1;
+           lastsquare_x = 3'b111;
+end     
+</ul></code></pre></p>
+<p class = "text-left">The next part of the code below was used to update unexplored grid spaces to explored or currently located colors. An issue that was run into was a rare error that would display wrong grid or wall colors when the robot moved from one square to another. This was most likely caused by an unsynchronized relationship between the robot’s movements and the rapid clock rate (posedge clk 50) that this part of the code ran on.<br><br>
+In order to handle this issue, a val bit was used to make sure the program only changed values once the Arduino finished updating all its output values at a given time. The val bit would send from the Arduino to the FPGA through another GPIO connection. Once val was confirmed to be one. The program needed to iterate at least over 1000 times to set new values. This was to prevent rapid shifting changes that would contribute to the technical problems described. <br><br>
+Our program displayed the existence of certain treasures by coloring the walls with a specific color corresponding to the treasure frequency (7kHz=red, 12kHz=green, 17kHz=blue). This method works out because it would be impossible for there to be a treasure at a specific grid square without the presence of any walls. This part of the code was implemented by checking for a high value of wallFront for example, and updating the wall1 memory array accordingly based on the presence of a treasure.<br><br><pre class="highlight"><code style="text-align:left"><ul>if (val == 1'b1) begin
+      iterations = iterations + 1;
+      if (iterations > 1000) begin
+       iterations = 0;
+                
+                      
+    if (gridscreen[0][0] == 2'b10 || gridscreen[0][0] == 2'b01) begin 
+        gridscreen[0][0] = 2'b10;
+    end
+          
+    if (gridscreen[0][1] == 2'b10 || gridscreen[0][1] == 2'b01) begin
+        gridscreen[0][1] = 2'b10;
+    end
+           …
+
+    if (gridscreen[3][4] == 2'b10 || gridscreen[3][4] == 2'b01) begin
+		gridscreen[3][4] = 2'b10;
+    end
+
+    if (finito == 1'b1) begin
+		gridscreen[grid_coord_x][grid_coord_y] = 2'b11;
+    end
+   
+    else begin
+		gridscreen[grid_coord_x][grid_coord_y] = 2'b01;
+    end
+
+    if (wallFront) begin
+        if (sevenK == 1'b1) begin
+          wall1[grid_coord_x][grid_coord_y] = 8'b111_000_00; //Red
+      end
+      
+      else if (twelveK == 1'b1) begin
+          wall1[grid_coord_x][grid_coord_y] = 8'b000_111_00; //Green
+      end
+      
+      else if (seventeenK == 1'b1) begin
+          wall1[grid_coord_x][grid_coord_y] = 8'b000_000_11; //Blue
+      end
+      
+      else begin
+       wall1[grid_coord_x][grid_coord_y] = 8'b011_011_01; //White
+      end
+    end
+end
+</pre></code></ul></p>
+<p class = "text-left">In order to make our program more efficient and adaptable for future uses (e.g. more grid spaces with images), we decided to implement a double “for” loop that sequenced over the two dimensional memory arrays.  The display of walls and an image at each square was done by coloring squares over each other. For example, a left wall would be displayed by creating a square with a slightly larger width to the left, and the grid square’s color (with normal width) corresponding to whether it was explored or explored would be colored over this square.<br><br>
+
+In addition, we decided to use images in our final fpga code to make our display more captivating. This was done by using a bitmap that had a one dimensional array of hexadecimal values that each had a color value for each pixel. The line of code <code>PIXEL_COLOR = imgdisplay[(PIXEL_COORD_X << 7) + PIXEL_COORD_Y]</code> was vital in display the image correctly as the bitmap was only one column long, and does not automatically account for a two dimensional space. PIXEL_COORD_X was shifted to the left by 7 bitwise placeholders (equivalent to multiplying by 128) because the texture used was 128 pixels long on the x axis. Thus, 128 values of the bitmap represents one column in the y axis.<br><br>
+The line “$readmemh("test.txt", imgdisplay)” was coded in the initialization in order for VHDL to read the bitmap.
+<pre class="highlight"><code style="text-align:left"><ul>PIXEL_WIDTH = 10'd128;
+PIXEL_HEIGHT = 10'd95;
+if ((PIXEL_COORD_X < 2 * PIXEL_WIDTH) && (PIXEL_COORD_Y < 2 * PIXEL_HEIGHT)) begin
+      for (i = 10'd0; i <= 10'd1; i = i + 10'd1) begin
+       for (j = 10'd0; j <= 10'd1; j = j + 10'd1) begin
+//Upper Walls
+if(((j * PIXEL_WIDTH + 10'd0 < PIXEL_COORD_X) && (PIXEL_COORD_X < (j + 10'd1) * PIXEL_WIDTH - 10'd5))&&((i * PIXEL_HEIGHT < PIXEL_COORD_Y) && (PIXEL_COORD_Y < (i + 10'd1) * PIXEL_HEIGHT - 10'd5))) begin
+                        PIXEL_COLOR = wall1[j][i];
+end
+                             …
+//Image Display
+
+if(((j * PIXEL_WIDTH + 10'd5 < PIXEL_COORD_X) && (PIXEL_COORD_X < (j + 10'd1) * PIXEL_WIDTH - 10'd5))&& ((i * PIXEL_HEIGHT + 10'd5 < PIXEL_COORD_Y) && (PIXEL_COORD_Y < (i + 10'd1) * PIXEL_HEIGHT - 10'd5))) begin   
+                          PIXEL_COLOR = imgdisplay[(PIXEL_COORD_X << 7) + PIXEL_COORD_Y];
+end
+                        
+//Explored, Unexplored, or Currently Located     
+
+if(((j * PIXEL_WIDTH + 10'd52 < PIXEL_COORD_X) && (PIXEL_COORD_X < (j + 10'd1) * PIXEL_WIDTH - 10'd52))&& ((i * PIXEL_HEIGHT + 10'd35 < PIXEL_COORD_Y) && (PIXEL_COORD_Y < (i + 10'd1) * PIXEL_HEIGHT - 10'd35))) begin
+     if (gridscreen[j][i] == 2'b01) begin
+           PIXEL_COLOR = 8'b001_111_01;
+       end
+       
+       else if (gridscreen[j][i] == 2'b10) begin
+           PIXEL_COLOR = 8'b000_000_00;
+       end
+       
+       else if (gridscreen[j][i] == 2'b11) begin
+          PIXEL_COLOR = 8'b100_100_01;
+       end     
+end
+end
+        
+        else begin
+            PIXEL_COLOR = 8'b000_000_00;
+        end
+end
+</code></pre></ul></p>
+<p class = "text-left">The adaptability of this code was be helpful when displaying a maze for the final competition. The memory arrays were easily updated to display image files instead of colors and several control statements were easily added inside the body of the double for loop in order to identify and display which grid space the robot is located in real time, the wall information for that grid space, and treasure information. <br><br>
+The efficiency of the code mitigated potential screen latency when displaying the robot’s location on the screen. This is because our simplified iterative system consists of a lower amount of data storages and calculations, conserving memory and computational power.<br><br>
+Even though our treasure detection hardware failed before our competition, the following simulation demonstrates how our display would have looked with treasure detection. (Note: the beige walls may be hard to see). The simulation was implemented by an RF transmission of hard coded values from the DFS() function. </p>
+<a href = "https://www.youtube.com/watch?v=Wo4zb_Uf4Ho"> </a>
+<h5 class = "text-left">Radio</h5>
+<p class = "left-align">In the competition, information was communicated wirelessly through a transmitting radio on the robot and a receiving radio connected to our FPGA basestation. <br><br>
+A transmitter() function was used in the main code for the transmitting arduino on the robot. This was to ensure that information could be transmitted at the right time in the DFS() function by simply calling the transmitter() function. <br><br>
+Two bytes “loc” and “loc2” had to be used in order to transmit the current position, wall information, and treasure information. The current position was stored in “loc.” The treasure information held in two bits was shifted to the left four times to account for the four bits representing wall information (front wall, left wall, right wall, back wall) in “loc2.” The radio.write() function transmitted the data. Code taken from the RF_master example code was also utilized in case a timeout occurred if the arduino on the other end did not receive the data. <pre class="highlight"><code style="text-align:left"><ul>void transmitter(byte loc, byte loc2){
+    // First, stop listening so we can talk.
+    radio.stopListening();
+    
+    // Take the time, and send it.  This will block until complete
+    //5 bits for current position: first 3 are y, next 2 are x
+    //bits are arranged from most significant bit to least significant bit
+    //4 bits for wall data: west, east, south, north respectivelly
+
+    byte value = loc;
+    byte value2 = loc2;
+    testing = testing + 1
+    printf("Now sending %lu...",value2);
+    bool ok = radio.write( &value, sizeof(unsigned long) );
+    bool ok2 = radio.write( &value2, sizeof(unsigned long) );
+    
+    if (ok)
+      printf("ok...");
+    else
+      printf("failed.\n\r");
+
+    // Now, continue listening
+    radio.startListening();
+
+    // Wait here until we get a response, or timeout (250ms)
+    unsigned long started_waiting_at = millis();
+    bool timeout = false;
+    while ( ! radio.available() && ! timeout )
+      if (millis() - started_waiting_at > 200 )
+        timeout = true;
+
+    // Describe the results
+    if ( timeout )
+    {
+      printf("Failed, response timed out.\n\r");
+    }
+    else
+    {
+      // Grab the response, compare, and send to debugging spew
+      byte got_time;
+      radio.read( &got_time, sizeof(unsigned long) );
+
+      // Spew it
+      printf("Got response %lu, round-trip delay: %lu\n\r",got_time,millis()-got_time);
+    }
+
+    // Try again 1s later
+    delay(1000);
+}
+</pre></code></ul></p>
+<p class = "text-left">The receiving arduino was used to deliver the transmitted data to the FPGA. Each digital pin had to be set to low before they were wired to “high” or “low.” This was to ensure that data was only transmitted to the FPGA once all the digital outputs are decided regardless of delays between receiving packets of data. The val bit was also incorporated to ensure that the FPGA was receiving the right bits at the right time as described in the FPGA section. The bitRead() function was heavily used to read each individual bit of the two bytes that were received. A section of the receiving arduino code is as follows:
+<pre class="highlight"><code style="text-align:left"><ul>if ( radio.available() )
+    {
+      // Dump the payloads until we've gotten everything
+      unsigned long got_time;
+      unsigned long got_time2;
+      bool done = false;
+      bool done2 = false;
+        
+      int val;
+
+      digitalWrite(7, LOW);
+      digitalWrite(5, LOW);
+      digitalWrite(4, LOW);
+      digitalWrite(3, LOW);
+      digitalWrite(2, LOW);
+      digitalWrite(A2, LOW);
+      digitalWrite(A1, LOW);
+      digitalWrite(A3, LOW);
+      digitalWrite(A0, LOW);
+      digitalWrite(A4, LOW);
+      digitalWrite(A5, LOW);
+
+    if (val == 0){  
+      digitalWrite(7, bitRead(got_time, 2));
+      digitalWrite(5, bitRead(got_time, 3));
+      digitalWrite(4, bitRead(got_time, 4));
+      digitalWrite(3, bitRead(got_time, 0));
+      digitalWrite(2, bitRead(got_time, 1));
+      digitalWrite(A1, bitRead(got_time2, 0)); //North
+      digitalWrite(A3, bitRead(got_time2, 2)); //East
+      digitalWrite(A0, bitRead(got_time2, 1)); //South
+      digitalWrite(A2, bitRead(got_time2, 3)); //West
+      digitalWrite(A4, bitRead(got_time2, 5)); //Treasure1
+      digitalWrite(A5, bitRead(got_time2, 4)); //Treasure2
+      
+      val = 1;
+      delay(100);
+      digitalWrite(6, HIGH);
+    }
+    delay(100);
+    digitalWrite(6, LOW);
+    val = 0;
+
+      // Now, resume listening so we catch the next packets.
+      radio.startListening();
+}
+</pre></code></ul></p>
+
+<h5 class = "text-left">Done Signals (FPGA and Stereo)</h5>
+
+<p class = "text-left">A done signal was transmitted once all the nodes were searched in the DFS() function. The transmitting arduino sent the following radio packet once it was finished mapping the maze:<br>
+
+<code>
+wallsarecool = B00110000; //Sends impossible scenario: treasures with no walls<br>
+transmitter(loc, wallsarecool);</code>
+<br>
+As commented, this byte of information would be impossible during DFS() because the robot cannot detect treasures in grid squares without walls (unless the treasure proximity is too high). Thus, we used these bit values so that the FPGA could recognize a done signal.<br><br>
+
+Once the FPGA recognized this signal, it colored the small square at the robot’s current position yellow on the display. In addition, it outputted a sine wave from a 255 element array in the VHDL code. These values were assigned to the following GPIO pins:
+<ul class = "text-left">
+<li>assign GPIO_1_D[8] = q[7];  </li>
+<li>assign GPIO_1_D[10] = q[6]; </li>
+<li>assign GPIO_1_D[12] = q[5]; </li>
+<li>assign GPIO_1_D[14] = q[4]; </li>
+<li>assign GPIO_1_D[16] = q[3]; </li>
+<li>assign GPIO_1_D[18] = q[2]; </li>
+<li>assign GPIO_1_D[20] = q[1]; </li>
+<li>assign GPIO_1_D[22] = q[0]; </li>
+</ul></p>
+<p class = "text-left">These connections would go through an analog to digital converter which would output a mono signal to a 3.5 mm auxiliary jack connected to the lab speakers.
+<br><br>
+Our complete basestation including the FPGA, voltage dividers for each connection, receiving arduino, and stereo connection is shown below:</p>
+<img>
+</p>
+</p>
+				
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     <i class="fa fa-times"></i>
                     Close Project</button>
