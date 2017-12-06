@@ -2189,7 +2189,7 @@ end</ul>
 					<h4 id="objective" class = "text-left">Physical Description</h4>
 					
 					<p class = "text-left">Our robot is approximately 6 x 4 x 5 in3, with wheels of 3-inch radii and a pink base. A photo is shown below.
-<img class="img-fluid d-block mx-auto" src = "img/final/robot">
+<img class="img-fluid d-block mx-auto" src = "img/final/robot.PNG">
 Our chassis, wheels, ball caster, and mounts were the default designs provided to us at the beginning of the year and their cad files can be found on the course website. All other components pertaining to movement, treasure/wall/line detection, and radio transmission were also provided to us.<br><br>
 The robot was powered by two 9-volt batteries and an additional 5-volt battery. The first 9 volt battery supplied power to the Arduino, the wall sensors, and the line sensors; the second supplied power to the Servo motors that turned the robot’s wheels, and the final 5V power bank provided power to the microphone and phototransistors. <br><br>
 Our robot had 3 front grayscale line sensors in for line following, in order to make sure that the robot would have all 3 sensors on the black electrical tape. And if it was detecting that it would be off the tape, then the robot could correct its direction. <br><br>
@@ -2304,7 +2304,7 @@ rightservo.write(94);</li>
 When testing the sensors, we determined a threshold value of 760, for which the line sensor would either detect white space or a black line -- over 760 meant that the sensor was on a black line; under meant the sensor was only seeing white space.<br><br>
 In order to determine whether the robot was on a line, we implemented the following logic. If the conditions for being on a line was not met, the robot would loop through the logic until it was on a line: 
 
-<img class="img-fluid d-block mx-auto" src = "img/final/linelogic">
+<img class="img-fluid d-block mx-auto" src = "img/final/flow.PNG">
 
 Our readjustment code is shown below:<pre class="highlight"><code style="text-align:left"><ul>//if rightfront and middle sensor is white and leftfront is black, move left, right wheel faster
 if(front_right<=760){
@@ -2331,7 +2331,7 @@ When implementing wall detection, the robot often had issues accurately detectin
 <p class = "text-left">
 Our goal was to implement an algorithm to facilitate maze exploration on a 5x4 grid of this layout: 
 
-<img class="img-fluid d-block mx-auto" src = "img/lab1/oscilloscope.">
+<img class="img-fluid d-block mx-auto" src = "img/final/maze.PNG">
 <p class = "text-left">
 Our first step was to decide on how to “translate” a maze into code. We followed the advice of <a href = "https://cei-lab.github.io/ECE3400-2017-teamAlpha/milestone3.html">Team Alpha</a> and chose to save information about the maze in two 5x4 matrices. One 5x4 matrix contains data on whether or not each location on the maze has or has not been explored (1 being unexplored and 0 being explored). Each index of the matrix corresponds to the respective coordinate on the real maze grid. The other matrix contains information about the walls in the maze. Each corresponding index of the matrix contains a decimal number (0 to 15). Each decimal number can be converted to a 4-bit binary number, where each bit will represent the presence (or absence) of a wall. A 1 indicates the absence of a wall and a 0 represents the presence of a wall. Please see Figure I for how we specified directions (“north,” “south” etc.) The bits are organized as follows:<pre><code>[West] [East] [South] [North]</pre></code>
 <p class = "text-left">Ex. 0011 would mean there is a wall to the west and east of the robot. 
@@ -2411,7 +2411,7 @@ Below is our code for writing wall data ( and later sending) : <pre class="highl
 <h5 class = "text-left">Treasure Detection</h5>
 <p  class = "text-left">Our goal was to have our robot detect “treasures” emitting from the walls at three different frequencies: 7, 12, and 17 kHz. In order to do this, we installed three phototransistors at the front, right, and left of the robot to detect frequencies; we then utilized a mux to query through each analog input and determine if a treasure was detected, and if so, at which frequency. A diagram of how it works is shown below: </p>
 
-<img>
+<img class="img-fluid d-block mx-auto" src = "img/final/flow2.PNG">
 
 <p  class = "text-left">In order to extract the frequency-domain information from the phototransistors that would detect the treasures, we had to first take the Fourier transform of the time-domain signal; this was accomplished using the Fast Fourier Transform library available  <a href = "http://wiki.openmusiclabs.com/wiki/ArduinoFF">here</a>. The FFT algorithm, when applied, would take the time-domain signal, take the FFT of the signal, and return an array of elements that referred to the magnitude of the frequency component in that particular frequency bin.<br><br>
 For this particular robot, we decided to have the FFT return a 128-point array, since we ran into some memory issues with the robot, and the 128-point used significantly less memory than that of the 256-point FFT. Once the array was returned, we needed to check the bins at the frequency we wanted to detect the treasures. <br><br>
@@ -2456,7 +2456,7 @@ The incoming information to the FPGA was put into registered initialized in the 
 <p class = "text-left"Since the GPIO inputs receive 3.3V signals and the Arduino’s digital pins output 5V signals, a voltage divider for each of bitwise connections was created to regulate the voltage to the FPGA.<br><br>
 
 We used this setup below with resistor values of 10K and 20K. These resistors values were chosen to match the current going down to the fpga so that noise pick-up and overvalued voltages could be avoided.<br><br>
-
+<img class="img-fluid d-block mx-auto" src = "img/final/voltagediv.PNG">
 A two dimensional memory array called “gridscreen” was used in initializing unexplored grid squares. Two dimensional memory arrays “wall1,” “wall2,” “wall3,” and “wall4” were used in initializing wall colors at those locations for the top wall, bottom wall, left wall, and right wall respectively.<br><br>
 <pre class="highlight"><code style="text-align:left"><ul>always @ (posedge CLOCK_50) begin
 if (rdy == 0) begin
@@ -2699,8 +2699,49 @@ Once the FPGA recognized this signal, it colored the small square at the robot�
 <p class = "text-left">These connections would go through an analog to digital converter which would output a mono signal to a 3.5 mm auxiliary jack connected to the lab speakers.
 <br><br>
 Our complete basestation including the FPGA, voltage dividers for each connection, receiving arduino, and stereo connection is shown below:</p>
-<img>
+<img class="img-fluid d-block mx-auto" src = "img/final/base.PNG">
 </p>
+</p>
+
+<h5 class = "text-left">Final Week Leading Up to Competition Day</h5>
+<p class = "text-left">
+We had trouble with milestone 3 and 4 so there was a lot left to be accomplished. First off, for sanity check, we installed a PCB (for the mux and amplifier) on the robot to clean up the wiring. A diagram and schematic are shown below:
+<img class="img-fluid d-block mx-auto" src = "img/final/pcb.PNG">
+<img class="img-fluid d-block mx-auto" src = "img/final/schematic.PNG">
+	
+Secondly, we attempted to implement treasure detection; we provide the following videos to show that our treasure detection works individually, outside of the robot:
+<ul>
+	<li><a href = "https://youtu.be/FST1E7Mr6SI">17 kHz</a> </li>
+	<li><a href = "https://youtu.be/NgXMoeAj8s8">12 kHz</a> </li>
+	<li><a href = "https://youtu.be/dNzuUa4gUf4">7 kHz</a> </li>
+
+</ul>
+
+We also added microphone detection. A video of it running on the robot can be seen <a href = ""> here</a>.
+<br><br>
+Merging the code proved to be challenging, and as a result, neither microphone nor treasure detection was available on competition day. The FFT libraries interfered with the Servo motors, and whenever both libraries were used, the robot would refuse to move. 
+</p>
+<h5 class = "text-left">Results and Conclusion</h5>
+<p class = "text-left">Our treasure detection and microphone was not working on the day of the competition. These two aspects of
+	our robot worked individually. <br><br>
+	It should also be noted that we attempted to merge the treasure, microphone, and DFS code the night before the 
+	competition, which led to a complete mechanical meltdown. The robot refused to move, and several of the wall and line 
+	sensors were not sensing properly. We spent most of the night before the competition debugging the robot, and after we 
+	managed to get DFS and radio transmission working again, decided that it was too risky to try and implement the treasure
+	and microphone detectors. We did consider re-merging the treasure detectors, but later on discovered that our 9V battery had
+	died, and a trip to 7-11 determined that an unnamed individual had already bought all the 9V batteries the store had in stock.
+	Without the battery to power the treasure detectors, we were ultimately unable to implement the treasure detectors in time for 
+	the competition.<br><br>
+	
+	Come competition day, we placed 8th out of 18 teams, which is slightly above average. Although we didn't manage to get into 
+	the finals, the fact that we were able to have a running robot that could transmit radio data to the FPGA and complete a maze
+	was in itself impressive to us, considering the fact that 5 hours previously, the robot wasn't even running properly. Perhaps
+	we're not quite "The Little Arduino That Could", but at the very least, we can be "The Little Arduino That Tried".
+	
+	<img class="img-fluid d-block mx-auto" src = "img/team/group.jpg">
+	We honestly could not be more proud of each other and the amount of work, time, and effort that was put into this robot.
+	A big thank you to everyone who was part of this team, and to the ECE 3400 instructor team!	
+
 </p>
 				
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
