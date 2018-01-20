@@ -1,11 +1,8 @@
-# The Little Arduino That Could
+# Maze Mapping Robot
 ## Fall 2017: ECE 3400 
 
-A heartfelt thank you to everyone who participated in the creation of this robot. 
-
-Shoutout to Vidya and Justin for putting up with our questions.
-<br>
-<br>
-[This is our new fight song.](https://soundcloud.com/russellsilvamelodies/animals-are-magicians)
-
-
+This robot was assembled, wired, and programmed to navigate a maze using a depth-first search algorithm.
+The maze was composed of wooden planks for walls that were placed on top of a black lined grid on the floor. 
+The robot used the grid when line following to stay within the aisles of the maze and to avoid collisions with the walls.
+The locations of the walls obtained by the robot's proximity sensors were wirelessly transmitted to an FPGA Display
+which would show the current position of the robot in the maze.
